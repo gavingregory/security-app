@@ -1,0 +1,21 @@
+{
+  "name": "security-logger-client",
+  "authors": [
+    "Gavin Gregory <gavin.ian.gregory@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "^1.1.3"
+  }
+}

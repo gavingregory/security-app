@@ -1,0 +1,45 @@
+{
+  "name": "security-logger",
+  "version": "0.0.1",
+  "description": "Security Incident Management Software",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./server/index.js -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "security",
+    "incident",
+    "logging",
+    "management",
+    "control",
+    "room",
+    "keyholding",
+    "alarm",
+    "receiving",
+    "cctv"
+  ],
+  "author": "Gavin Gregory <gavin.ian.gregory@gmail.com>",
+  "contributors": [
+    {
+      "name": "Gavin Gregory",
+      "email": "gavin.ian.gregory@gmail.com"
+    },
+    {
+      "name": "Geoff Whitehead",
+      "email": "geoff1012@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "http-server": "^0.9.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "method-override": "^2.3.6",
+    "mongoose": "^4.4.19",
+    "morgan": "^1.7.0"
+  }
+}
