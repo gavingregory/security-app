@@ -1,14 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="logApp">
   <head>
     <meta charset="utf-8">
     <title>Security Logger Application</title>
     <meta name="description" content="Security Logger Application">
     <meta name="author" content="Gavin Gregory">
+
+    <!-- Material Design Components -->
     <link rel="stylesheet" href="/bower_components/material-design-lite/material.min.css">
     <script src="/bower_components/material-design-lite/material.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Angular Components -->
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/app/app.js"></script>
+
+    <!-- Custom Components -->
     <link rel="stylesheet" href="assets/css/styles.css">
+
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -17,5 +26,6 @@
   <body>
     <h1>Hello</h1>
     <p>Logging application</p>
+    Test: 2 + 2 = {{2+2}}
   </body>
 </html>
