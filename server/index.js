@@ -54,3 +54,5 @@ function errorHandler(err, req, res, next) {
 var server = app.listen(8080, function () {
   console.log('Server listening at http://%s:%s', server.address().address, server.address().port);
 });
+
+module.exports = app;
