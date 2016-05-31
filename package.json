@@ -4,7 +4,7 @@
   "description": "Security Incident Management Software",
   "main": "index.js",
   "scripts": {
-    "start": "http-server ./server/index.js -c-1",
+    "start": "node_modules/.bin/nodemon ./server/index.js",
     "test": "node_modules/.bin/mocha -u exports server/test/**/*"
   },
   "keywords": [
@@ -35,6 +35,7 @@
   "devDependencies": {
     "http-server": "^0.9.0",
     "mocha": "^2.5.3",
+    "nodemon": "^1.9.2",
     "supertest": "^1.2.0"
   },
   "dependencies": {
