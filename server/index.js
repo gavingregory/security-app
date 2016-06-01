@@ -21,12 +21,12 @@ var session = require('express-session');
 
 var MongoDBStore = require('connect-mongodb-session')(session);
  var store = new MongoDBStore({
-   uri : 'mongodb://localhost:27017/app_session_storage',
-   collection : 'sessions'
+   uri : params.session.uri,
+   collection : params.session.collection
  });
 
 store.on('error', function (error) {
-  console.log(error);
+  console.error(error);
   process.exit(1);
 });
 
@@ -44,6 +44,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(methodOverride());
+
+/**
+ * MongoDB Configuration
+ */
+
+mongoose.connect(params.database.uri, function (err) {
+  if (err) {console.error(err); process.exit(1); }
+  else {console.log('Successfully connected to the mongo database');}
+});
 
 /**
  * Passport / Authentication
