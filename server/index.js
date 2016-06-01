@@ -4,9 +4,41 @@ var express = require('express')
   , bodyParser = require('body-parser')
   , methodOverride = require('method-override')
   , mongoose = require('mongoose')
-  , app = express();
+  , passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy
+  , app = express()
+  , params = require('./config/settings');
 
 'use strict';
+
+/**
+ * Session
+ * Sets up an express session, and stores the session status
+ * in a MongoDB store, so sessions persist on server restart.
+ */
+
+var session = require('express-session');
+
+var MongoDBStore = require('connect-mongodb-session')(session);
+ var store = new MongoDBStore({
+   uri : 'mongodb://localhost:27017/app_session_storage',
+   collection : 'sessions'
+ });
+
+store.on('error', function (error) {
+  console.log(error);
+  process.exit(1);
+});
+
+app.use(session({
+  secret: params.session.key,
+  cookie: { maxAge: params.session.max_age },
+  store: store
+}));
+
+/**
+ * Configure Express
+ */
 
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -14,10 +46,26 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(methodOverride());
 
 /**
+ * Passport / Authentication
+ */
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    User.findOne({username: username}, function (err, data) {
+      if (err) return done(err);
+      if (!user) return done(null, false, {message: 'Incorrect username'});
+      if (!user.validPassword(password)) return done(null, false, {message: 'Incorrect password'});
+      return done(null, user);
+    })
+  }
+));
+
+/**
  * Routes
  */
-var api = require('./routes/api');
-app.use('/api/v1', api);
+app.use('/api/v1', require('./routes/api'));
 
 /**
  * No routes match, attempt to serve static content
