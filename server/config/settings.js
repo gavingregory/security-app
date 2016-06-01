@@ -13,4 +13,4 @@ module.exports = {
     /* mongodb uri for the application database */
     uri: 'mongodb://localhost/security_app'
   }
-  }
+}

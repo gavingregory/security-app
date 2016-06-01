@@ -1,10 +1,9 @@
-var express = require('express')
-  , router = express.Router({mergeParams: true});
-
-router.use('/auth', require('./api/auth'));
-router.use('/customers', require('./api/customers'));
-router.use('/events', require('./api/events'));
-router.use('/organisations', require('./api/organisations'));
-router.use('/sites', require('./api/sites'));
-
-module.exports = router;
+module.exports = function (express, passport) {
+  var router = express.Router({ mergeParams: true });
+  router.use('/auth', require('./api/auth')(express, passport));
+  router.use('/customers', require('./api/customers')(express, passport));
+  router.use('/events', require('./api/events')(express, passport));
+  router.use('/organisations', require('./api/organisations')(express, passport));
+  router.use('/sites', require('./api/sites')(express, passport));
+  return router;
+}

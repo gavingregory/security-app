@@ -1,28 +1,30 @@
-var express = require('express')
-  , router = express.Router({mergeParams: true})
-  , eventRouter = express.Router({mergeParams: true})
-  , codes = require('../../helpers/httpCodes');
+var codes = require('../../helpers/httpCodes');
 
-router.get('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+module.exports = function (express, passport) {
+  var router = express.Router({ mergeParams: true });
+  var eventRouter = express.Router({mergeParams: true});
 
-router.post('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+  router.get('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
 
-router.use('/:event_id', eventRouter);
+  router.post('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
 
-eventRouter.get('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+  router.use('/:event_id', eventRouter);
 
-eventRouter.put('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+  eventRouter.get('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
 
-module.exports = router;
+  eventRouter.put('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
+
+  return router;
+};

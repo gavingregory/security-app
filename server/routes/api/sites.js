@@ -1,33 +1,35 @@
-var express = require('express')
-  , router = express.Router({mergeParams: true})
-  , siteRouter = express.Router({mergeParams: true})
-  , codes = require('../../helpers/httpCodes');
+var codes = require('../../helpers/httpCodes');
 
-router.get('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+module.exports = function (express, passport) {
+  var router = express.Router({ mergeParams: true });
+  var siteRouter = express.Router({ mergeParams:true });
 
-router.post('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+  router.get('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
 
-router.use('/:site_id', siteRouter);
+  router.post('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
 
-siteRouter.get('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+  router.use('/:site_id', siteRouter);
 
-siteRouter.put('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+  siteRouter.get('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
 
-siteRouter.delete('/', function (req, res) {
-  return res.status(codes.not_implemented)
-    .send({_errors: [{message: 'Not yet implemented.'}]});
-});
+  siteRouter.put('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
 
-module.exports = router;
+  siteRouter.delete('/', function (req, res) {
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
+  });
+
+  return router;
+};

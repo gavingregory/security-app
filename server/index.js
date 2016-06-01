@@ -50,8 +50,8 @@ app.use(methodOverride());
  */
 
 mongoose.connect(params.database.uri, function (err) {
-  if (err) {console.error(err); process.exit(1); }
-  else {console.log('Successfully connected to the mongo database');}
+  if (err) { console.error(err); process.exit(1); }
+  else { console.log('Successfully connected to the mongo database'); }
 });
 
 /**
@@ -74,7 +74,7 @@ passport.use(new LocalStrategy(
 /**
  * Routes
  */
-app.use('/api/v1', require('./routes/api'));
+app.use('/api/v1', require('./routes/api')(express, passport));
 
 /**
  * No routes match, attempt to serve static content
