@@ -78,13 +78,13 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
           <nav class="mdl-navigation" ng-hide="loggedIn">
-            <a class="mdl-navigation__link" href="">Login</a>
+            <a class="mdl-navigation__link" href=""><i class="material-icons">https</i>&nbsp;Login</a>
           </nav>
           <nav class="mdl-navigation" ng-show="loggedIn">
-            <a class="mdl-navigation__link" href="">Customers</a>
-            <a class="mdl-navigation__link" href="">Sites</a>
-            <a class="mdl-navigation__link" href="">Events</a>
-            <a class="mdl-navigation__link" href="">My Organisation</a>
+            <a class="mdl-navigation__link" href=""><i class="material-icons">assignment_ind</i>&nbsp;Customers</a>
+            <a class="mdl-navigation__link" href=""><i class="material-icons">room</i>&nbsp;Sites</a>
+            <a class="mdl-navigation__link" href=""><i class="material-icons">view_headline</i>&nbsp;Events</a>
+            <a class="mdl-navigation__link" href=""><i class="material-icons">domain</i>&nbsp;My Organisation</a>
           </nav>
         </div>
       </header>
@@ -95,7 +95,9 @@
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content"><h1>Login</h1></div>
+        <div class="page-content">
+          <h1>Login</h1>
+        </div>
         <div ng-hide="loggedIn">
           <button type="button" class="mdl-button show-modal">Login</button>
           <dialog class="mdl-dialog">
