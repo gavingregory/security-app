@@ -12,7 +12,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/organisations
    */
-  router.post('/', function (req, res) {
+  router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -27,7 +27,7 @@ module.exports = function (express, passport) {
   * @apiExample Example usage:
   *   endpoint: http://localhost:8080/api/v1/organisations
   */
-  orgRouter.get('/', function (req, res) {
+  orgRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -40,7 +40,7 @@ module.exports = function (express, passport) {
   * @apiExample Example usage:
   *   endpoint: http://localhost:8080/api/v1/organisations
   */
-  orgRouter.put('/', function (req, res) {
+  orgRouter.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -53,7 +53,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/organisations
    */
-  orgRouter.delete('/', function (req, res) {
+  orgRouter.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });

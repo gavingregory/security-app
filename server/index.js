@@ -6,7 +6,9 @@ var express = require('express')
   , mongoose = require('mongoose')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
+  , BearerStrategy = require('passport-http-bearer').Strategy
   , app = express()
+  , User = require('./models/user')
   , params = require('./config/settings');
 
 'use strict';
@@ -70,6 +72,15 @@ passport.use(new LocalStrategy(
     })
   }
 ));
+passport.use(new BearerStrategy(
+  function (token, done) {
+    User.decodeToken(token, function (err, user, reason) {
+      if (err) return done(err);
+      if (!user) return done(null, false);
+      return done(null, user, { scope: 'all' });
+    });
+  }
+))
 
 /**
  * Routes
@@ -95,14 +106,14 @@ function logErrors(err, req, res, next) {
 
 function clientErrorHandler(err, req, res, next) {
   if (req.xhr) {
-    res.status(500).send({error: 'Something failed!'});
+    return res.status(500).send({_error: 'Something failed!'});
   } else {
     next(err);
   }
 }
 
 function errorHandler(err, req, res, next) {
-  res.status(500).render('error', { error: err });
+  return res.status(500).json({ _error: err });
 }
 
 /**

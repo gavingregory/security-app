@@ -12,7 +12,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/customers/123/sites
    */
-  router.get('/', function (req, res) {
+  router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -25,7 +25,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/customers/123/sites
    */
-  router.post('/', function (req, res) {
+  router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -40,7 +40,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/customers/:customer_id/sites/:site_id
    */
-  siteRouter.get('/', function (req, res) {
+  siteRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -53,7 +53,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/customers/:customer_id/sites/:site_id
    */
-  siteRouter.put('/', function (req, res) {
+  siteRouter.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -66,7 +66,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/customers/:customer_id/sites/:site_id
    */
-  siteRouter.delete('/', function (req, res) {
+  siteRouter.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });

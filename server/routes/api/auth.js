@@ -1,4 +1,5 @@
-var codes = require('../../helpers/httpCodes');
+var codes = require('../../helpers/httpCodes')
+  , User = require('../../models/user');
 module.exports = function (express, passport) {
   var router = express.Router({ mergeParams: true });
 
@@ -19,14 +20,30 @@ module.exports = function (express, passport) {
    * @apiParam {string} username The username to login with.
    * @apiParam {string} password The password to login with.
    */
-  router.post('/login', passport.authenticate('local'), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+  router.post('/login', function (req, res) {
+    User.getAuthenticated(req.body.username, req.body.password, function (err, user, reason) {
+      console.log(err + "\n" + user + "\n" + reason);
+      if (err) throw err;
+      if (user) return res.send(User.encodeToken(user.username, user.password));
+
+      switch (reason) {
+        case User.failedLogin.NOT_FOUND:
+          console.log('not found');
+        case User.failedLogin.PASSWORD_INCORRECT:
+          console.log('password incorrect');
+          return res.send({_errors: [{message: 'Unable to login.'}]});
+          break;
+        case User.failedLogin.MAX_ATTEMPTS:
+          console.log('max attempts');
+          //TODO: Generate an email to explain max attempts.
+          return res.send({_errors: [{message: 'Unable to login.'}]});
+          break;
+      }
+    });
   });
 
   /**
    * @api {post} /logout Logout and invalidate the current session.
-   * @api {get}  /logout Logout and invalidate the current session.
    * @apiName Logout
    * @apiGroup Authentication
    *
@@ -35,8 +52,12 @@ module.exports = function (express, passport) {
    */
   var logout;
   router.get('/logout', logout = function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmEkMTAkNmViYk5DMzlpalN5d3RxWFhMa0pYdTU1S0N4UHFRRDBDbUEzcS5PNHJkMFJFaDVtLkYuQzIiLCJleHBpcnkiOjE0NjQ5NzY2NTg1ODN9.K-NfAmrvGs4gs5RRSlw0I9iqyw9WiomX7mmeNWvGCHM
+    User.decodeToken(req.body.token, function (err, user, reason) {
+      if (err) return res.send(err);
+      if (user) return res.send(user);
+      return res.send(reason);
+    });
   });
   router.post('/logout', logout);
 

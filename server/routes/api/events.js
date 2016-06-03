@@ -12,7 +12,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/events
    */
-  router.get('/', function (req, res) {
+  router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -25,7 +25,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/events
    */
-  router.post('/', function (req, res) {
+  router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -40,7 +40,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/events/:event_id
    */
-  eventRouter.get('/', function (req, res) {
+  eventRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -53,7 +53,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/events/:event_id
    */
-  eventRouter.put('/', function (req, res) {
+  eventRouter.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });

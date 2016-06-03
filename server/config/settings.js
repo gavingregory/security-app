@@ -12,5 +12,8 @@ module.exports = {
   database: {
     /* mongodb uri for the application database */
     uri: 'mongodb://localhost/security_app'
+  },
+  token: {
+    key: '3ae692ed31c22b1c2f0dc6ec0b7223ab90d89c8644f2b856f1a977eb292c4ab2a0a9878fdc853de869ab74170cadd8d0c53ffb59d01bf7e220fc2a2e1e8db464'
   }
 }
