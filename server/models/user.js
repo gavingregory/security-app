@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
   , SALT_WORK_FACTOR = 10
   , MAX_LOGIN_ATTEMPTS = 5
   , LOCK_TIME = 2 * 60 * 60 * 1000
-  , TOKEN_EXPIRY = 2 * 60 * 60 * 1000
+  , TOKEN_EXPIRY = 24 * 60 * 60 * 1000 /* hours minutes seconds milliseconds */
   , jwt = require('jwt-simple')
   , params = require('../config/settings');
 
@@ -20,11 +20,19 @@ var schema = Schema({
   lockUntil: { type: Number }
 });
 
+/**
+ * The virtual property 'isLocked'.
+ * @return {boolean} True if the user is locked due to max password attempts, false if not.
+ */
 schema.virtual('isLocked').get(function () {
     // check for a future lockUntil timestamp
     return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
+/**
+ * Middleware that executes prior to any save.
+ * @param {function} next - The next function to execute on completion.
+ */
 schema.pre('save', function (next) {
   /* modify dates */
   var currentDate = new Date();
@@ -48,6 +56,19 @@ schema.pre('save', function (next) {
   });
 });
 
+/**
+ * Callback for comparing passwords.
+ *
+ * @callback comparePasswordCallback
+ * @param {object} err - Error (if one has occurred) or null.
+ * @param {boolean} isMatch - true if the passwords match, false if not.
+ */
+
+/**
+ * Compares a given unencrypted password with this users encrypted password.
+ * @param {string} candidatePassword - the candidate password to compare.
+ * @param {comparePasswordCallback} cb - The callback to execute on completion.
+ */
 schema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     if (err) return cb(err);
@@ -55,6 +76,17 @@ schema.methods.comparePassword = function (candidatePassword, cb) {
   });
 };
 
+/**
+ * Callback for incrementing login attempts.
+ *
+ * @callback incLoginAttemptsCallback
+ * @param {object} err - Error (if one has occurred) or null.
+ */
+
+/**
+ * Increment this users login attempts.
+ * @param {incLoginAttemptsCallback} cb - The callback to execute on completion.
+ */
 schema.methods.incLoginAttempts = function (cb) {
     // if we have a previous lock that has expired, restart at 1
     if (this.lockUntil && this.lockUntil < Date.now()) {
@@ -72,13 +104,20 @@ schema.methods.incLoginAttempts = function (cb) {
     return this.update(updates, cb);
 };
 
-// expose enum on the model, and provide an internal convenience reference
+/**
+ * Enum of reasons why the login failed.
+ * @enum {number}
+ */
 var reasons = schema.statics.failedLogin = {
   NOT_FOUND: 0,
   PASSWORD_INCORRECT: 1,
   MAX_ATTEMPTS: 2
 };
 
+/**
+ * Enum of reasons why a bearer token authentication failed.
+ * @enum {number}
+ */
 var tokenReasons = schema.statics.failedToken = {
   NOT_FOUND: 0,
   PASSWORD_INCORRECT: 1,
@@ -87,6 +126,12 @@ var tokenReasons = schema.statics.failedToken = {
   INVALID_OBJECT: 4
 };
 
+/**
+ * Encode a token for the given username and password.
+ * @param {string} username - The username of the authenticated user.
+ * @param {string} password - the encrypted password of the authenticated user.
+ * @return {string}
+ */
 schema.statics.encodeToken = function (username, password) {
   var payload = {
     username: username,
@@ -96,6 +141,20 @@ schema.statics.encodeToken = function (username, password) {
   return jwt.encode(payload, params.token.key);
 };
 
+/**
+ * Callback for decoding a bearer token.
+ *
+ * @callback decodeTokenCallback
+ * @param {object} err - Error (if one has occurred) or null.
+ * @param {object} user - The user object if successful, or null.
+ * @param {number} reason - The reason for a decode failure, if failed.
+ */
+
+/**
+ * Decodes the given token.
+ * @param {string} token - The token to decode.
+ * @param {decodeTokenCallback} cb - The callback to execute on completion.
+ */
 schema.statics.decodeToken = function (token, cb) {
   var decoded = jwt.decode(token, params.token.key);
   if (typeof decoded !== 'object') return cb(null, null, tokenReasons.INVALID_OBJECT);
@@ -109,7 +168,22 @@ schema.statics.decodeToken = function (token, cb) {
   });
 };
 
-schema.static('getAuthenticated', function (username, password, cb) {
+/**
+ * Callback for authenticating a user.
+ *
+ * @callback getAuthenticatedCallback
+ * @param {object} err - Error (if one has occurred) or null.
+ * @param {object} user - The user object if successful, or null.
+ * @param {number} reason - The reason for a failure, if failed.
+ */
+
+/**
+ * Attempts to authenticate a user based on the credentials provided.
+ * @param {string} username - The username provided by the user.
+ * @param {string} password - The password provided by the user.
+ * @param {getAuthenticatedCallback} cb - The callback to execute on completion.
+ */
+schema.statics.getAuthenticated = function (username, password, cb) {
   this.findOne({ username: username }, function (err, user) {
     if (err) return cb(err);
 
@@ -153,6 +227,6 @@ schema.static('getAuthenticated', function (username, password, cb) {
       });
     });
   });
-});
+};
 
 module.exports = mongoose.model('User', schema);
