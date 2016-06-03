@@ -52,7 +52,6 @@ module.exports = function (express, passport) {
    */
   var logout;
   router.get('/logout', logout = function (req, res) {
-    // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QyIiwicGFzc3dvcmQiOiIkMmEkMTAkNmViYk5DMzlpalN5d3RxWFhMa0pYdTU1S0N4UHFRRDBDbUEzcS5PNHJkMFJFaDVtLkYuQzIiLCJleHBpcnkiOjE0NjQ5NzY2NTg1ODN9.K-NfAmrvGs4gs5RRSlw0I9iqyw9WiomX7mmeNWvGCHM
     User.decodeToken(req.body.token, function (err, user, reason) {
       if (err) return res.send(err);
       if (user) return res.send(user);
