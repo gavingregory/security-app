@@ -81,5 +81,14 @@ module.exports = function (express, passport) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
+
+  router.post('/create', function (req, res) {
+    var u = new User(req.body);
+    u.save(function (err, data) {
+      if (err) return res.status(500).send(err);
+      return res.send(data);
+    })
+  });
+
   return router;
 }
