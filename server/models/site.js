@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+var addressSchema = require('./address');
+var contactSchema = require('./contactSchema');
 
 // schema
 var siteSchema = new Schema({
@@ -9,25 +11,6 @@ var siteSchema = new Schema({
     address: { addressSchema },
     contacts [ contactSchema ]
 }, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
-
-var contactSchema = new Schema ({
-    name_first: String,
-    name_last: String,
-    phone: Number,
-    email: String,
-    Notes: String,
-    }, {_id: false }
-);
-
-var addressSchema = new Schema ({
-    address_number: Number,
-    address_street: String,
-    address_district: String,
-    address_county: String,
-    address_city: String,
-    address_country: String,
-    address_pc_zip: String,
-}, {_id: false });
 
 var Site = mongoose.model('Site', siteSchema);
 
