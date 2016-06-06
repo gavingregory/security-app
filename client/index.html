@@ -79,14 +79,14 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
           <nav class="mdl-navigation" ng-hide="authentication.logged_in">
-            <a class="mdl-navigation__link" href=""><i class="material-icons">https</i>&nbsp;Login</a>
+            <a class="mdl-navigation__link" href=""><i class="material-icons">lock</i>&nbsp;Login</a>
           </nav>
           <nav class="mdl-navigation" ng-show="authentication.logged_in">
             <a class="mdl-navigation__link" href=""><i class="material-icons">assignment_ind</i>&nbsp;Customers</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons">room</i>&nbsp;Sites</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons">view_headline</i>&nbsp;Events</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons">domain</i>&nbsp;My Organisation</a>
-            <a class="mdl-navigation__link" ng-click="logout()"><i class="material-icons">domain</i>&nbsp;Logout</a>
+            <a class="mdl-navigation__link" ng-click="logout()"><i class="material-icons">lock</i>&nbsp;Logout</a>
           </nav>
         </div>
       </header>
@@ -119,7 +119,7 @@
               </div>
               <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
                 <button type="button" class="mdl-button close">Exit</button>
-                <button type="button" class="mdl-button close" ng-click="login(loginData.username, loginData.password)">Submit</button>
+                <button type="submit" class="mdl-button close" ng-click="login(loginData.username, loginData.password)">Submit</button>
               </div>
             </form>
           </dialog>
