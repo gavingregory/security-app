@@ -1,17 +1,10 @@
 angular.module('logApp')
-  .controller('globalCtrl', ['$log', '$rootScope', '$scope', 'authFactory', 'eventFactory', function ($log, $rootScope, $scope, authFactory, eventFactory) {
+  .controller('globalCtrl', ['$log', '$scope', 'authFactory', 'eventFactory', 'localStorage', function ($log, $scope, authFactory, eventFactory, localStorage) {
     $scope.loggedIn = false;
     $scope.login = function (username, password) {
       authFactory.login({username: username, password: password})
         .then(function (res) {
-          if (res.data._errors && res.data._errors.length) {
-            $log.log(res.data._errors.length + ' errors!');
-            for (var i = 0; i < res.data._errors.length; i++) $log.log(res.data._errors[i]);
-          } else {
-            // logged in!
-            $rootScope.oauth = { access_token: res };
-            $scope.loggedIn = true;
-          }
+          $log.log(authFactory.handleLogin(res));
         })
         .catch(function (err) {
           $log.error(err);

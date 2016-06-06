@@ -82,6 +82,9 @@ module.exports = function (express, passport) {
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
 
+  /**
+   * TODO: document this API
+   */
   router.post('/create', function (req, res) {
     var u = new User(req.body);
     u.save(function (err, data) {

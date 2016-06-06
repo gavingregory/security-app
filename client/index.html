@@ -78,10 +78,10 @@
         <div class="mdl-layout__header-row">
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation -->
-          <nav class="mdl-navigation" ng-hide="loggedIn">
+          <nav class="mdl-navigation" ng-hide="authentication.logged_in">
             <a class="mdl-navigation__link" href=""><i class="material-icons">https</i>&nbsp;Login</a>
           </nav>
-          <nav class="mdl-navigation" ng-show="loggedIn">
+          <nav class="mdl-navigation" ng-show="authentication.logged_in">
             <a class="mdl-navigation__link" href=""><i class="material-icons">assignment_ind</i>&nbsp;Customers</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons">room</i>&nbsp;Sites</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons">view_headline</i>&nbsp;Events</a>
@@ -99,7 +99,7 @@
         <div class="page-content">
           <h1>Login</h1>
         </div>
-        <div ng-hide="loggedIn">
+        <div ng-hide="authentication.logged_in">
           <button type="button" class="mdl-button show-modal">Login</button>
           <dialog class="mdl-dialog">
             <div class="mdl-dialog__content">

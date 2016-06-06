@@ -113,7 +113,7 @@ function clientErrorHandler(err, req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {
-  return res.status(500).json({ _error: err });
+  return res.status(500).json({ _error: err, message: 'Error handler caught this!' });
 }
 
 /**
