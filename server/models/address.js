@@ -1,3 +1,5 @@
+var mongoose = require('mongoose'),
+Schema   = mongoose.Schema;
 
 var addressSchema = new Schema ({
     address_number: Number,

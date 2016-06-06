@@ -1,16 +1,21 @@
-var mongoose = require('mongoose');
-var contactSchema = require('./contact.js');
+var mongoose = require('mongoose'),
+  contactSchema = require('./contact'),
+  Site = require('./site'),
+  Schema = mongoose.Schema;
 
 // schema
-var Schema = new schema({
+var customerSchema = new Schema({
     name: String,
     company: String,
     contacts: [ contactSchema ],
-    sites: [ _siteId: Schema.types.ObjectId ],
+    //sites: [ { type: ObjectId, ref: 'Site' } ],
 })
 
+module.exports
 // pre save validation
-schema.pre('save', function (next) {
+customerSchema.pre('save', function (next) {
 
 next();
 });
+
+module.exports = mongoose.model('Customer', customerSchema);

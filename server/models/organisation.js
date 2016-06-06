@@ -1,14 +1,16 @@
-var addressSchema = require('./address');
-var contactSchema = require('./contactSchema');
+var mongoose = require('mongoose'),
+addressSchema = require('./address'),
+contactSchema = require('./contact'),
+Schema = mongoose.Schema;
 
 var orgSchema = new Schema({
     name: String,
-    license: int,
+    license: Number,
     address: { addressSchema },
-    contacts [ contactSchema ]
+    contacts: [ contactSchema ]
 }, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
 
 
 
 
-var Org = mongoose.model('Site', orgSchema);
+module.exports = mongoose.model('Organisation', orgSchema);
