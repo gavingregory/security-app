@@ -1,24 +1,16 @@
 var mongoose = require('mongoose');
-
 var addressSchema = require('./address');
-var contactSchema = require('./contactSchema');
+var contactSchema = require('./contact'),
 
+Schema   = mongoose.Schema;
 // schema
 var siteSchema = new Schema({
     name: String,
     type: String,
     size: Number,
     address: { addressSchema },
-    contacts [ contactSchema ]
+    contacts: [ contactSchema ]
 }, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
-
-var Site = mongoose.model('Site', siteSchema);
-
-// methods
-var site = new Site({ type: 'small'});
-site.findSimilarTypes(function (err, small_sites)) {
-  //return small_sites;
-}
 
 // virtuals
 siteSchema.virtual('address.full').get(function() {
@@ -26,7 +18,9 @@ siteSchema.virtual('address.full').get(function() {
 })
 
 // pre save validation
-schema.pre('save', function (next) {
+siteSchema.pre('save', function (next) {
 
 next();
 });
+
+module.exports = mongoose.model('Site', siteSchema);

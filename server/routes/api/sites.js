@@ -1,5 +1,5 @@
 var codes = require('../../helpers/httpCodes');
-
+var Site = require ('../../models/site');
 module.exports = function (express, passport) {
   var router = express.Router({ mergeParams: true });
   var siteRouter = express.Router({ mergeParams:true });
@@ -26,8 +26,11 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/customers/123/sites
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    var s = new Site(req.body);
+    s.save(function(err, data){
+      if (err) res.send(err)
+      else res.send(data);
+    })
   });
 
   router.use('/:site_id', siteRouter);
