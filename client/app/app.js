@@ -21,7 +21,7 @@ angular.module('logApp', ['ngRoute'])
       })
       .when('/events', {
         templateUrl: 'app/views/events/list.html',
-        controller: 'eventListCtrl.js'
+        controller: 'eventListCtrl'
       })
       .otherwise({
         redirectTo: '/'

@@ -1,4 +1,4 @@
 angular.module('logApp')
-  .controller('eventListCtrl', ['$location', '$log', '$scope', 'siteFactory', 'authFactory', 'eventFactory', 'localStorage', function ($location, $log, $scope, siteFactory, authFactory, eventFactory, localStorage) {
+  .controller('eventListCtrl', ['$scope', 'eventFactory', function ($scope, eventFactory) {
     // code here
   }]);
