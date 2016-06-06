@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .controller('globalCtrl', ['$log', '$scope', 'authFactory', 'eventFactory', 'localStorage', function ($log, $scope, authFactory, eventFactory, localStorage) {
+  .controller('globalCtrl', ['$location', '$log', '$scope', 'siteFactory', 'authFactory', 'eventFactory', 'localStorage', function ($location, $log, $scope, siteFactory, authFactory, eventFactory, localStorage) {
     $scope.loggedIn = false;
     $scope.login = function (username, password) {
       authFactory.login({username: username, password: password})
@@ -10,5 +10,8 @@ angular.module('logApp')
           $log.error(err);
         });
     };
-
+    $scope.logout = function () {
+      authFactory.handleLogout();
+      $location.url('/');
+    };
   }]);
