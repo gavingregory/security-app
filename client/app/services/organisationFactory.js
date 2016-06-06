@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .factory('organisationFactory', function ($http) {
+  .factory('organisationFactory', ['$http', function ($http) {
     return {
       create: function (data) {
         return $http.post('api/v1/organisations', data);
@@ -14,4 +14,4 @@ angular.module('logApp')
         return $http.delete('api/v1/organisations/' + id);
       }
     };
-  });
+  }]);

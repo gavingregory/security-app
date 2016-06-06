@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .factory('eventFactory', function ($http) {
+  .factory('eventFactory', ['$http', function ($http) {
     return {
       list: function () {
         return $http.get('api/v1/events');
@@ -17,4 +17,4 @@ angular.module('logApp')
         return $http.delete('api/v1/events/' + id);
       }
     };
-  });
+  }]);

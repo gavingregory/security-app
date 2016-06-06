@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .factory('authFactory', function ($http) {
+  .factory('authFactory', ['$http', function ($http) {
     return {
       login: function (data) {
         return $http.post('api/v1/auth/login', data);
@@ -11,4 +11,4 @@ angular.module('logApp')
         return $http.post('api/v1/auth/passwordreset', data);
       }
     };
-  });
+  }]);

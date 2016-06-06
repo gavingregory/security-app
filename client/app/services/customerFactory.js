@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .factory('customerFactory', function ($http) {
+  .factory('customerFactory', ['$http', function ($http) {
     return {
       list: function () {
         return $http.get('api/v1/customers');
@@ -17,4 +17,4 @@ angular.module('logApp')
         return $http.delete('api/v1/customers/' + id);
       }
     };
-  });
+  }]);
