@@ -1,4 +1,4 @@
-angular.module('logApp', [])
+angular.module('logApp', ['ngRoute'])
   .factory('httpRequestInterceptor', ['localStorage', function (localStorage) {
     return {
       request: function (config) {
@@ -10,9 +10,22 @@ angular.module('logApp', [])
   }])
 
   // configuration phase block
-  .config(['$httpProvider', function ($httpProvider) {
+  .config(['$httpProvider', '$routeProvider', function ($httpProvider, $routeProvider) {
     // add the $http interceptor
     $httpProvider.interceptors.push('httpRequestInterceptor');
+
+    // configure routes
+    $routeProvider
+      .when('/', {
+        templateUrl: 'app/views/main.html'
+      })
+      .when('/events', {
+        templateUrl: 'app/views/events/list.html',
+        controller: 'eventListCtrl.js'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
   }])
 
   // run block
