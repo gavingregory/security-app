@@ -82,7 +82,8 @@ module.exports = function (express, passport) {
   /**
    * TODO: document this API
    */
-  router.post('/create', function (req, res) {
+  router.post('/create', passport.authenticate('bearer', {session: false}), function (req, res) {
+    req.body.domain = req.user.domain;
     var u = new User(req.body);
     u.save(function (err, data) {
       if (err) return res.status(500).send(err);

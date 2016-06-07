@@ -13,8 +13,10 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Customer.find({}, function (err, data) {
+      if (err) return res.status(500).send(err);
+      return res.send(data);
+    });
   });
 
   /**
@@ -26,9 +28,10 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+    req.body.organisation = req.user.domain;
     var c = new Customer(req.body);
     c.save(function(err, data){
-      if (err) res.send( err )
+      if (err) res.status(codes.bad_request).send(err);
       else res.send( data );
     });
 

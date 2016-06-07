@@ -5,10 +5,10 @@ var mongoose = require('mongoose'),
 
 // schema
 var customerSchema = new Schema({
-    name: String,
-    company: String,
+    name: {type: String, required: true}, /* trading name */
+    company: {type: String, required: true}, /* registered company name */
     contacts: [ contactSchema ],
-    //sites: [ { type: ObjectId, ref: 'Site' } ],
+    organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
 })
 
 module.exports

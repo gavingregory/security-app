@@ -1,1 +1,15 @@
 <h1>Create a Customer</h1>
+
+<form class="" method="post" ng-submit="createCustomer(customer)">
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="name" pattern="[A-Z,a-z, ]*" ng-model="customer.name">
+    <label class="mdl-textfield__label" for="user">Company Name</label>
+    <span class="mdl-textfield__error">Letters and spaces only</span>
+  </div>
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="company" pattern="[A-Z,a-z, ]*" ng-model="customer.company">
+    <label class="mdl-textfield__label" for="user">Company Company?</label>
+    <span class="mdl-textfield__error">Letters and spaces only</span>
+  </div>
+  <button type="submit" class="mdl-button close">Create</button>
+</form>
