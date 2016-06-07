@@ -1,4 +1,5 @@
 angular.module('logApp', ['ngRoute'])
+
   .factory('httpRequestInterceptor', ['localStorage', function (localStorage) {
     return {
       request: function (config) {
@@ -23,6 +24,39 @@ angular.module('logApp', ['ngRoute'])
         templateUrl: 'app/views/events/list.html',
         controller: 'eventListCtrl'
       })
+      .when('/events/create', {
+        templateUrl: 'app/views/events/create.html',
+        controller: 'eventCreateCtrl'
+      })
+      .when('/events/:id', {
+        templateUrl: 'app/views/events/view.html',
+        controller: 'eventViewCtrl'
+      })
+      .when('/customers', {
+        templateUrl: 'app/views/customers/list.html',
+        controller: 'customerListCtrl'
+      })
+      .when('/customers/create', {
+        templateUrl: 'app/views/customers/create.html',
+        controller: 'customerCreateCtrl'
+      })
+      .when('/customers/:id', {
+        templateUrl: 'app/views/customers/view.html',
+        controller: 'customerViewCtrl'
+      })
+      .when('/sites', {
+        templateUrl: 'app/views/sites/list.html',
+        controller: 'siteListCtrl'
+      })
+      .when('/sites/create', {
+        templateUrl: 'app/views/sites/create.html',
+        controller: 'siteCreateCtrl'
+      })
+      .when('/sites/:id', {
+        templateUrl: 'app/views/sites/view.html',
+        controller: 'siteViewCtrl'
+      })
+
       .otherwise({
         redirectTo: '/'
       });
