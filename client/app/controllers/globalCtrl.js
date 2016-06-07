@@ -1,6 +1,8 @@
 angular.module('logApp')
-  .controller('globalCtrl', ['$location', '$log', '$scope', 'siteFactory', 'authFactory', 'eventFactory', 'localStorage', function ($location, $log, $scope, siteFactory, authFactory, eventFactory, localStorage) {
-    $scope.loggedIn = false;
+  .controller('globalCtrl', ['$interval', '$location', '$log', '$scope', 'siteFactory', 'authFactory', 'eventFactory', 'localStorage', function ($interval, $location, $log, $scope, siteFactory, authFactory, eventFactory, localStorage) {
+
+    /* Authentication */
+
     $scope.login = function (username, password) {
       authFactory.login({username: username, password: password})
         .then(function (res) {
@@ -14,4 +16,15 @@ angular.module('logApp')
       authFactory.handleLogout();
       $location.url('/');
     };
+
+    /* Check authentication status at a set interval */
+    $interval(function () {
+      if ($scope.authentication.logged_in) authFactory.status()
+        .then(function (res) {
+          authFactory.handleGoodPing(res);
+        })
+        .catch(function (err) {
+          authFactory.handleBadPing(err);
+        });
+    }, 10000);
   }]);
