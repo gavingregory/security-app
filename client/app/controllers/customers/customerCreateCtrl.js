@@ -1,4 +1,13 @@
 angular.module('logApp')
-  .controller('customerCreateCtrl', ['$scope', 'customerFactory', function ($scope, customerFactory) {
-    // code here
+  .controller('customerCreateCtrl', ['$window', '$scope', 'customerFactory', function ($window, $scope, customerFactory) {
+    $scope.customer = {};
+    $scope.createCustomer = function (customer) {
+      customerFactory.create(customer)
+        .then(function (data) {
+          $window.location.href='/#/customers';
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    }
   }]);

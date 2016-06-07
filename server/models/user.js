@@ -34,7 +34,7 @@ var schema = Schema({
     link: {type: Schema.Types.ObjectId, ref: 'Customer'},
     permission: Number
   }],
-  domain: { type: Schema.Types.ObjectId, ref: 'Organisation' }
+  domain: { type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
 });
 
 /**
