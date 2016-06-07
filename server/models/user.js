@@ -13,6 +13,10 @@ var mongoose = require('mongoose')
 
 var schema = Schema({
   username : { type: String, required: true, index: { unique: true } },
+  name: {
+    first: { type: String, required: true },
+    last: { type: String, required: true }
+  },
   password : { type: String, required: true },
   created : { type: Date, default: Date.now },
   updated	: { type: Date, default: Date.now },

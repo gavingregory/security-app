@@ -24,7 +24,7 @@ module.exports = function (express, passport) {
     User.getAuthenticated(req.body.username, req.body.password, function (err, user, reason) {
       console.log(err + "\n" + user + "\n" + reason);
       if (err) throw err;
-      if (user) return res.send(User.encodeToken(user.username, user.password));
+      if (user) return res.json({access_token: User.encodeToken(user.username, user.password), name: user.name });
 
       switch (reason) {
         case User.failedLogin.NOT_FOUND:
