@@ -164,6 +164,9 @@ schema.statics.decodeToken = function (token, cb) {
     if (!user) return cb(null, null, tokenReasons.NOT_FOUND);
     if (user.isLocked) return cb(null, null, tokenReasons.LOCKED);
     if (decoded.password != user.password) return cb(null, null, tokenReasons.PASSWORD_INCORRECT);
+    user.password = undefined;
+    user.__v = undefined;
+    user.loginAttempts = undefined;
     return cb(null, user);
   });
 };

@@ -62,6 +62,7 @@ mongoose.connect(params.database.uri, function (err) {
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy(
   function (username, password, done) {
     User.findOne({username: username}, function (err, data) {
@@ -72,6 +73,7 @@ passport.use(new LocalStrategy(
     })
   }
 ));
+
 passport.use(new BearerStrategy(
   function (token, done) {
     User.decodeToken(token, function (err, user, reason) {
@@ -80,7 +82,7 @@ passport.use(new BearerStrategy(
       return done(null, user, { scope: 'all' });
     });
   }
-))
+));
 
 /**
  * Routes
