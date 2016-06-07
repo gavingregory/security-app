@@ -30,8 +30,8 @@ module.exports = function (express, passport) {
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     var s = new Site(req.body);
     s.save(function(err, data){
-      if (err) res.send(err)
-      else res.send(data);
+      if (err) return res.status(codes.bad_request).send(err);
+      else return res.send(data);
     })
   });
 

@@ -1,12 +1,11 @@
 <h1>Create a Site</h1>
 
-{{customers}}
 
 <form ng-submit=createSite(site) ng-show="customers.length">
-
+  {{site}}
   <div class="">
-    <select class="" name="" ng-model="site.customer._id" ng-options="c in customers">
-
+    <select class="" name="" ng-model="site.customer">
+      <option ng-repeat="c in customers" value="{{c._id}}">{{c.name}}</option>
     </select>
   </div>
 

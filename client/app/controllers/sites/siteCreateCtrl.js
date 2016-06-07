@@ -1,17 +1,20 @@
 angular.module('logApp')
-  .controller('siteCreateCtrl', ['$scope', 'siteFactory', 'customerFactory', function ($scope, siteFactory, customerFactory) {
+  .controller('siteCreateCtrl', ['$window', '$scope', 'siteFactory', 'customerFactory', function ($window, $scope, siteFactory, customerFactory) {
     $scope.customers = [];
 
-    $scope.site = [];
+    $scope.site = {};
 
-    customerFactory.list().then(function(data){
-      $scope.customers = data;
+    customerFactory.list().then(function(resp){
+      $scope.customers = resp.data;
     });
 
     $scope.createSite = function(site) {
-      siteFactory.create().then(function(data, err){
-        if (err) console.log(err)
-        else window.location.href = "/#/sites";
+      siteFactory.create(site).then(function(resp){
+        $window.location.href = "/#/sites";
+        console.log(resp);
+      })
+      .catch(function(err){
+        console.log(err);
       })
     }
   }]);
