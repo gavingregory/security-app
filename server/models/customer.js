@@ -5,9 +5,10 @@ var mongoose = require('mongoose'),
 
 // schema
 var customerSchema = new Schema({
-    name: String,
-    company: String,
+    name: {type: String, required: true},
+    company: {type: String, required: true},
     contacts: [ contactSchema ],
+    organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
     //sites: [ { type: ObjectId, ref: 'Site' } ],
 })
 

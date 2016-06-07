@@ -13,8 +13,10 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Customer.find({}, function (err, data) {
+      if (err) return res.status(500).send(err);
+      return res.send(data);
+    });
   });
 
   /**

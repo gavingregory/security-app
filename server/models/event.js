@@ -7,8 +7,7 @@ var mongoose = require('mongoose'),
 
   // schema
   var eventSchema = new Schema({
-      organisation: {link: { type: Schema.Types.ObjectId, ref: 'Organisation'}},
-      site_id: {link: { type: Schema.Types.ObjectId, ref: 'Site'}},
+      site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
       logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User' }},
       category: { categorySchema },
       comments:  [ { commentSchema } ],

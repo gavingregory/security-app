@@ -40,9 +40,17 @@ angular.module('logApp', ['ngRoute'])
         templateUrl: 'app/views/customers/create.html',
         controller: 'customerCreateCtrl'
       })
-      .when('/customers/:id', {
+      .when('/customers/:id/view', {
         templateUrl: 'app/views/customers/view.html',
         controller: 'customerViewCtrl'
+      })
+      .when('/customers/:id/edit', {
+        templateUrl: 'app/views/customers/edit.html',
+        controller: 'customerEditCtrl'
+      })
+      .when('/customers/:id/delete', {
+        templateUrl: 'app/views/customers/delete.html',
+        controller: 'customerDeleteCtrl'
       })
       .when('/sites', {
         templateUrl: 'app/views/sites/list.html',

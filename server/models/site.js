@@ -9,7 +9,8 @@ var siteSchema = new Schema({
     type: String,
     size: Number,
     address: { addressSchema },
-    contacts: [ contactSchema ]
+    contacts: [ contactSchema ],
+    customer: {type: Schema.Types.ObjectId, ref: 'Customer', required: true }
 }, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
 
 // virtuals
