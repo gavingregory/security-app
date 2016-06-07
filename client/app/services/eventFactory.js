@@ -2,6 +2,7 @@ angular.module('logApp')
   .factory('eventFactory', ['$http', function ($http) {
     return {
       list: function () {
+        console.log('here');
         return $http.get('api/v1/events');
       },
       create: function (data) {

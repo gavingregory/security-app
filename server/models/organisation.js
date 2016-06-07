@@ -10,7 +10,4 @@ var orgSchema = new Schema({
     contacts: [ contactSchema ]
 }, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
 
-
-
-
 module.exports = mongoose.model('Organisation', orgSchema);
