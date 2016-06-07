@@ -17,7 +17,7 @@ var mongoose = require('mongoose'),
   * Options:
   *
   */
-  eventSchema.methods.getEvents = function (cb, option) {
+  eventSchema.statics.getEvents = function (cb, option) {
 
     return this.model('Event').find({}, cb);
   }
