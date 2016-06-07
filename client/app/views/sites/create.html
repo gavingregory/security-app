@@ -1,1 +1,34 @@
 <h1>Create a Site</h1>
+
+{{customers}}
+
+<form ng-submit=createSite(site) ng-show="customers.length">
+
+  <div class="">
+    <select class="" name="" ng-model="site.customer._id" ng-options="c in customers">
+
+    </select>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="name" ng-model="site.name">
+    <label class="mdl-textfield__label" for="name">Site Name:</label>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="address" ng-model="site.address">
+    <label class="mdl-textfield__label" for="name">Site Address:</label>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="contact" ng-model="site.contact">
+    <label class="mdl-textfield__label" for="name">Contacts</label>
+  </div>
+
+<button type="submit" name="button">Create</button>
+</form>
+
+<div class="" ng-hide="customers.length">
+  <!-- MDL Progress Bar with Indeterminate Progress -->
+  <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+</div>
