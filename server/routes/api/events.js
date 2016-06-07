@@ -15,8 +15,9 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    Event.getEvents(function(err, data){
+    return Event.getEvents(function(err, data){
       console.log('inside get events');
+      console.log(data);
       if (err) res.send({_errors: err})
       else res.send( data );
     }, "option")
@@ -31,8 +32,11 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    var e = new Event(req.body);
+    e.save(function(err, data){
+      if (err) res.send(err)
+      else res.send(data);
+    })
   });
 
   router.use('/:event_id', eventRouter);

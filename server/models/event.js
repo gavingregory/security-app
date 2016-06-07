@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
   // schema
   var eventSchema = new Schema({
       organisation: {link: { type: Schema.Types.ObjectId, ref: 'Organisation'}},
-      site_id: {link: { type: Schema.Types.ObjectId, ref: 'Site'}},
+      site: {link: { type: Schema.Types.ObjectId, ref: 'Site'}},
       logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User' }},
       category: { categorySchema },
       comments:  [ { commentSchema } ],
@@ -18,7 +18,7 @@ var mongoose = require('mongoose'),
   * Options:
   *
   */
-  eventSchema.methods.getEvents = function (cb, option) {
+  eventSchema.statics.getEvents = function (cb, option) {
 
     return this.model('Event').find({}, cb);
   }
