@@ -52,11 +52,8 @@ module.exports = function (express, passport) {
    */
   var logout;
   router.get('/logout', logout = function (req, res) {
-    User.decodeToken(req.body.token, function (err, user, reason) {
-      if (err) return res.send(err);
-      if (user) return res.send(user);
-      return res.send(reason);
-    });
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
   });
   router.post('/logout', logout);
 
@@ -92,6 +89,19 @@ module.exports = function (express, passport) {
       return res.send(data);
     })
   });
+
+  /**
+   * @api {get} /status Request the authentication status.
+   * @apiName Status
+   * @apiGroup authentication
+   *
+   * @apiExample Example usage:
+   * endpoint: http://localhost:8080/api/v1/auth/status
+   */
+  router.get('/status', passport.authenticate('bearer', {session: false}), function (req, res) {
+      return res.status(codes.ok)
+        .send(req.user);
+  })
 
   return router;
 }

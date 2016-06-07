@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .factory('authFactory', ['$http', '$rootScope', 'localStorage', function ($http, $rootScope, localStorage) {
+  .factory('authFactory', ['$http', '$rootScope', '$log', 'localStorage', function ($http, $rootScope, $log, localStorage) {
     return {
       // API access
       login: function (data) {
@@ -10,6 +10,12 @@ angular.module('logApp')
       },
       passwordReset: function (data) {
         return $http.post('api/v1/auth/passwordreset', data);
+      },
+      status: function () {
+        return $http.post('api/v1/auth/status');
+      },
+      ping: function () {
+        return $http.head('api/v1/auth/status');
       },
 
       /**
@@ -44,6 +50,20 @@ angular.module('logApp')
       handleLogout: function () {
         localStorage.setObject('authentication', { logged_in: false });
         $rootScope.authentication = { logged_in:false };
+      },
+
+      /**
+       * Handles the status ping response and updates the authentication object
+       * if required (ie log out if we are no longer authenticated).
+       */
+      handleGoodPing: function (res) {
+        if (res.status!== 200) $log.error('Did not expect status ' + res.status);
+      },
+
+      handleBadPing: function (err) {
+        if (err.status === 401)
+          $rootScope.authentication = {logged_in: false};
+        else $log.error('Did not expect status ' + res.status);
       }
     };
   }]);
