@@ -34,7 +34,8 @@ angular.module('logApp')
           return false;
         } else {
           // logged in!
-          auth.access_token = res.data;
+          auth.access_token = res.data.access_token;
+          auth.name = res.data.name;
           auth.logged_in = true;
           $rootScope.authentication = auth;
           localStorage.setObject('authentication', auth);
