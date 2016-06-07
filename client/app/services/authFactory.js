@@ -14,6 +14,9 @@ angular.module('logApp')
       status: function () {
         return $http.post('api/v1/auth/status');
       },
+      ping: function () {
+        return $http.head('api/v1/auth/status');
+      },
 
       /**
        * Handles a response object from the server, and determines whether

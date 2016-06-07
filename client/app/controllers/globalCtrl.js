@@ -19,7 +19,7 @@ angular.module('logApp')
 
     /* Check authentication status at a set interval */
     $interval(function () {
-      if ($scope.authentication.logged_in) authFactory.status()
+      if ($scope.authentication.logged_in) authFactory.ping()
         .then(function (res) {
           authFactory.handleGoodPing(res);
         })

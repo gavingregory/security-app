@@ -91,14 +91,14 @@ module.exports = function (express, passport) {
   });
 
   /**
-   * @api {post} /status Request the authentication status.
+   * @api {get} /status Request the authentication status.
    * @apiName Status
    * @apiGroup authentication
    *
    * @apiExample Example usage:
    * endpoint: http://localhost:8080/api/v1/auth/status
    */
-  router.post('/status', passport.authenticate('bearer', {session: false}), function (req, res) {
+  router.get('/status', passport.authenticate('bearer', {session: false}), function (req, res) {
       return res.status(codes.ok)
         .send(req.user);
   })
