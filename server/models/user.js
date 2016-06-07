@@ -17,7 +17,20 @@ var schema = Schema({
   created : { type: Date, default: Date.now },
   updated	: { type: Date, default: Date.now },
   loginAttempts: { type: Number, required: true, default: 0 },
-  lockUntil: { type: Number }
+  lockUntil: { type: Number },
+  access_orgs: [{
+    link: {type: Schema.Types.ObjectId, ref: 'Organisation'},
+    permission: Number
+  }],
+  access_sites: [ {
+    link: {type: Schema.Types.ObjectId, ref: 'Site'},
+    permission: Number
+  }],
+  access_custs: [ {
+    link: {type: Schema.Types.ObjectId, ref: 'Customer'},
+    permission: Number
+  }],
+  domain: { type: Schema.Types.ObjectId, ref: 'Organisation' }
 });
 
 /**

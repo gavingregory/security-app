@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
 var categorySchema = Schema({
     name: String,
-    colour: String,
-}, { _id: false });
+    colour: String
+});
 
-module.exports = mongoose.model('Category', categorySchema);
+module.exports = categorySchema;

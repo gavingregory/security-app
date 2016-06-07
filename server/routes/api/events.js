@@ -1,8 +1,10 @@
-var codes = require('../../helpers/httpCodes');
+var codes = require('../../helpers/httpCodes')
+  , Event = require('../../models/event');
 
 module.exports = function (express, passport) {
   var router = express.Router({ mergeParams: true });
   var eventRouter = express.Router({mergeParams: true});
+
 
   /**
    * @api {get} / Gets a list of the most recent events.
@@ -13,8 +15,11 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Event.getEvents(function(err, data){
+      console.log('inside get events');
+      if (err) res.send({_errors: err})
+      else res.send( data );
+    }, "option")
   });
 
   /**
