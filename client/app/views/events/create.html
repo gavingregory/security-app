@@ -1,1 +1,27 @@
 <h1>Create an Event</h1>
+
+<form ng-submit=createEvent(event) ng-show="sites.length">
+
+  <div class="">
+    <select class="" name="" ng-model="event.site">
+      <option ng-repeat="s in sites" value="{{s._id}}">{{s.name}}</option>
+    </select>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="category" ng-model="event.category">
+    <label class="mdl-textfield__label" for="category">Event Category:</label>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="comment" ng-model="event.comment">
+    <label class="mdl-textfield__label" for="name">Comment</label>
+  </div>
+
+<button type="submit" name="button">Create</button>
+</form>
+
+<div class="" ng-hide="sites.length">
+  <!-- MDL Progress Bar with Indeterminate Progress -->
+  <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+</div>

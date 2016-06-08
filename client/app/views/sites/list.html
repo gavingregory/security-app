@@ -5,40 +5,15 @@
 <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
   <thead>
       <tr>
-        <th class="mdl-data-table__cell--non-numeric">
-          Name
-        </th>
-        <th>
-          Type
-        </th>
-        <th>
-          Size
-        </th>
-        <th>
-          Address
-        </th>
-        <th>
-          Contacts
+        <th class="mdl-data-table__cell--non-numeric" ng-repeat="(key,value) in sites[0]">
+          {{key}}
         </th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="row in sites">
-
-      <td class="mdl-data-table__cell--non-numeric">
-        {{row.name}}
-      </td>
-      <td>
-        {{row.type}}
-      </td>
-      <td>
-        {{row.size}}
-      </td>
-      <td>
-        {{row.address}}
-      </td>
-      <td>
-        {{row.contacts}}
+      <td class="mdl-data-table__cell--non-numeric" ng-repeat="field in row">
+        {{field}}
       </td>
     </tr>
   </tbody>

@@ -2,4 +2,21 @@
 
   <h1>Event List</h1>
 
-  evnts {{events}};
+  <a href="/#/events/create">Create!</a>
+
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric" ng-repeat="(key,value) in events[0]">
+          {{key}}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in events">
+        <td class="mdl-data-table__cell--non-numeric" ng-repeat="field in row">
+          {{field}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
