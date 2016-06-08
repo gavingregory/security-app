@@ -10,12 +10,30 @@
         <th class="mdl-data-table__cell--non-numeric" ng-repeat="(key,value) in events[0]">
           {{key}}
         </th>
+        <th>
+          View
+        </th>
+        <th>
+          Edit
+        </th>
+        <th>
+          Delete
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="row in events">
         <td class="mdl-data-table__cell--non-numeric" ng-repeat="field in row">
           {{field}}
+        </td>
+        <td>
+          <a href="/#/events/{{row._id}}/view">v</a>
+        </td>
+        <td>
+          <a href="/#/events/{{row._id}}/edit">e</a>
+        </td>
+        <td>
+          <a href="/#/events/{{row._id}}/delete">d</a>
         </td>
       </tr>
     </tbody>

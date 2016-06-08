@@ -22,4 +22,8 @@ var mongoose = require('mongoose'),
     return this.model('Event').find({}, cb);
   }
 
+  eventSchema.statics.getEvent = function (id, cb) {
+    return this.model('Event').find({'_id': id}, cb);
+  }
+
 module.exports = mongoose.model('Event', eventSchema);

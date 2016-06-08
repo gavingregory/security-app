@@ -28,9 +28,17 @@ angular.module('logApp', ['ngRoute'])
         templateUrl: 'app/views/events/create.html',
         controller: 'eventCreateCtrl'
       })
-      .when('/events/:id', {
+      .when('/events/:id/view', {
         templateUrl: 'app/views/events/view.html',
         controller: 'eventViewCtrl'
+      })
+      .when('/events/:id/edit', {
+        templateUrl: 'app/views/events/edit.html',
+        controller: 'eventEditCtrl'
+      })
+      .when('/events/:id/delete', {
+        templateUrl: 'app/views/events/delete.html',
+        controller: 'eventDeleteCtrl'
       })
       .when('/customers', {
         templateUrl: 'app/views/customers/list.html',
@@ -60,11 +68,18 @@ angular.module('logApp', ['ngRoute'])
         templateUrl: 'app/views/sites/create.html',
         controller: 'siteCreateCtrl'
       })
-      .when('/sites/:id', {
+      .when('/sites/:id/view', {
         templateUrl: 'app/views/sites/view.html',
         controller: 'siteViewCtrl'
       })
-
+      .when('/sites/:id/edit', {
+        templateUrl: 'app/views/sites/edit.html',
+        controller: 'siteEditCtrl'
+      })
+      .when('/sites/:id/delete', {
+        templateUrl: 'app/views/sites/delete.html',
+        controller: 'siteDeleteCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
