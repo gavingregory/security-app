@@ -4,7 +4,6 @@ var Organisation = require('../../models/organisation');
 
 module.exports = function (express, passport) {
   var router = express.Router({ mergeParams: true });
-  var orgRouter = express.Router({mergeParams: true});
 
   /**
    * @api {post} / Creates a new organisation.
@@ -23,8 +22,6 @@ module.exports = function (express, passport) {
     });
   });
 
-  router.use('/:org_id', orgRouter);
-
   /**
   * @api {get} / Gets your organisation details.
   * @apiName GetOrganisation
@@ -33,9 +30,12 @@ module.exports = function (express, passport) {
   * @apiExample Example usage:
   *   endpoint: http://localhost:8080/api/v1/organisations
   */
-  orgRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+  router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+    Organisation.find({_id: req.user.domain })
+      .then(function (err, data) {
+        if (err) return res.send(err);
+        return res.send(data);
+      })
   });
 
   /**
@@ -46,7 +46,7 @@ module.exports = function (express, passport) {
   * @apiExample Example usage:
   *   endpoint: http://localhost:8080/api/v1/organisations
   */
-  orgRouter.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+  router.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -59,7 +59,7 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/organisations
    */
-  orgRouter.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+  router.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
