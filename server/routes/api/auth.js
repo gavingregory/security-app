@@ -88,7 +88,7 @@ module.exports = function (express, passport) {
     u.save(function (err, data) {
       if (err) return res.status(500).send(err);
       return res.send(data);
-    })
+    });
   });
 
   /**

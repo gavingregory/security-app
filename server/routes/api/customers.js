@@ -31,8 +31,8 @@ module.exports = function (express, passport) {
     req.body.organisation = req.user.domain;
     var c = new Customer(req.body);
     c.save(function(err, data){
-      if (err) res.status(codes.bad_request).send(err);
-      else res.send( data );
+      if (err) return res.status(codes.bad_request).send(err);
+      else return res.send(data);
     });
 
   });
