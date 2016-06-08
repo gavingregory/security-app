@@ -20,6 +20,14 @@ angular.module('logApp', ['ngRoute'])
       .when('/', {
         templateUrl: 'app/views/main.html'
       })
+      .when('/signup', {
+        templateUrl: 'app/views/account/signup.html',
+        controller: 'signupCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'app/views/account/login.html',
+        controller: 'loginCtrl'
+      })
       .when('/events', {
         templateUrl: 'app/views/events/list.html',
         controller: 'eventListCtrl'

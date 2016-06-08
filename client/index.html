@@ -39,6 +39,7 @@
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
     <script src="/app/app.js"></script>
+    <!-- Angular Components / Controllers -->
     <script src="/app/controllers/globalCtrl.js"></script>
     <script src="/app/controllers/events/eventListCtrl.js"></script>
     <script src="/app/controllers/events/eventViewCtrl.js"></script>
@@ -51,12 +52,17 @@
     <script src="/app/controllers/sites/siteListCtrl.js"></script>
     <script src="/app/controllers/sites/siteViewCtrl.js"></script>
     <script src="/app/controllers/sites/siteCreateCtrl.js"></script>
+    <script src="/app/controllers/account/signupCtrl.js"></script>
+    <script src="/app/controllers/account/loginCtrl.js"></script>
+    <!-- Angular Components / Services -->
     <script src="/app/services/authFactory.js"></script>
     <script src="/app/services/customerFactory.js"></script>
     <script src="/app/services/eventFactory.js"></script>
     <script src="/app/services/organisationFactory.js"></script>
     <script src="/app/services/siteFactory.js"></script>
     <script src="/app/services/localStorage.js"></script>
+    <!-- Angular Components / Directives -->
+    <script src="/app/directives/buttonHref.js"></script>
 
     <!-- Custom Components -->
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -110,9 +116,7 @@
         </nav>
       </div>
       <main class="mdl-layout__content">
-        <div class="page-content" ng-view>
-
-        </div>
+        <div class="page-content" ng-view></div>
         <div ng-hide="authentication.logged_in">
           <button type="button" class="mdl-button show-modal">Login</button>
           <dialog class="mdl-dialog">
