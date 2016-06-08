@@ -1,16 +1,14 @@
 var mongoose = require('mongoose'),
-  contactSchema = require('./contact'),
-  categorySchema = require('./category'),
-  commentSchema = require('./comment'),
+  contactSchema = require('./schemas/contact'),
+  commentSchema = require('./schemas/comment'),
   Schema = mongoose.Schema;
-
 
   // schema
   var eventSchema = new Schema({
       site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
-      logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User' }},
-      category: { categorySchema },
-      comments:  [ { commentSchema } ],
+      logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
+      category: {type: Schema.Types.ObjectId, ref: 'EventCategory', required: true},
+      comments: [{ commentSchema }],
   }, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
 
   /*
@@ -18,7 +16,6 @@ var mongoose = require('mongoose'),
   *
   */
   eventSchema.statics.getEvents = function (cb, option) {
-
     return this.model('Event').find({}, cb);
   }
 

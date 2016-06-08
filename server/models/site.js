@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-var addressSchema = require('./address');
-var contactSchema = require('./contact'),
+var addressSchema = require('./schemas/address');
+var contactSchema = require('./schemas/contact'),
 
 Schema   = mongoose.Schema;
 // schema

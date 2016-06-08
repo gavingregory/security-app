@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-  contactSchema = require('./contact'),
+  contactSchema = require('./schemas/contact'),
   Site = require('./site'),
   Schema = mongoose.Schema;
 
@@ -11,11 +11,9 @@ var customerSchema = new Schema({
     organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
 })
 
-module.exports
 // pre save validation
 customerSchema.pre('save', function (next) {
-
-next();
+  next();
 });
 
 module.exports = mongoose.model('Customer', customerSchema);
