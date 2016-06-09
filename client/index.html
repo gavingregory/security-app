@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="logApp">
+<html lang="en" ng-app="logApp" ng-cloak>
   <head>
     <meta charset="utf-8">
     <title>Security Logger Application</title>
@@ -28,7 +28,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/bower_components/material-design-lite/material.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
+
     <style>
       .app-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
         padding-right: 0;
@@ -38,6 +39,11 @@
     <!-- Angular Components -->
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+
     <script src="/app/app.js"></script>
     <!-- Angular Components / Controllers -->
     <script src="/app/controllers/globalCtrl.js"></script>
@@ -54,6 +60,7 @@
     <script src="/app/controllers/sites/siteCreateCtrl.js"></script>
     <script src="/app/controllers/account/signupCtrl.js"></script>
     <script src="/app/controllers/account/loginCtrl.js"></script>
+    <script src="/app/controllers/organisation/organisationViewCtrl.js"></script>
     <!-- Angular Components / Services -->
     <script src="/app/services/authFactory.js"></script>
     <script src="/app/services/customerFactory.js"></script>

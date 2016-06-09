@@ -1,4 +1,4 @@
-angular.module('logApp', ['ngRoute'])
+angular.module('logApp', ['ngRoute', 'ngMaterial'])
 
   .factory('httpRequestInterceptor', ['localStorage', function (localStorage) {
     return {
@@ -11,7 +11,7 @@ angular.module('logApp', ['ngRoute'])
   }])
 
   // configuration phase block
-  .config(['$httpProvider', '$routeProvider', function ($httpProvider, $routeProvider) {
+  .config(['$httpProvider', '$routeProvider', '$mdThemingProvider', function ($httpProvider, $routeProvider, $mdThemingProvider) {
     // add the $http interceptor
     $httpProvider.interceptors.push('httpRequestInterceptor');
 
@@ -72,10 +72,18 @@ angular.module('logApp', ['ngRoute'])
         templateUrl: 'app/views/sites/view.html',
         controller: 'siteViewCtrl'
       })
-
+      .when('/organisation', {
+        templateUrl: 'app/views/organisation/view.html',
+        controller: 'organisationViewCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
+
+    // configure material themes
+    $mdThemingProvider.theme('default')
+      .primaryPalette('pink')
+      .accentPalette('orange');
   }])
 
   // run block
