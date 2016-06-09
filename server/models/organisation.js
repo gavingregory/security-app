@@ -4,15 +4,42 @@ var mongoose = require('mongoose')
   , customerSchema = require('./customer').schema
   , Schema = mongoose.Schema;
 
-var schema = new Schema({
-  name: { type: String, required: true },
-  //license: {type: Number, required: true },
-  //address: { addressSchema },
-  //contacts: [ contactSchema ],
-  customers: [{type: Schema.Types.ObjectId, ref: 'Customer'}]
-}, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
+var Organisation = function () {
+  /**
+   * Organisation Schema
+   */
 
-module.exports = {
-  model: mongoose.model('Organisation', schema),
-  schema: schema
-}
+  var _schema = new Schema({
+    name: { type: String, required: true },
+    customers: [{type: Schema.Types.ObjectId, ref: 'Customer'}]
+  }, { timestamps: true });
+
+  /**
+   * Organisation Model
+   */
+
+  var _model = mongoose.model('Organisation', schema);
+
+  /**
+   * Public Functions
+   */
+
+  var _get = function (authenticated_user, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    _model.find({organisation: authenticated_user.domain}, cb);
+  };
+
+  /**
+   * Module Export API
+   */
+
+  return {
+    schema: _schema,
+    model: _model,
+    get: _get
+  };
+
+}();
+
+module.exports = Organisation;

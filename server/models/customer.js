@@ -6,13 +6,15 @@ var mongoose = require('mongoose')
 
 var Customer = function () {
 
-  // schema
+  /**
+   * Customer Schema
+   */
   var _schema = new Schema({
     name: {type: String, required: true}, /* trading name */
     company: {type: String, required: true}, /* registered company name */
     contacts: [ contactSchema ],
     organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
-  });
+  }, { timestamps: true });
 
   /* create a temporary flag - wasNew so that in post events, we know whether this document
   was a newly created document or not */
@@ -23,34 +25,17 @@ var Customer = function () {
 
   /* create a reference to this customer in the organisation's customer array */
   _schema.post('save', function (doc) {
-    console.log(doc.wasNew);
-    if (doc.wasNew)
-    Organisation.update({_id:doc.organisation}, {$push:{customers:{$each:[doc._id]}}}, {}, function (err, numAffected) {
-      console.log('err: ' + err)
-      console.log('num: ' + JSON.stringify(numAffected))
-    });
-    //  Organisation.findOne(doc.organisation, function (err, org) {
-    //   if (err) return console.error('Error linking new customer to existing organisation.\n' + err);
-    //   org.customers.push(doc._id);
-    //   org.save(function (err) {
-    //     if (err) return console.error('Error when attempting to save organisation after a new customer.\n' + err);
-    //   });
-    // });
-  });
-
-  _schema.post('remove', function (doc) {
-    Organisation.update({ _id: doc.organisation }, { $pullAll: { customers: [doc._id] } }, function (err, numAffected) {
+    if (doc.wasNew) Organisation.update({_id:doc.organisation}, {$push:{customers:{$each:[doc._id]}}}, {}, function (err, numAffected) {
       if (err) console.error(err);
-      console.log('num: ' + JSON.stringify(numAffected))
     });
   });
 
-  _schema.statics.getCustomers = function (user, cb) {
-    if (!user) throw 'User required.';
-    if (!user.domain) throw 'User domain required.';
-    this.model('Customer').find({organisation: user.domain}, cb);
-    //TODO: change this to query the sub document of organisation, not the customer model
-  }
+  /* deletes all references to this customer in the organisation document */
+  _schema.post('remove', function (doc) {
+    Organisation.update({_id:doc.organisation}, {$pull:{customers: doc._id}}, function (err, numAffected) {
+      if (err) console.error(err);
+    });
+  });
 
   /**
    * Customer Model
@@ -61,26 +46,34 @@ var Customer = function () {
   * Public Functions
   */
 
-  var _create = function (authenticated_user, name, company, cb) {
+  var _create = function (authenticated_user, properties, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    var c = new _model({name: name, organisation: authenticated_user.domain, company: company});
-    c.save(function (err, doc) {
-      if (err) return cb(err);
-      return cb(null, doc);
-    });
+    properties.organisation = authenticated_user.domain;
+    var c = new _model(properties);
+    c.save(cb);
   };
 
   var _findByName = function (authenticated_user, name, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.find({name: name, organisation: authenticated_user.domain}, cb);
+    _model.find({organisation: authenticated_user.domain, name: name}, cb);
   };
 
   var _getAll = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
     _model.find({organisation: authenticated_user.domain}, cb);
+  };
+
+  var _remove = function (authenticated_user, id, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    _model.findOne({organisation: authenticated_user.domain, _id: id}, function (err, doc) {
+      if (err) return cb(err);
+      if (!doc) return cb(err, doc);
+      doc.remove(cb);
+    });
   };
 
   /**
@@ -90,8 +83,10 @@ var Customer = function () {
     model: _model,
     schema: _schema,
     create: _create,
-    findByName: _findByName
-  }
+    findByName: _findByName,
+    getAll: _getAll,
+    remove: _remove
+  };
 
 }();
 

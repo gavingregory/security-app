@@ -29,7 +29,8 @@ afterEach(function (done) {
 
 describe('Customers: models', function () {
   it('should create a new Customer', function (done) {
-    var customer = Customer.create(_user, _customer.name+'2', 'test company', function (err, cust) {
+    _customer.name += '2';
+    var customer = Customer.create(_user, _customer, function (err, cust) {
       should.not.exist(err);
       should.exist(cust);
       cust.name.should.equal(_customer.name+'2');

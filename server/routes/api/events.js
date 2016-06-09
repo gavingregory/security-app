@@ -15,12 +15,10 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return Event.getEvents(function(err, data){
-      console.log('inside get events');
-      console.log(data);
-      if (err) res.send({_errors: err})
-      else res.send( data );
-    }, "option")
+    return Event.getAll(req.user, function(err, data) {
+      if (err) return res.send({_errors: err});
+      return res.send(data);
+    });
   });
 
   /**
@@ -32,11 +30,10 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    var e = new Event(req.body);
-    e.save(function(err, data){
-      if (err) res.send(err)
-      else res.send(data);
-    })
+    Event.create(req.user, req.body, function (err, data) {
+      if (err) return res.send({_errors: err});
+      return res.send(data);
+    });
   });
 
   router.use('/:event_id', eventRouter);

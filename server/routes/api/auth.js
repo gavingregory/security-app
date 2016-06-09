@@ -27,13 +27,13 @@ module.exports = function (express, passport) {
       if (user) return res.json({access_token: User.encodeToken(user.username, user.password), name: user.name });
 
       switch (reason) {
-        case User.failedLogin.NOT_FOUND:
+        case User.failedLoginReasons.NOT_FOUND:
           console.log('not found');
-        case User.failedLogin.PASSWORD_INCORRECT:
+        case User.failedLoginReasons.PASSWORD_INCORRECT:
           console.log('password incorrect');
           return res.send({_errors: [{message: 'Unable to login.'}]});
           break;
-        case User.failedLogin.MAX_ATTEMPTS:
+        case User.failedLoginReasons.MAX_ATTEMPTS:
           console.log('max attempts');
           //TODO: Generate an email to explain max attempts.
           return res.send({_errors: [{message: 'Unable to login.'}]});
@@ -83,12 +83,10 @@ module.exports = function (express, passport) {
    * TODO: document this API
    */
   router.post('/create', passport.authenticate('bearer', {session: false}), function (req, res) {
-    req.body.domain = req.user.domain;
-    var u = new User(req.body);
-    u.save(function (err, data) {
-      if (err) return res.status(500).send(err);
+    User.create(req.user, req.body, function (err, data) {
+      if (err) return res.status(codes.bad_request).send(err);
       return res.send(data);
-    });
+    })
   });
 
   /**
@@ -100,8 +98,7 @@ module.exports = function (express, passport) {
    * endpoint: http://localhost:8080/api/v1/auth/status
    */
   router.get('/status', passport.authenticate('bearer', {session: false}), function (req, res) {
-      return res.status(codes.ok)
-        .send(req.user);
+      return res.status(codes.ok).send(req.user);
   })
 
   return router;

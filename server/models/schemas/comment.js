@@ -1,9 +1,7 @@
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+  , Schema = mongoose.Schema;
 
-var commentSchema = Schema({
-  logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User' }},
+module.exports = Schema({
+  createdBy: { name: String, user: { type: Schema.Types.ObjectId, ref: 'User' }},
   comment: String,
-}, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
-
-module.exports = commentSchema;
+}, { timestamps: true });
