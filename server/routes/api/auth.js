@@ -21,7 +21,7 @@ module.exports = function (express, passport) {
    * @apiParam {string} password The password to login with.
    */
   router.post('/login', function (req, res) {
-    User.getAuthenticated(req.body.username, req.body.password, function (err, user, reason) {
+    User.authenticate(req.body.username, req.body.password, function (err, user, reason) {
       console.log(err + "\n" + user + "\n" + reason);
       if (err) throw err;
       if (user) return res.json({access_token: User.encodeToken(user.username, user.password), name: user.name });

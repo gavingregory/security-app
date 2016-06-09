@@ -34,6 +34,13 @@ var Site = function () {
     return _model.find({domain: authenticated_user.domain}, {name:1, type:1, size:1, address:1, contacts:1}, cb);
   };
 
+  var _create = function (authenticated_user, properties, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    var c = new _model(properties);
+    c.save(cb);
+  };
+
   /**
    * Module Export API
    */
@@ -41,7 +48,8 @@ var Site = function () {
   return {
     schema: _schema,
     model: _model,
-    getAll: _getAll
+    getAll: _getAll,
+    create: _create
   };
 
 }();

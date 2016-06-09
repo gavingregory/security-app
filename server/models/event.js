@@ -47,7 +47,7 @@ var Event = function () {
   return {
     schema: _schema,
     model: _model,
-    get: _getAll,
+    getAll: _getAll,
     create: _create
   };
 
