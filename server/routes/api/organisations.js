@@ -1,5 +1,6 @@
 var codes = require('../../helpers/httpCodes');
-var Organisation = require('../../models/organisation');
+var Organisation = require('../../models/organisation').model;
+var User = require('../../models/user');
 
 
 module.exports = function (express, passport) {
@@ -13,12 +14,19 @@ module.exports = function (express, passport) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/organisations
    */
-  router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-
-    var o = new Organisation(req.body);
-    o.save(function(err, data){
-      if (err) res.send (err);
-      else res.send (data);
+  router.post('/', function (req, res) {
+    console.log(req.body);
+    if (!req.body) throw new Error('Need a body.');
+    if (!req.body.user) throw new Error('Need a user.');
+    var _organisation = new Organisation(req.body);
+    _organisation.save(function(err, organisation){
+      if (err) return res.send(err);
+      req.body.user.domain = organisation._id;
+      var _user = new User(req.body.user);
+      _user.save(function (err, user) {
+        if (err) return res.send(err);
+        return res.send({user: user, organisation: organisation});
+      });
     });
   });
 
