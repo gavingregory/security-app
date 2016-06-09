@@ -18,11 +18,10 @@ var mongoose = require('mongoose'),
   *
   */
   eventSchema.statics.getEvents = function (cb, option) {
-
     return this.model('Event').find({}, cb);
   }
 
-  eventSchema.statics.getEvent = function (id, cb) {
+  eventSchema.statics.getEvent = function (user, id, cb) {
     return this.model('Event').find({'_id': id}, cb);
   }
 

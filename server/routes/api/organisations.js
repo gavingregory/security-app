@@ -2,7 +2,7 @@ var codes = require('../../helpers/httpCodes');
 var Organisation = require('../../models/organisation');
 
 
-module.exports = function (express, passport) {
+module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var orgRouter = express.Router({mergeParams: true});
 

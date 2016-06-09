@@ -1,10 +1,14 @@
 var codes = require('../../helpers/httpCodes')
   , Event = require('../../models/event');
 
-module.exports = function (express, passport) {
+module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var eventRouter = express.Router({mergeParams: true});
 
+    
+   io.on('connection', function(socket){
+     console.log('a user connected');
+   });
 
   /**
    * @api {get} / Gets a list of the most recent events.
@@ -49,7 +53,7 @@ module.exports = function (express, passport) {
    */
   eventRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
 
-    Event.getEvent( req.params.event_id , function(err, data){
+    Event.getEvent( req.user, req.params.event_id , function(err, data){
       if (err) return res.send({_errors: err})
       else return res.send( data );
     })

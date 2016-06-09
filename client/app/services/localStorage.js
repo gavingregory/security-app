@@ -17,6 +17,5 @@ angular.module('logApp')
     factory.getObject = function(key) {
       return JSON.parse($window.localStorage[key] || '{}');
     };
-
     return factory;
   });

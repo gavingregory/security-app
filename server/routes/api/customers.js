@@ -1,6 +1,6 @@
 var codes = require('../../helpers/httpCodes');
 var Customer = require('../../models/customer');
-module.exports = function (express, passport) {
+module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var customerRouter = express.Router({ mergeParams: true });
 

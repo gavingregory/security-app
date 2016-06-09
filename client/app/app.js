@@ -1,5 +1,11 @@
-angular.module('logApp', ['ngRoute'])
+angular.module('logApp', [ 'ngRoute'])
+  .factory('mySocket', function (socketFactory) {
+    return socketFactory();
+  })
 
+  .factory('mySocket', function (socketFactory) {
+    return socketFactory();
+  })
   .factory('httpRequestInterceptor', ['localStorage', function (localStorage) {
     return {
       request: function (config) {

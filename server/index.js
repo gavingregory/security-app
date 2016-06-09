@@ -7,9 +7,11 @@ var express = require('express')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
   , BearerStrategy = require('passport-http-bearer').Strategy
-  , app = express()
+  , app =  express()
   , User = require('./models/user')
-  , params = require('./config/settings');
+  , params = require('./config/settings')
+  , http = require('http').Server(app)
+  , io = require('socket.io')(http);
 
 'use strict';
 
@@ -60,6 +62,7 @@ mongoose.connect(params.database.uri, function (err) {
  * Passport / Authentication
  */
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -87,7 +90,7 @@ passport.use(new BearerStrategy(
 /**
  * Routes
  */
-app.use('/api/v1', require('./routes/api')(express, passport));
+app.use('/api/v1', require('./routes/api')(express, passport, io));
 
 /**
  * No routes match, attempt to serve static content
@@ -121,8 +124,16 @@ function errorHandler(err, req, res, next) {
 /**
  * The server instance
  */
-var server = app.listen(8080, function () {
+var server = http.listen(8080, function () {
   console.log('Server listening at http://%s:%s', server.address().address, server.address().port);
 });
+
+/**
+* Socket.IO
+*/
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
 
 module.exports = app;
