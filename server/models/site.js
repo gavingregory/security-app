@@ -24,7 +24,7 @@ var Site = function () {
    * Site Model
    */
 
-  var _model = mongoose.model('Site', siteSchema);
+  var _model = mongoose.model('Site', _schema);
 
   /**
    * Public Functions

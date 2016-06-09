@@ -18,7 +18,7 @@ var Organisation = function () {
    * Organisation Model
    */
 
-  var _model = mongoose.model('Organisation', schema);
+  var _model = mongoose.model('Organisation', _schema);
 
   /**
    * Public Functions
