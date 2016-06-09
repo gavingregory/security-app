@@ -9,6 +9,6 @@ var addressSchema = new Schema ({
   city: String,
   country: String,
   pc_zip: String,
-}, {_id: false });
+});
 
 module.exports = addressSchema;

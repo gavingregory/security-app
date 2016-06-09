@@ -1,5 +1,5 @@
 var codes = require('../../helpers/httpCodes');
-var Customer = require('../../models/customer');
+var Customer = require('../../models/customer').model;
 module.exports = function (express, passport) {
   var router = express.Router({ mergeParams: true });
   var customerRouter = express.Router({ mergeParams: true });
@@ -13,7 +13,7 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    Customer.find({}, function (err, data) {
+    Customer.getCustomers(req.user, function (err, data) {
       if (err) return res.status(500).send(err);
       return res.send(data);
     });
@@ -74,8 +74,14 @@ module.exports = function (express, passport) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   customerRouter.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Customer.findOne(req.params.customer_id, function (err, doc) {
+      if (err) return res.status(500).send(err);
+      if (!doc) return res.send('no document found');
+      doc.remove(function (err) {
+        if (err) return res.status(500).send(err);
+        return res.send('success');
+      });
+    });
   });
 
   customerRouter.use('/sites', require('./sites')(express, passport));
