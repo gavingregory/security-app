@@ -1,5 +1,5 @@
 var codes = require('../../helpers/httpCodes');
-var Organisation = require('../../models/organisation').model;
+var Organisation = require('../../models/organisation');
 var User = require('../../models/user');
 
 
@@ -39,11 +39,10 @@ module.exports = function (express, passport) {
   *   endpoint: http://localhost:8080/api/v1/organisations
   */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    Organisation.find({_id: req.user.domain })
-      .then(function (err, data) {
-        if (err) return res.send(err);
-        return res.send(data);
-      })
+    Organisation.get(req.user, function (err, data) {
+      if (err) return res.send(err);
+      return res.send(data);
+    });
   });
 
   /**
