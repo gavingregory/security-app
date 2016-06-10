@@ -56,6 +56,7 @@
     <script src="/bower_components/angular-socket-io/socket.js"></script>
 
     <script src="/app/app.js"></script>
+    <script src="/app/index.js"></script>
     <!-- Angular Components / Controllers -->
     <script src="/app/controllers/globalCtrl.js"></script>
     <script src="/app/controllers/events/eventListCtrl.js"></script>
@@ -72,6 +73,11 @@
     <script src="/app/controllers/account/signupCtrl.js"></script>
     <script src="/app/controllers/account/loginCtrl.js"></script>
     <script src="/app/controllers/organisation/organisationViewCtrl.js"></script>
+    <script src="/app/controllers/ControlPanelController.js"></script>
+    <script src="/app/controllers/MainController.js"></script>
+    <script src="/app/controllers/MessagesController.js"></script>
+    <script src="/app/controllers/ProfileController.js"></script>
+    <script src="/app/controllers/SearchController.js"></script>
     <!-- Angular Components / Services -->
     <script src="/app/services/authFactory.js"></script>
     <script src="/app/services/customerFactory.js"></script>
@@ -79,104 +85,23 @@
     <script src="/app/services/organisationFactory.js"></script>
     <script src="/app/services/siteFactory.js"></script>
     <script src="/app/services/localStorage.js"></script>
+    <script src="/app/services/NavService.js"></script>
     <!-- Angular Components / Directives -->
     <script src="/app/directives/buttonHref.js"></script>
+    <script src="/app/directives/messagesSection.js"></script>
+    <script src="/app/directives/panelWidget.js"></script>
 
     <!-- Custom Components -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/vendor-012af615.css">
 
     <!--[if lt IE 9]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
 
-
-  </script>
-
-
   <body ng-controller="globalCtrl">
-    <div class="app-layout-waterfall mdl-layout mdl-js-layout">
-      <header class="mdl-layout__header mdl-layout__header--waterfall">
-        <!-- Top row, always visible -->
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">Security App</span>
-          <div class="mdl-layout-spacer"></div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                      mdl-textfield--floating-label mdl-textfield--align-right">
-            <label class="mdl-button mdl-js-button mdl-button--icon"
-                   for="waterfall-exp">
-              <i class="material-icons">search</i>
-            </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" name="sample"
-                     id="waterfall-exp">
-            </div>
-          </div>
-        </div>
-        <!-- Bottom row, not visible on scroll -->
-        <div class="mdl-layout__header-row">
-          <div class="mdl-layout-spacer"></div>
-          <!-- Navigation -->
-          <nav class="mdl-navigation" ng-hide="authentication.logged_in">
-            <a class="mdl-navigation__link" href=""><i class="material-icons">lock</i>&nbsp;Login</a>
-          </nav>
-          <nav class="mdl-navigation" ng-show="authentication.logged_in">
-            <a class="mdl-navigation__link" href="/#/"><i class="material-icons">keyboard_arrow_left</i>&nbsp;Home</a>
-            <a class="mdl-navigation__link" href="/#/customers"><i class="material-icons">assignment_ind</i>&nbsp;Customers</a>
-            <a class="mdl-navigation__link" href="/#/sites"><i class="material-icons">room</i>&nbsp;Sites</a>
-            <a class="mdl-navigation__link" href="/#/events"><i class="material-icons">view_headline</i>&nbsp;Events</a>
-            <a class="mdl-navigation__link" href="/#/organisation"><i class="material-icons">domain</i>&nbsp;My Organisation</a>
-            <a class="mdl-navigation__link" ng-click="logout()"><i class="material-icons">lock</i>&nbsp;Logout</a>
-          </nav>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
-      </div>
-      <main class="mdl-layout__content">
-        <div class="page-content" ng-view></div>
-        <div ng-hide="authentication.logged_in">
-          <button type="button" class="mdl-button show-modal">Login</button>
-          <dialog class="mdl-dialog">
-            <div class="mdl-dialog__content">
-              <p>
-                Enter your username and password to login to the application.
-              </p>
-            </div>
-            <form action="#">
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="username" ng-model="loginData.username">
-                <label class="mdl-textfield__label" for="username">Username...</label>
-              </div>
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="password" ng-model="loginData.password">
-                <label class="mdl-textfield__label" for="password">Password...</label>
-              </div>
-              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-                <button type="button" class="mdl-button close">Exit</button>
-                <button type="submit" class="mdl-button close" ng-click="login(loginData.username, loginData.password)">Submit</button>
-              </div>
-            </form>
-          </dialog>
-        </div>
-        <script>
-          var dialog = document.querySelector('dialog');
-          var showModalButton = document.querySelector('.show-modal');
-          if (! dialog.showModal) {
-            dialogPolyfill.registerDialog(dialog);
-          }
-          showModalButton.addEventListener('click', function() {
-            dialog.showModal();
-          });
-          dialog.querySelector('.close').addEventListener('click', function() {
-            dialog.close();
-          });
-        </script>
-      </main>
-    </div>
+    <div ui-view layout="row" layout-fill></div>
   </body>
+
 </html>
