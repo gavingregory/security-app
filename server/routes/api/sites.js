@@ -13,10 +13,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers/123/sites
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return Site.getSites(function(err, data){
+    return Site.getAll(function(err, data){
       if (err) res.send({_errors: err})
       else res.send( data );
-    }, "option")
+    }, "option");
   });
 
   /**
@@ -28,11 +28,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers/123/sites
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    var s = new Site(req.body);
-    s.save(function(err, data){
+    Site.create(req.user, req.body, function (err, data) {
       if (err) return res.status(codes.bad_request).send(err);
-      else return res.send(data);
-    })
+      return res.send(data);
+    });
   });
 
   router.use('/:site_id', siteRouter);

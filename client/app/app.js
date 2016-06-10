@@ -1,6 +1,7 @@
+
 var serverBaseUrl = 'http://localhost:8080';
 
-angular.module('logApp', [ 'ngRoute', 'btford.socket-io'])
+angular.module('logApp', [ 'ngRoute', 'ngMaterial', 'btford.socket-io'])
 
   .factory('socket', function (socketFactory) {
     var myIoSocket = io.connect(serverBaseUrl);
@@ -22,7 +23,7 @@ angular.module('logApp', [ 'ngRoute', 'btford.socket-io'])
   }])
 
   // configuration phase block
-  .config(['$httpProvider', '$routeProvider', function ($httpProvider, $routeProvider) {
+  .config(['$httpProvider', '$routeProvider', '$mdThemingProvider', function ($httpProvider, $routeProvider, $mdThemingProvider) {
     // add the $http interceptor
     $httpProvider.interceptors.push('httpRequestInterceptor');
 
@@ -30,6 +31,14 @@ angular.module('logApp', [ 'ngRoute', 'btford.socket-io'])
     $routeProvider
       .when('/', {
         templateUrl: 'app/views/main.html'
+      })
+      .when('/signup', {
+        templateUrl: 'app/views/account/signup.html',
+        controller: 'signupCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'app/views/account/login.html',
+        controller: 'loginCtrl'
       })
       .when('/events', {
         templateUrl: 'app/views/events/list.html',
@@ -91,9 +100,18 @@ angular.module('logApp', [ 'ngRoute', 'btford.socket-io'])
         templateUrl: 'app/views/sites/delete.html',
         controller: 'siteDeleteCtrl'
       })
+      .when('/organisation', {
+        templateUrl: 'app/views/organisation/view.html',
+        controller: 'organisationViewCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
+
+    // configure material themes
+    $mdThemingProvider.theme('default')
+      .primaryPalette('pink')
+      .accentPalette('orange');
   }])
 
   // run block

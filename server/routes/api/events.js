@@ -5,7 +5,7 @@ module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var eventRouter = express.Router({mergeParams: true});
 
-    
+
    io.on('connection', function(socket){
      console.log('a user connected');
    });
@@ -19,10 +19,11 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    Event.getEvents(function(err, data){
-      if (err) return res.send({_errors: err})
-      else return res.send( data );
-    }, "option")
+
+    return Event.getAll(req.user, function(err, data) {
+      if (err) return res.send({_errors: err});
+      return res.send(data);
+    });
   });
 
   /**
@@ -34,11 +35,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    var e = new Event(req.body);
-    e.save(function(err, data){
-      if (err) return res.send(err)
-      else return res.send(data);
-    })
+    Event.create(req.user, req.body, function (err, data) {
+      if (err) return res.send({_errors: err});
+      return res.send(data);
+    });
   });
 
   router.use('/:event_id', eventRouter);

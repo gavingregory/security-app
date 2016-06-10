@@ -1,5 +1,6 @@
 var codes = require('../../helpers/httpCodes');
 var Customer = require('../../models/customer');
+
 module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var customerRouter = express.Router({ mergeParams: true });
@@ -13,7 +14,7 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    Customer.find({}, function (err, data) {
+    Customer.getAll(req.user, function (err, data) {
       if (err) return res.status(500).send(err);
       return res.send(data);
     });
@@ -28,13 +29,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    req.body.organisation = req.user.domain;
-    var c = new Customer(req.body);
-    c.save(function(err, data){
-      if (err) res.status(codes.bad_request).send(err);
-      else res.send( data );
+    Customer.create(req.user, req.body, function (err, data) {
+      if (err) return res.status(codes.bad_request).send(err);
+      else return res.send(data);
     });
-
   });
 
   router.use('/:customer_id', customerRouter);
@@ -74,8 +72,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   customerRouter.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Customer.remove(req.user, req.params.customer_id, function (err, doc, result) {
+      if (err) return res.status(codes.bad_request).send(err);
+      return res.send({result: result, doc: doc});
+    });
   });
 
   customerRouter.use('/sites', require('./sites')(express, passport));

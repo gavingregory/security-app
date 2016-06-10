@@ -4,6 +4,8 @@
   "description": "Security Incident Management Software",
   "main": "index.js",
   "scripts": {
+    "init": "npm install",
+    "install": "bower install",
     "start": "node_modules/.bin/nodemon ./server/index.js",
     "test": "node_modules/.bin/mocha -u exports server/test/**/*",
     "apidoc": "node_modules/.bin/apidoc -i server/routes -o apidoc/"
@@ -37,6 +39,7 @@
     "apidoc": "^0.16.1",
     "mocha": "^2.5.3",
     "nodemon": "^1.9.2",
+    "should": "^9.0.1",
     "supertest": "^1.2.0"
   },
   "dependencies": {

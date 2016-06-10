@@ -1,30 +1,57 @@
-var mongoose = require('mongoose');
-var addressSchema = require('./address');
-var contactSchema = require('./contact'),
+var mongoose = require('mongoose')
+  , addressSchema = require('./schemas/address')
+  , contactSchema = require('./schemas/contact')
+  , Schema = mongoose.Schema;
 
-Schema   = mongoose.Schema;
-// schema
-var siteSchema = new Schema({
+var Site = function () {
+
+  /**
+   * Site Schema
+   */
+
+  var _schema = new Schema({
     name: String,
     address: { addressSchema },
     contacts: [ contactSchema ],
     customer: {type: Schema.Types.ObjectId, ref: 'Customer', required: true }
-}, { autoIndex: true, timestamps: true, timestamps: { createdAt: 'created' , updatedAt: 'updated'} });
+  }, { timestamps: true });
 
-// virtuals
-siteSchema.virtual('address.full').get(function() {
-  return [this.address_number, this.address_street, this.address_district, this.address_county, this.address_city, this.address_pc_zip, this.address_country];
-})
+  _schema.virtual('address.full').get(function() {
+    return [this.address.number, this.address.street, this.address.district, this.address.county, this.address.city, this.address.pc_zip, this.address.country];
+  });
 
-siteSchema.statics.getSites = function (cb, option) {
+  /**
+   * Site Model
+   */
 
-  return this.model('Site').find({}, {name:1, type:1, size:1, address:1, contacts:1}, cb);
-}
+  var _model = mongoose.model('Site', _schema);
 
-// pre save validation
-siteSchema.pre('save', function (next) {
+  /**
+   * Public Functions
+   */
 
-next();
-});
+  var _getAll = function (authenticated_user, cb, option) {
+    return _model.find({domain: authenticated_user.domain}, {name:1, type:1, size:1, address:1, contacts:1}, cb);
+  };
 
-module.exports = mongoose.model('Site', siteSchema);
+  var _create = function (authenticated_user, properties, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    var c = new _model(properties);
+    c.save(cb);
+  };
+
+  /**
+   * Module Export API
+   */
+
+  return {
+    schema: _schema,
+    model: _model,
+    getAll: _getAll,
+    create: _create
+  };
+
+}();
+
+module.exports = Site;

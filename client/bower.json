@@ -19,7 +19,11 @@
     "material-design-lite": "^1.1.3",
     "angular": "angularjs#^1.5.6",
     "angular-route": "^1.5.6",
+<<<<<<< HEAD
     "socket-io-client": "^1.4.5",
     "socket.io-client": "^1.4.6"
+=======
+    "angular-material": "^1.0.9"
+>>>>>>> b6a5ab9749cf2adfda9e325e87837fe49cabefbb
   }
 }

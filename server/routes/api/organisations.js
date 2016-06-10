@@ -1,10 +1,10 @@
 var codes = require('../../helpers/httpCodes');
 var Organisation = require('../../models/organisation');
+var User = require('../../models/user');
 
 
 module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
-  var orgRouter = express.Router({mergeParams: true});
 
   /**
    * @api {post} / Creates a new organisation.
@@ -14,16 +14,21 @@ module.exports = function (express, passport, io) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/organisations
    */
-  router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-
-    var o = new Organisation(req.body);
-    o.save(function(err, data){
-      if (err) res.send (err);
-      else res.send (data);
+  router.post('/', function (req, res) {
+    console.log(req.body);
+    if (!req.body) throw new Error('Need a body.');
+    if (!req.body.user) throw new Error('Need a user.');
+    var _organisation = new Organisation(req.body);
+    _organisation.save(function(err, organisation){
+      if (err) return res.send(err);
+      req.body.user.domain = organisation._id;
+      var _user = new User(req.body.user);
+      _user.save(function (err, user) {
+        if (err) return res.send(err);
+        return res.send({user: user, organisation: organisation});
+      });
     });
   });
-
-  router.use('/:org_id', orgRouter);
 
   /**
   * @api {get} / Gets your organisation details.
@@ -33,9 +38,11 @@ module.exports = function (express, passport, io) {
   * @apiExample Example usage:
   *   endpoint: http://localhost:8080/api/v1/organisations
   */
-  orgRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+  router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+    Organisation.get(req.user, function (err, data) {
+      if (err) return res.send(err);
+      return res.send(data);
+    });
   });
 
   /**
@@ -46,7 +53,7 @@ module.exports = function (express, passport, io) {
   * @apiExample Example usage:
   *   endpoint: http://localhost:8080/api/v1/organisations
   */
-  orgRouter.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+  router.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
@@ -59,7 +66,7 @@ module.exports = function (express, passport, io) {
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/organisations
    */
-  orgRouter.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+  router.delete('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     return res.status(codes.not_implemented)
       .send({_errors: [{message: 'Not yet implemented.'}]});
   });
