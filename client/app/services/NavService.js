@@ -23,6 +23,16 @@
         name: 'Table',
         icon: 'view_module',
         sref: '.table'
+      },
+      {
+        name: 'Other',
+        icon: 'view_module',
+        sref: '.table'
+      },
+      {
+        name: 'AnOther',
+        icon: 'view_module',
+        sref: '.table'
       }
     ];
 

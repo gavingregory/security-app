@@ -3,20 +3,19 @@
   angular
     .module('app')
     .controller('MessagesController', [
-      'messagesService',
       MessagesController
     ]);
 
-  function MessagesController(messagesService) {
+  function MessagesController() {
     var vm = this;
 
     vm.messages = [];
 
-    messagesService
-      .loadAllItems()
-      .then(function(messages) {
-        vm.messages = [].concat(messages);
-      });
+    // messagesService
+    //   .loadAllItems()
+    //   .then(function(messages) {
+    //     vm.messages = [].concat(messages);
+    //   });
   }
 
 })();
