@@ -1,10 +1,15 @@
-angular.module('logApp', [ 'ngRoute'])
-  .factory('mySocket', function (socketFactory) {
-    return socketFactory();
-  })
+var serverBaseUrl = 'http://localhost:8080';
 
-  .factory('mySocket', function (socketFactory) {
-    return socketFactory();
+angular.module('logApp', [ 'ngRoute', 'btford.socket-io'])
+
+  .factory('socket', function (socketFactory) {
+    var myIoSocket = io.connect(serverBaseUrl);
+    var socket = socketFactory({
+       ioSocket: myIoSocket
+   });
+    socket.forward('connection');
+    socket.forward('error');
+    return socket;
   })
   .factory('httpRequestInterceptor', ['localStorage', function (localStorage) {
     return {
