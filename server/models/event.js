@@ -9,19 +9,6 @@ var Event = function () {
    * Event Schema
    */
 
-  /*
-  * Options:
-  *
-  */
-  eventSchema.statics.getEvents = function (cb, option) {
-    return this.model('Event').find({}, cb);
-  }
-
-  eventSchema.statics.getEvent = function (user, id, cb) {
-    return this.model('Event').find({'_id': id}, cb);
-  }
-
-module.exports = mongoose.model('Event', eventSchema);
   var _schema = new Schema({
     site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
     logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
@@ -38,6 +25,12 @@ module.exports = mongoose.model('Event', eventSchema);
   /**
    * Public Functions
    */
+
+   var _get = function (authenticated_user, id, cb) {
+     if (!authenticated_user) throw new Error('User required.');
+     if (!authenticated_user.domain) throw new Error('User domain required.');
+     _model.find({organisation: authenticated_user.domain, _id: id}, cb);
+   };
 
   var _getAll = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
@@ -60,6 +53,7 @@ module.exports = mongoose.model('Event', eventSchema);
   return {
     schema: _schema,
     model: _model,
+    get: _get,
     getAll: _getAll,
     create: _create
   };
