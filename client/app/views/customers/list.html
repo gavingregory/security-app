@@ -1,37 +1,38 @@
 <h1>List Customers</h1>
-<a ui-sref="home.customers.create">Create a new customer</a>
 
-<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-  <thead>
+<button ui-sref="home.customers.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create a Customer"><span class="ng-scope">Create a Customer</span><div class="md-ripple-container"></div></button>
+
+<div class="table-responsive-vertical md-whiteframe-z1">
+  <table id="table" class="table table-hover table-bordered">
+    <thead>
     <tr>
-      <th ng-repeat="(key,value) in customers[0]" class="mdl-data-table__cell--non-numeric">
-        {{key}}
-      </th>
-      <th>
-        View
-      </th>
-      <th>
-        Edit
-      </th>
-      <th>
-        Delete
-      </th>
+      <th>#</th>
+      <th>Name</th>
+      <th>Company</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>View</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="customer in customers">
-      <td ng-repeat="(key, field) in customer" class="mdl-data-table__cell--non-numeric">
-        {{field}}
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in customers">
+      <td data-title="ID">{{row._id}}</td>
+      <td data-title="Name">{{row.name}}</td>
+      <td data-title="Company">{{row.company}}</td>
+      <td data-title="Created">{{row.createdAt}}</td>
+      <td data-title="Updated">{{row.updatedAt}}</td>
+      <td data-title="View">
+        <button ui-sref="home.customers.view" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
       </td>
-      <td class="mdl-data-table__cell--non-numeric">
-        <a href="/#/customers/{{customer._id}}/view">v</a>
+      <td data-title="Edit">
+        <button ui-sref="home.customers.edit" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
       </td>
-      <td class="mdl-data-table__cell--non-numeric">
-        <a href="/#/customers/{{customer._id}}/edit">e</a>
-      </td>
-      <td class="mdl-data-table__cell--non-numeric">
-        <a href="/#/customers/{{customer._id}}/delete">d</a>
+      <td data-title="Delete">
+        <button ui-sref="home.customers.delete" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
       </td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
