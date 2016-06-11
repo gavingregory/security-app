@@ -70,6 +70,16 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         data: {
           title: 'Customers'
         }
+      })
+      .state('home.customers.create', {
+        url: '/customers/create',
+        controller: 'CustomerCreateController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/customers/create.html',
+        data: {
+          title: 'Create a Customer'
+        },
+        parent: 'home'
       });
 
     $urlRouterProvider.otherwise('/dashboard');

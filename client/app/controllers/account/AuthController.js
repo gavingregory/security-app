@@ -3,11 +3,11 @@
   angular
        .module('app')
        .controller('AuthController', [
-          '$rootScope', '$interval', 'navService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast', 'authFactory',
+          '$rootScope', '$interval', '$log', '$mdToast', 'authFactory',
           AuthController
        ]);
 
-  function AuthController($rootScope, $interval, navService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast, authFactory) {
+  function AuthController($rootScope, $interval, $log, $mdToast, authFactory) {
     var vm = this;
 
     /* Authentication */

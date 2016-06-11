@@ -1,8 +1,7 @@
 <h1>My Org</h1>
-<md-button class="md-accent">Click me</md-button>
-<h2>{{organisation.name}}</h2>
+<h2>{{vm.organisation.name}}</h2>
 <md-list>
-  <md-list-item class="md-2-line" ng-repeat="(key, value) in organisation">
+  <md-list-item class="md-2-line" ng-repeat="(key, value) in vm.organisation">
     <div class="md-list-item-text">
       <h3>{{key}}</h3>
       <p>{{value}}</p>

@@ -1,13 +1,13 @@
 <h1>Create a Customer</h1>
 
-<form class="" ng-submit="createCustomer(customer)">
+<form class="" ng-submit="vm.create(vm.customer)">
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="name" pattern="[A-Z,a-z, ]*" ng-model="customer.name">
+    <input class="mdl-textfield__input" type="text" id="name" pattern="[A-Z,a-z, ]*" ng-model="vm.customer.name">
     <label class="mdl-textfield__label" for="name">Company Name</label>
     <span class="mdl-textfield__error">Letters and spaces only</span>
   </div>
   <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="company" pattern="[A-Z,a-z, ]*" ng-model="customer.company">
+    <input class="mdl-textfield__input" type="text" id="company" pattern="[A-Z,a-z, ]*" ng-model="vm.customer.company">
     <label class="mdl-textfield__label" for="company">Company Company?</label>
     <span class="mdl-textfield__error">Letters and spaces only</span>
   </div>

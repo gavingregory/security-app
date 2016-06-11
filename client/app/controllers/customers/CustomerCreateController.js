@@ -1,13 +1,29 @@
-angular.module('logApp')
-  .controller('CustomerCreateController', ['$window', '$scope', 'customerFactory', function ($window, $scope, customerFactory) {
-    $scope.customer = {};
-    $scope.createCustomer = function (customer) {
+(function(){
+  'use strict';
+
+  angular
+       .module('app')
+       .controller('CustomerCreateController', [
+          '$log', '$state', 'customerFactory', 'toastFactory',
+          CustomerCreateController
+       ]);
+
+  function CustomerCreateController($log, $state, customerFactory, toastFactory) {
+    var vm = this;
+
+    vm.customer = {};
+    vm.create = _create;
+
+    function _create(customer) {
       customerFactory.create(customer)
-        .then(function (data) {
-          $window.location.href='/#/customers';
+        .then(function (resp) {
+          $state.go('home.customers');
         })
-        .catch(function (err) {
-          console.log(err);
+        .catch(function (resp) {
+          toastFactory.showSimpleToast('Error creating customer');
         });
-    }
-  }]);
+    };
+
+  };
+
+})();

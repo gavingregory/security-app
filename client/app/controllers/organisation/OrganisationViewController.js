@@ -1,11 +1,26 @@
-angular.module('logApp')
-  .controller('OrganisationViewController', ['$scope', 'organisationFactory', function ($scope, organisationFactory) {
-    $scope.organisation = {};
+(function(){
+  'use strict';
+
+  angular
+       .module('app')
+       .controller('OrganisationViewController', [
+          '$log', 'organisationFactory', 'toastFactory',
+          OrganisationViewController
+       ]);
+
+  function OrganisationViewController($log, organisationFactory, toastFactory) {
+    var vm = this;
+
+    vm.organisation = {};
+
     organisationFactory.get()
       .then(function (resp) {
-        $scope.organisation = resp.data;
+        vm.organisation = resp.data;
       })
       .catch(function (resp) {
-        console.error(resp);
+        toastFactory.showSimpleToast('Error fetching data!');
       });
-  }]);
+
+  };
+
+})();
