@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .controller('customerCreateController', ['$window', '$scope', 'customerFactory', function ($window, $scope, customerFactory) {
+  .controller('CustomerCreateController', ['$window', '$scope', 'customerFactory', function ($window, $scope, customerFactory) {
     $scope.customer = {};
     $scope.createCustomer = function (customer) {
       customerFactory.create(customer)

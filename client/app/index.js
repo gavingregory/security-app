@@ -47,7 +47,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       .state('home.organisation', {
         url: '/organisation',
         templateUrl: 'app/views/organisation/view.html',
-        controller: 'organisationViewController',
+        controller: 'OrganisationViewController',
         controllerAs: 'vm',
         data: {
           title: 'Organisation'
@@ -55,7 +55,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       })
       .state('home.events', {
         url: '/events',
-        controller: 'eventListController',
+        controller: 'EventListController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/list.html',
         data: {
@@ -64,7 +64,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       })
       .state('home.customers', {
         url: '/customers',
-        controller: 'customerListController',
+        controller: 'CustomerListController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/list.html',
         data: {

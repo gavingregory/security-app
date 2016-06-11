@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .controller('organisationViewController', ['$scope', 'organisationFactory', function ($scope, organisationFactory) {
+  .controller('OrganisationViewController', ['$scope', 'organisationFactory', function ($scope, organisationFactory) {
     $scope.organisation = {};
     organisationFactory.get()
       .then(function (resp) {
