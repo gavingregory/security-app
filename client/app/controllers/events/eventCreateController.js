@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .controller('eventCreateCtrl', ['$window', '$scope', 'eventFactory', 'siteFactory', function ($window, $scope, eventFactory, siteFactory) {
+  .controller('eventCreateController', ['$window', '$scope', 'eventFactory', 'siteFactory', function ($window, $scope, eventFactory, siteFactory) {
     $scope.sites = [];
 
     $scope.event = {};

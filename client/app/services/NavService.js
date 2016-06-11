@@ -15,24 +15,19 @@
         sref: '.dashboard'
       },
       {
-        name: 'Profile',
-        icon: 'person',
-        sref: '.profile'
+        name: 'Events',
+        icon: 'storage',
+        sref: '.events'
       },
       {
-        name: 'Table',
-        icon: 'view_module',
-        sref: '.table'
+        name: 'Customers',
+        icon: 'perm_contact_calendar',
+        sref: '.customers'
       },
       {
-        name: 'Other',
-        icon: 'view_module',
-        sref: '.table'
-      },
-      {
-        name: 'AnOther',
-        icon: 'view_module',
-        sref: '.table'
+        name: 'Organisation',
+        icon: 'account_balance',
+        sref: '.organisation'
       }
     ];
 

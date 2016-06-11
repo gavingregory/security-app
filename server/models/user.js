@@ -224,7 +224,7 @@ var user = function () {
 
       // make sure the user exists
       if (!user) {
-        return cb(null, null, reasons.NOT_FOUND);
+        return cb(null, null, _failedLoginReasons.NOT_FOUND);
       }
 
       // check if the account is currently locked
@@ -232,7 +232,7 @@ var user = function () {
         // just increment login attempts if account is already locked
         return user.incLoginAttempts(function (err) {
           if (err) return cb(err);
-          return cb(null, null, reasons.MAX_ATTEMPTS);
+          return cb(null, null, _failedLoginReasons.MAX_ATTEMPTS);
         });
       }
 
@@ -258,7 +258,7 @@ var user = function () {
         // password is incorrect, so increment login attempts before responding
         user.incLoginAttempts(function (err) {
           if (err) return cb(err);
-          return cb(null, null, reasons.PASSWORD_INCORRECT);
+          return cb(null, null, _failedLoginReasons.PASSWORD_INCORRECT);
         });
       });
     });

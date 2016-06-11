@@ -5,37 +5,21 @@
 
   <a href="/#/events/create">Create!</a>
 
-  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-    <thead>
-      <tr>
-        <th class="mdl-data-table__cell--non-numeric" ng-repeat="(key,value) in events[0]">
-          {{key}}
-        </th>
-        <th>
-          View
-        </th>
-        <th>
-          Edit
-        </th>
-        <th>
-          Delete
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="row in events">
-        <td class="mdl-data-table__cell--non-numeric" ng-repeat="field in row">
-          {{field}}
-        </td>
-        <td>
-          <a href="/#/events/{{row._id}}/view">v</a>
-        </td>
-        <td>
-          <a href="/#/events/{{row._id}}/edit">e</a>
-        </td>
-        <td>
-          <a href="/#/events/{{row._id}}/delete">d</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive-vertical md-whiteframe-z1">
+      <table id="table" class="table table-hover table-bordered">
+          <thead>
+          <tr>
+              <th>#</th>
+              <th>Created</th>
+              <th>Updated</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="row in events">
+              <td data-title="ID">{{row._id}}</td>
+              <td data-title="Created">{{row.createdAt}}</td>
+              <td data-title="Updated">{{row.updatedAt}}</td>
+          </tr>
+          </tbody>
+      </table>
+  </div>

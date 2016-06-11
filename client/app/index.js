@@ -44,22 +44,31 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
           title: 'Dashboard'
         }
       })
-      .state('home.profile', {
-        url: '/profile',
-        templateUrl: 'app/views/profile.html',
-        controller: 'ProfileController',
+      .state('home.organisation', {
+        url: '/organisation',
+        templateUrl: 'app/views/organisation/view.html',
+        controller: 'organisationViewController',
         controllerAs: 'vm',
         data: {
-          title: 'Profile'
+          title: 'Organisation'
         }
       })
-      .state('home.table', {
-        url: '/table',
-        controller: 'TableController',
+      .state('home.events', {
+        url: '/events',
+        controller: 'eventListController',
         controllerAs: 'vm',
-        templateUrl: 'app/views/table.html',
+        templateUrl: 'app/views/events/list.html',
         data: {
-          title: 'Table'
+          title: 'Events'
+        }
+      })
+      .state('home.customers', {
+        url: '/customers',
+        controller: 'customerListController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/customers/list.html',
+        data: {
+          title: 'Customers'
         }
       });
 
@@ -70,7 +79,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         .primaryPalette('grey', {
           'default': '600'
         })
-        .accentPalette('teal', {
+        .accentPalette('orange', {
           'default': '500'
         })
         .warnPalette('defaultPrimary');

@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .controller('eventListCtrl', ['$scope', 'eventFactory', 'socket', function ($scope, eventFactory, socket ) {
+  .controller('eventListController', ['$scope', 'eventFactory', 'socket', function ($scope, eventFactory, socket ) {
 
     eventFactory.list().then(function(resp){
       $scope.events = resp.data;

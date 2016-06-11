@@ -1,0 +1,9 @@
+<md-content layout="row" layout-align="center center">
+  <form ng-controller="AuthController as auth" ng-submit="auth.login(vm.username, vm.password)">
+    <md-input-container flex="" class="md-input-has-placeholder flex"><label for="username">Username</label> <input ng-model="vm.username" placeholder="Enter username" class="ng-pristine ng-valid md-input ng-empty ng-touched" id="username" aria-invalid="false"><div class="md-errors-spacer"></div></md-input-container>
+    <md-input-container flex="" class="md-input-has-placeholder flex"><label for="password">Password</label> <input ng-model="vm.password" placeholder="Enter password" class="ng-pristine ng-valid md-input ng-empty ng-touched" id="password" aria-invalid="false"><div class="md-errors-spacer"></div></md-input-container>
+    <button class="md-raised md-warn md-button md-ink-ripple" type="submit" aria-label="Login"><span class="ng-scope">
+        Login
+    </span><div class="md-ripple-container"></div></button>
+  </form>
+</md-content>

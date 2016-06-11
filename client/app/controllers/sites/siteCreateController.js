@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .controller('siteCreateCtrl', ['$window', '$scope', 'siteFactory', 'customerFactory', function ($window, $scope, siteFactory, customerFactory) {
+  .controller('siteCreateController', ['$window', '$scope', 'siteFactory', 'customerFactory', function ($window, $scope, siteFactory, customerFactory) {
     $scope.customers = [];
 
     $scope.site = {};

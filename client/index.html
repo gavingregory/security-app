@@ -30,12 +30,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
 
-    <style>
-      .app-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
-        padding-right: 0;
-      }
-    </style>
-
     <!-- Angular Components -->
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
@@ -58,23 +52,23 @@
     <script src="/app/app.js"></script>
     <script src="/app/index.js"></script>
     <!-- Angular Components / Controllers -->
-    <script src="/app/controllers/globalCtrl.js"></script>
-    <script src="/app/controllers/events/eventListCtrl.js"></script>
-    <script src="/app/controllers/events/eventViewCtrl.js"></script>
-    <script src="/app/controllers/events/eventCreateCtrl.js"></script>
-    <script src="/app/controllers/customers/customerListCtrl.js"></script>
-    <script src="/app/controllers/customers/customerViewCtrl.js"></script>
-    <script src="/app/controllers/customers/customerEditCtrl.js"></script>
-    <script src="/app/controllers/customers/customerDeleteCtrl.js"></script>
-    <script src="/app/controllers/customers/customerCreateCtrl.js"></script>
-    <script src="/app/controllers/sites/siteListCtrl.js"></script>
-    <script src="/app/controllers/sites/siteViewCtrl.js"></script>
-    <script src="/app/controllers/sites/siteCreateCtrl.js"></script>
-    <script src="/app/controllers/account/signupCtrl.js"></script>
-    <script src="/app/controllers/account/loginCtrl.js"></script>
-    <script src="/app/controllers/organisation/organisationViewCtrl.js"></script>
+    <script src="/app/controllers/events/eventListController.js"></script>
+    <script src="/app/controllers/events/eventViewController.js"></script>
+    <script src="/app/controllers/events/eventCreateController.js"></script>
+    <script src="/app/controllers/customers/customerListController.js"></script>
+    <script src="/app/controllers/customers/customerViewController.js"></script>
+    <script src="/app/controllers/customers/customerEditController.js"></script>
+    <script src="/app/controllers/customers/customerDeleteController.js"></script>
+    <script src="/app/controllers/customers/customerCreateController.js"></script>
+    <script src="/app/controllers/sites/siteListController.js"></script>
+    <script src="/app/controllers/sites/siteViewController.js"></script>
+    <script src="/app/controllers/sites/siteCreateController.js"></script>
+    <script src="/app/controllers/account/signupController.js"></script>
+    <script src="/app/controllers/account/loginController.js"></script>
+    <script src="/app/controllers/organisation/organisationViewController.js"></script>
     <script src="/app/controllers/ControlPanelController.js"></script>
     <script src="/app/controllers/MainController.js"></script>
+    <script src="/app/controllers/AuthController.js"></script>
     <script src="/app/controllers/MessagesController.js"></script>
     <script src="/app/controllers/ProfileController.js"></script>
     <script src="/app/controllers/SearchController.js"></script>
@@ -101,7 +95,7 @@
     <![endif]-->
   </head>
 
-  <body ng-controller="globalCtrl">
+  <body>
     <div ui-view layout="row" layout-fill></div>
   </body>
 

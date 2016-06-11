@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .controller('siteListCtrl', ['$scope', 'siteFactory', function ($scope, siteFactory) {
+  .controller('siteListController', ['$scope', 'siteFactory', function ($scope, siteFactory) {
 
         siteFactory.list().then(function(data){
           $scope.sites = data.data;
