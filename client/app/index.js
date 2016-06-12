@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
-  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app', 'btford.socket-io'])
+  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app', 'btford.socket-io', 'ngMaps'])
 
   .factory('socket', function (socketFactory) {
     var serverBaseUrl = 'http://localhost:8080';
@@ -15,12 +15,17 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
   })
 
   .factory('httpRequestInterceptor', ['localStorage', function (localStorage) {
-    return {
-      request: function (config) {
+
+    function _request(config) {
+      if (config.url.substring(0,27) !== 'https://maps.googleapis.com') {
         var auth = localStorage.getObject('authentication');
         config.headers['Authorization'] = 'Bearer ' + auth.access_token;
-        return config;
       }
+      return config;
+    };
+
+    return {
+      request: _request
     };
   }])
 
@@ -124,6 +129,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
     });
 
     $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
+
   })
 
   .run(['$rootScope', 'localStorage', function ($rootScope, localStorage) {

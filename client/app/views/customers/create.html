@@ -11,5 +11,19 @@
     <label class="mdl-textfield__label" for="company">Company Company?</label>
     <span class="mdl-textfield__error">Letters and spaces only</span>
   </div>
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="address" pattern="[A-Z,a-z,0-9, ]*" ng-model="vm.customer.address">
+    <label class="mdl-textfield__label" for="address">Address</label>
+    <span class="mdl-textfield__error">Letters, numbers and spaces only</span>
+  </div>
+  <button type="button" class="mdl-button close" ng-click="vm.geocode(vm.customer.address)">Geocode</button>
   <button type="submit" class="mdl-button close">Create</button>
+
+  <style media="screen">
+    .google-map { height: 400px; }
+  </style>
+
+  <map ng-transclude class="google-map" center="vm.map.center" zoom="vm.map.zoom">
+    <marker ng-repeat="marker in vm.map.markers" position="marker.position"></marker>
+  </map>
 </form>
