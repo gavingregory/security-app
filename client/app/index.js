@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
-  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app', 'btford.socket-io', 'ngMaps'])
+  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app', 'btford.socket-io', 'uiGmapgoogle-maps'])
 
   .factory('socket', function (socketFactory) {
     var serverBaseUrl = 'http://localhost:8080';
@@ -30,9 +30,21 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
   }])
 
   .config(function ($httpProvider, $stateProvider, $urlRouterProvider, $mdThemingProvider,
-                    $mdIconProvider) {
-    // add the $http interceptor
+                    $mdIconProvider, uiGmapGoogleMapApiProvider) {
+
+    /* HTTP Interceptor configuration */
+
     $httpProvider.interceptors.push('httpRequestInterceptor');
+
+    /* Google Maps configuration */
+
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyAlnYZjI-QOAzwn8V0zqN9vLgylasTKmhg',
+      v: 3.26,
+      libraries: 'weather,geometry,visualization'
+    });
+
+    /* State configuration */
 
     $stateProvider
       .state('home', {
@@ -88,6 +100,8 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       });
 
     $urlRouterProvider.otherwise('/dashboard');
+
+    /* Material Design configuration */
 
     $mdThemingProvider
       .theme('default')

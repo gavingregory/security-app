@@ -2,9 +2,11 @@ var mongoose = require('mongoose')
   , Schema   = mongoose.Schema;
 
 var addressSchema = new Schema ({
+  lat: Number,
+  lng: Number,
   number: Number,
   street: String,
-  district: String,
+  town: String,
   county: String,
   city: String,
   country: String,

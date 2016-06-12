@@ -1,29 +1,82 @@
-<h1>Create a Customer</h1>
-
-<form class="" ng-submit="vm.create(vm.customer)">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="name" pattern="[A-Z,a-z, ]*" ng-model="vm.customer.name">
-    <label class="mdl-textfield__label" for="name">Company Name</label>
-    <span class="mdl-textfield__error">Letters and spaces only</span>
-  </div>
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="company" pattern="[A-Z,a-z, ]*" ng-model="vm.customer.company">
-    <label class="mdl-textfield__label" for="company">Company Company?</label>
-    <span class="mdl-textfield__error">Letters and spaces only</span>
-  </div>
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="address" pattern="[A-Z,a-z,0-9, ]*" ng-model="vm.customer.address">
-    <label class="mdl-textfield__label" for="address">Address</label>
-    <span class="mdl-textfield__error">Letters, numbers and spaces only</span>
-  </div>
-  <button type="button" class="mdl-button close" ng-click="vm.geocode(vm.customer.address)">Geocode</button>
-  <button type="submit" class="mdl-button close">Create</button>
-
-  <style media="screen">
-    .google-map { height: 400px; }
-  </style>
-
-  <map ng-transclude class="google-map" center="vm.map.center" zoom="vm.map.zoom">
-    <marker ng-repeat="marker in vm.map.markers" position="marker.position"></marker>
-  </map>
+<style media="screen">
+  .angular-google-map-container { max-height: 100%; min-height: 100%; height: 400px; }
+</style>
+<form name="customerForm" class="" ng-submit="vm.create(vm.customer)">
+  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+    <h1>Create a new Customer</h1>
+  </md-content>
+  <md-content class="md-padding" layout="column">
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Name</label>
+        <input ng-model="vm.customer.name" placeholder="The customer's business name">
+      </md-input-container>
+      <md-input-container flex>
+        <label>Trading name</label>
+        <input ng-model="vm.customer.trading_name" placeholder="The customer's trading name">
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <h4>Address</h4>
+    </div>
+    <div layout="row" layout-sm="column">
+      <div flex layout="column" layout-sm="column"> <!-- Left hand column -->
+        <div flex layout="row" layout-sm="column">
+          <md-input-container flex>
+            <label>Address</label>
+            <input ng-model="vm.customer.address.raw" placeholder="Please type in the full address" ng-blur="vm.geocode(vm.customer.address.raw)">
+          </md-input-container>
+        </div>
+        <div flex layout="row" layout-sm="column">
+          <md-input-container flex>
+            <label>Number</label>
+            <input ng-model="vm.customer.address.number" placeholder="Street number" disabled>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Street</label>
+            <input ng-model="vm.customer.address.street" placeholder="Street name" disabled>
+          </md-input-container>
+        </div>
+        <div flex layout="row" layout-sm="column">
+          <md-input-container flex>
+            <label>Town</label>
+            <input ng-model="vm.customer.address.town" placeholder="Town" disabled>
+          </md-input-container>
+        </div>
+        <div flex layout="row" layout-sm="column">
+          <md-input-container flex>
+            <label>County</label>
+            <input ng-model="vm.customer.address.county" placeholder="County" disabled>
+          </md-input-container>
+          <md-input-container flex>
+            <label>City</label>
+            <input ng-model="vm.customer.address.city" placeholder="City" disabled>
+          </md-input-container>
+        </div>
+        <div flex layout="row" layout-sm="column">
+          <md-input-container flex>
+            <label>Country</label>
+            <input ng-model="vm.customer.address.country" placeholder="Country" disabled>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Post Code / ZIP</label>
+            <input ng-model="vm.customer.address.pc_zip" placeholder="Post code / ZIP code" disabled>
+          </md-input-container>
+        </div>
+      </div> <!-- /Left hand column -->
+      <div flex hide-sm layout="column"> <!-- Right hand column -->
+        <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+          <ui-gmap-marker ng-repeat="marker in vm.map.markers" idKey='$index' coords='marker'></ui-gmap-marker>
+        </ui-gmap-google-map>
+      </div> <!-- /Right hand column -->
+    </div>
+  </md-content>
+  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+    <md-button class="md-raised md-warn" ng-click="vm.geocode(vm.customer.address)">
+      Get address
+    </md-button>
+    <md-button type="submit" class="md-raised" ng-click="vm.performProgress()">
+      Create
+    </md-button>
+  </md-content>
 </form>

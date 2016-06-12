@@ -31,6 +31,7 @@
     "angular-material-icons": "^0.7.0",
     "socket.io-client": "^1.4.6",
     "angular-socket-io": "^0.7.0",
-    "ng-maps": "*"
+    "ng-maps": "*",
+    "angular-google-maps": "^2.3.3"
   }
 }

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 , contactSchema = require('./schemas/contact')
+, addressSchema = require('./schemas/address')
 , Site = require('./site')
 , Organisation = require('./organisation').model
 , Schema = mongoose.Schema;
@@ -11,7 +12,8 @@ var Customer = function () {
    */
   var _schema = new Schema({
     name: {type: String, required: true}, /* trading name */
-    company: {type: String, required: true}, /* registered company name */
+    trading_name: {type: String}, /* registered company name */
+    address: addressSchema,
     contacts: [ contactSchema ],
     organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
   }, { timestamps: true });
