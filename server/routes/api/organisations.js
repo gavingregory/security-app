@@ -18,11 +18,11 @@ module.exports = function (express, passport, io) {
     console.log(req.body);
     if (!req.body) throw new Error('Need a body.');
     if (!req.body.user) throw new Error('Need a user.');
-    var _organisation = new Organisation(req.body);
+    var _organisation = new Organisation.model(req.body);
     _organisation.save(function(err, organisation){
       if (err) return res.send(err);
       req.body.user.domain = organisation._id;
-      var _user = new User(req.body.user);
+      var _user = new User.model(req.body.user);
       _user.save(function (err, user) {
         if (err) return res.send(err);
         return res.send({user: user, organisation: organisation});
