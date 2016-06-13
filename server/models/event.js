@@ -43,6 +43,7 @@ var Event = function () {
     if (!authenticated_user.domain) throw new Error('User domain required.');
     properties.organisation = authenticated_user.domain;
     var c = new _model(properties);
+    console.log(c);
     c.save(cb);
   };
 

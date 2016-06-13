@@ -1,24 +1,37 @@
 <h1>Create an Event</h1>
 
-<form ng-submit=createEvent(event) ng-show="sites.length">
+<form name="eventForm" class="" ng-submit=vm._create(vm.event)>
+  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+      <h1>Create a new Event</h1>
+  </md-content>
+  <md-content class="md-padding" layout="column">
 
-  <div class="">
-    <select class="" name="" ng-model="event.site">
-      <option ng-repeat="s in sites" value="{{s._id}}">{{s.name}}</option>
-    </select>
-  </div>
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <select class="" name="" ng-model="vm.event.site">
+          <option ng-repeat="s in sites" value="{{s._id}}">{{s.name}}</option>
+        </select>
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <input class="mdl-textfield__input" type="text" id="category" ng-model="vm.event.category">
+        <label class="mdl-textfield__label" for="category">Event Category:</label>
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <input class="mdl-textfield__input" type="text" id="comment" ng-model="vm.event.comment">
+        <label class="mdl-textfield__label" for="name">Comment</label>
+      </md-input-container>
+    </div>
+  </md-content>
+  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
 
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="category" ng-model="event.category">
-    <label class="mdl-textfield__label" for="category">Event Category:</label>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="comment" ng-model="event.comment">
-    <label class="mdl-textfield__label" for="name">Comment</label>
-  </div>
-
-<button type="submit" name="button">Create</button>
+     <md-button type="submit" class="md-raised" ng-click="vm.create(vm.event)">
+       Create
+     </md-button>
+  </md-content>
 </form>
 
 <div class="" ng-hide="sites.length">
