@@ -61,6 +61,9 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
           title: 'Dashboard'
         }
       })
+
+      /* State: Organisation */
+
       .state('home.organisation', {
         url: '/organisation',
         templateUrl: 'app/views/organisation/view.html',
@@ -70,6 +73,29 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
           title: 'Organisation'
         }
       })
+      .state('home.organisation.edit', {
+        url: '/organisation/edit',
+        templateUrl: 'app/views/organisation/edit.html',
+        controller: 'OrganisationEditController',
+        controllerAs: 'vm',
+        data: {
+          title: 'Edit your Organisation'
+        },
+        parent: 'home'
+      })
+      .state('home.organisation.view', {
+        url: '/organisation',
+        templateUrl: 'app/views/organisation/view.html',
+        controller: 'OrganisationViewController',
+        controllerAs: 'vm',
+        data: {
+          title: 'View an Organisation'
+        },
+        parent: 'home'
+      })
+
+      /* State: Events */
+
       .state('home.events', {
         url: '/events',
         controller: 'EventListController',
@@ -78,6 +104,75 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         data: {
           title: 'Events'
         }
+      })
+      .state('home.events.create', {
+        url: '/events',
+        controller: 'EventCreateController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/events/create.html',
+        data: {
+          title: 'Create an Event'
+        },
+        parent: 'home'
+      })
+      .state('home.events.edit', {
+        url: '/events',
+        controller: 'EventEditController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/events/edit.html',
+        data: {
+          title: 'Edit an Event'
+        },
+        parent: 'home'
+      })
+      .state('home.events.view', {
+        url: '/events',
+        controller: 'EventViewController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/events/view.html',
+        data: {
+          title: 'View an Event'
+        },
+        parent: 'home'
+      })
+      .state('home.sites', {
+        url: '/sites',
+        controller: 'SiteListController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/sites/list.html',
+        data: {
+          title: 'Sites'
+        }
+      })
+      .state('home.sites.create', {
+        url: '/sites',
+        controller: 'SiteCreateController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/sites/create.html',
+        data: {
+          title: 'Create a Site'
+        },
+        parent: 'home'
+      })
+      .state('home.sites.edit', {
+        url: '/sites',
+        controller: 'SiteEditController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/sites/edit.html',
+        data: {
+          title: 'Edit a Site'
+        },
+        parent: 'home'
+      })
+      .state('home.sites.view', {
+        url: '/sites',
+        controller: 'SiteViewController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/sites/view.html',
+        data: {
+          title: 'View a Site'
+        },
+        parent: 'home'
       })
       .state('home.customers', {
         url: '/customers',
@@ -95,6 +190,26 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         templateUrl: 'app/views/customers/create.html',
         data: {
           title: 'Create a Customer'
+        },
+        parent: 'home'
+      })
+      .state('home.customers.edit', {
+        url: '/customers/edit',
+        controller: 'CustomerEditController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/customers/edit.html',
+        data: {
+          title: 'Edit a Customer'
+        },
+        parent: 'home'
+      })
+      .state('home.customers.view', {
+        url: '/customers/view',
+        controller: 'CustomerViewController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/customers/view.html',
+        data: {
+          title: 'View a Customer'
         },
         parent: 'home'
       });
