@@ -54,7 +54,7 @@
     function _create(customer) {
       customerFactory.create(customer)
         .then(function (resp) {
-          $state.go('home.customers');
+          $state.go('home.customers.list');
         })
         .catch(function (resp) {
           toastFactory.showSimpleToast('Error creating customer');
