@@ -15,6 +15,9 @@ angular.module('logApp')
       },
       delete: function (custId, siteId) {
         return $http.delete('api/v1/customers/' + custId + '/sites/' + siteId);
+      },
+      find: function (custId, params) {
+        return $http.get('api/v1/customers/' + custId + '/sites/', params);
       }
     };
   }]);

@@ -190,7 +190,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         parent: 'home'
       })
       .state('home.customers.edit', {
-        url: '/customers/edit',
+        url: '/customers/edit/:customer_id',
         controller: 'CustomerEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/edit.html',
@@ -200,12 +200,22 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         parent: 'home'
       })
       .state('home.customers.view', {
-        url: '/customers/view',
+        url: '/customers/view/:customer_id',
         controller: 'CustomerViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/view.html',
         data: {
           title: 'View a Customer'
+        },
+        parent: 'home'
+      })
+      .state('home.customers.delete', {
+        url: '/customers/delete/:customer_id',
+        controller: 'CustomerDeleteController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/customers/delete.html',
+        data: {
+          title: 'Delete a Customer'
         },
         parent: 'home'
       });
