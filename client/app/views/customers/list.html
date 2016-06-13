@@ -24,13 +24,13 @@
       <td data-title="Created">{{row.createdAt}}</td>
       <td data-title="Updated">{{row.updatedAt}}</td>
       <td data-title="View">
-        <button ui-sref="home.customers.view" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
+        <button ui-sref="home.customers.view({customer_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
       </td>
       <td data-title="Edit">
-        <button ui-sref="home.customers.edit" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
+        <button ui-sref="home.customers.edit({customer_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
       </td>
       <td data-title="Delete">
-        <button ui-sref="home.customers.delete" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
+        <button ui-sref="home.customers.delete({customer_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
       </td>
     </tr>
     </tbody>
