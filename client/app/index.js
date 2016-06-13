@@ -194,7 +194,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       })
       .state('home.customers.list', {
         url: '',
-        controller: 'EventListController',
+        controller: 'CustomerListController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/list.html',
         data: {
