@@ -85,9 +85,13 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       })
 
       /* State: Events */
-
       .state('home.events', {
+        abstract: true,
         url: '/events',
+        templateUrl: 'app/views/parent.html',
+      })
+      .state('home.events.list', {
+        url: '',
         controller: 'EventListController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/list.html',
@@ -96,40 +100,49 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         }
       })
       .state('home.events.create', {
-        url: '/events/create',
+        url: '/create',
         controller: 'EventCreateController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/create.html',
         data: {
           title: 'Create an Event'
         },
-        parent: 'home'
       })
       .state('home.events.edit', {
-        url: '/events/edit',
+        url: '/edit/:id',
         controller: 'EventEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/edit.html',
         data: {
           title: 'Edit an Event'
         },
-        parent: 'home'
       })
       .state('home.events.view', {
-        url: '/events/view',
+        url: '/view/:id',
         controller: 'EventViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/view.html',
         data: {
           title: 'View an Event'
         },
-        parent: 'home'
       })
-
+      .state('home.events.delete', {
+        url: '/delete/:id',
+        controller: 'EventDeleteController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/events/delete.html',
+        data: {
+          title: 'Delete an Event'
+        },
+      })
       /* State: Sites */
-
       .state('home.sites', {
+        abstract: true,
         url: '/sites',
+        templateUrl: 'app/views/parent.html',
+      })
+      .state('home.sites.list', {
+        url: '',
         controller: 'SiteListController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/list.html',
@@ -138,49 +151,58 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         }
       })
       .state('home.sites.create', {
-        url: '/sites/create',
+        url: '/create',
         controller: 'SiteCreateController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/create.html',
         data: {
           title: 'Create a Site'
-        },
-        parent: 'home'
+        }
       })
       .state('home.sites.edit', {
-        url: '/sites/edit',
+        url: '/edit/:id',
         controller: 'SiteEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/edit.html',
         data: {
           title: 'Edit a Site'
-        },
-        parent: 'home'
+        }
       })
       .state('home.sites.view', {
-        url: '/sites/view',
+        url: '/view/:id',
         controller: 'SiteViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/view.html',
         data: {
           title: 'View a Site'
-        },
-        parent: 'home'
+        }
       })
-
+      .state('home.sites.delete', {
+        url: '/delete/:id',
+        controller: 'SiteDeleteController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/sites/delete.html',
+        data: {
+          title: 'Delete a Site'
+        },
+      })
       /* State: Customers */
-
       .state('home.customers', {
+        abstract: true,
         url: '/customers',
-        controller: 'CustomerListController',
+        templateUrl: 'app/views/parent.html',
+      })
+      .state('home.customers.list', {
+        url: '',
+        controller: 'EventListController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/list.html',
         data: {
-          title: 'Customers'
+          title: 'Events'
         }
       })
       .state('home.customers.create', {
-        url: '/customers/create',
+        url: '/create',
         controller: 'CustomerCreateController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/create.html',
@@ -190,34 +212,31 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         parent: 'home'
       })
       .state('home.customers.edit', {
-        url: '/customers/edit/:customer_id',
+        url: '/edit/:customer_id',
         controller: 'CustomerEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/edit.html',
         data: {
           title: 'Edit a Customer'
         },
-        parent: 'home'
       })
       .state('home.customers.view', {
-        url: '/customers/view/:customer_id',
+        url: '/view/:customer_id',
         controller: 'CustomerViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/view.html',
         data: {
           title: 'View a Customer'
         },
-        parent: 'home'
       })
       .state('home.customers.delete', {
-        url: '/customers/delete/:customer_id',
+        url: '/delete/:customer_id',
         controller: 'CustomerDeleteController',
         controllerAs: 'vm',
         templateUrl: 'app/views/customers/delete.html',
         data: {
           title: 'Delete a Customer'
         },
-        parent: 'home'
       });
 
     $urlRouterProvider.otherwise('/dashboard');

@@ -17,12 +17,12 @@
       {
         name: 'Events',
         icon: 'storage',
-        sref: '.events'
+        sref: '.events.list'
       },
       {
         name: 'Customers',
         icon: 'perm_contact_calendar',
-        sref: '.customers'
+        sref: '.customers.list'
       },
       {
         name: 'Organisation',
