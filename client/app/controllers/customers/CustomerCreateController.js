@@ -17,7 +17,7 @@
 
     vm.map = {
       center: { latitude: 53.5873599, longitude: -2.57864},
-      markers: [{ latidude : 53.5873599, longitude: -2.57864 }],
+      markers: [],
       zoom: 8
     };
 
@@ -25,7 +25,7 @@
       if (address.length > 5)
       geocodeFactory.geocode(address)
         .then(function (res) {
-          toastFactory.showSimpleToast('Success geocoding');
+          toastFactory.showSimpleToast('Address successfully retrieved.');
           console.log(res.data);
           var location = res.data.results[0].geometry.location;
           vm.map.markers = [].concat({
@@ -34,6 +34,8 @@
           vm.map.center = vm.map.markers[0];
           vm.map.zoom = 12;
 
+          vm.customer.address.lat = location.lat;
+          vm.customer.address.lng = location.lng;
           vm.customer.address.raw = res.data.results[0].formatted_address;
           vm.customer.address.number = res.data.results[0].address_components[0].long_name;
           vm.customer.address.street = res.data.results[0].address_components[1].long_name;
