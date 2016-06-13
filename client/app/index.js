@@ -83,16 +83,6 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         },
         parent: 'home'
       })
-      .state('home.organisation.view', {
-        url: '/organisation',
-        templateUrl: 'app/views/organisation/view.html',
-        controller: 'OrganisationViewController',
-        controllerAs: 'vm',
-        data: {
-          title: 'View an Organisation'
-        },
-        parent: 'home'
-      })
 
       /* State: Events */
 
@@ -106,7 +96,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         }
       })
       .state('home.events.create', {
-        url: '/events',
+        url: '/events/create',
         controller: 'EventCreateController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/create.html',
@@ -116,7 +106,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         parent: 'home'
       })
       .state('home.events.edit', {
-        url: '/events',
+        url: '/events/edit',
         controller: 'EventEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/edit.html',
@@ -126,7 +116,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         parent: 'home'
       })
       .state('home.events.view', {
-        url: '/events',
+        url: '/events/view',
         controller: 'EventViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/view.html',
@@ -135,6 +125,9 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         },
         parent: 'home'
       })
+
+      /* State: Sites */
+
       .state('home.sites', {
         url: '/sites',
         controller: 'SiteListController',
@@ -145,7 +138,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         }
       })
       .state('home.sites.create', {
-        url: '/sites',
+        url: '/sites/create',
         controller: 'SiteCreateController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/create.html',
@@ -155,7 +148,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         parent: 'home'
       })
       .state('home.sites.edit', {
-        url: '/sites',
+        url: '/sites/edit',
         controller: 'SiteEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/edit.html',
@@ -165,7 +158,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         parent: 'home'
       })
       .state('home.sites.view', {
-        url: '/sites',
+        url: '/sites/view',
         controller: 'SiteViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/view.html',
@@ -174,6 +167,9 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
         },
         parent: 'home'
       })
+
+      /* State: Customers */
+
       .state('home.customers', {
         url: '/customers',
         controller: 'CustomerListController',
