@@ -15,6 +15,14 @@ angular.module('logApp')
       },
       delete: function (id) {
         return $http.delete('api/v1/customers/' + id);
+      },
+      find: function (params) {
+        return $http({
+          url: 'api/v1/customers',
+          method: 'GET',
+          params: params,
+          paramSerializer: '$httpParamSerializerJQLike'
+        });
       }
     };
   }]);

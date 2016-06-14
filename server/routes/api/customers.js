@@ -15,7 +15,7 @@ module.exports = function (express, passport, io) {
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     Customer.getAll(req.user, function (err, data) {
-      if (err) return res.status(500).send(err);
+      if (err) return res.status(codes.bad_request).send(err);
       return res.send(data);
     });
   });
@@ -46,8 +46,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers
    */
   customerRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Customer.findById(req.user, req.params.customer_id, function (err, data) {
+      if (err) return res.status(codes.bad_request).send(err);
+      return res.send(data);
+    });
   });
 
   /**

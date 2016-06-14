@@ -64,6 +64,12 @@ var Customer = function () {
     _model.find({organisation: authenticated_user.domain, name: name}, cb);
   };
 
+  var _findById = function (authenticated_user, id, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    _model.findOne({organisation: authenticated_user.domain, _id: id}, cb);
+  };
+
   var _getAll = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
@@ -88,6 +94,7 @@ var Customer = function () {
     schema: _schema,
     create: _create,
     findByName: _findByName,
+    findById: _findById,
     getAll: _getAll,
     remove: _remove
   };
