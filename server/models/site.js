@@ -38,6 +38,7 @@ var Site = function () {
   var _create = function (authenticated_user, properties, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
+    properties.domain = authenticated_user.domain;
     var c = new _model(properties);
     c.save(cb);
   };

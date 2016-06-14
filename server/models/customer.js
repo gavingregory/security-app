@@ -15,6 +15,7 @@ var Customer = function () {
     trading_name: {type: String}, /* registered company name */
     address: addressSchema,
     contacts: [ contactSchema ],
+    domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
     organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
   }, { timestamps: true });
 
@@ -52,6 +53,7 @@ var Customer = function () {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
     properties.organisation = authenticated_user.domain;
+    properties.domain = authenticated_user.domain;
     var c = new _model(properties);
     c.save(cb);
   };
