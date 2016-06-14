@@ -13,6 +13,7 @@ var Site = function () {
     name: String,
     address: { addressSchema },
     contacts: [ contactSchema ],
+    domain: {type: Schema.Types.ObjectId, ref: 'Customer', required: true },
     customer: {type: Schema.Types.ObjectId, ref: 'Customer', required: true }
   }, { timestamps: true });
 
@@ -30,7 +31,7 @@ var Site = function () {
    * Public Functions
    */
 
-  var _getAll = function (authenticated_user, cb, option) {
+  var _getAll = function (authenticated_user, cb) {
     return _model.find({domain: authenticated_user.domain}, {name:1, type:1, size:1, address:1, contacts:1}, cb);
   };
 
@@ -41,6 +42,12 @@ var Site = function () {
     c.save(cb);
   };
 
+  var _find = function (authenticated_user, cb, params) {
+    var query = { domain: authenticated_user.domain };
+    if (params.customer) query.customer = params.customer;
+    return  _model.find(query, cb)
+  }
+
   /**
    * Module Export API
    */
@@ -49,7 +56,8 @@ var Site = function () {
     schema: _schema,
     model: _model,
     getAll: _getAll,
-    create: _create
+    create: _create,
+    find: _find
   };
 
 }();

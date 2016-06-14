@@ -1,22 +1,32 @@
-var codes = require('../../helpers/httpCodes');
-var Site = require ('../../models/site');
+var codes = require('../../helpers/httpCodes')
+  , Site = require ('../../models/site')
+  , util = require('util');
+
 module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var siteRouter = express.Router({ mergeParams:true });
 
   /**
-   * @api {get} / Gets a list of the customers sites.
+   * @api {get} / Gets a list of the customers sites. If no query is provided,
+   * it returns all sites. If a query is provided, the results will be filtered.
    * @apiName ListSites
    * @apiGroup Sites
    *
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/customers/123/sites
+   *
+   *   body (optional):
+   *   {
+   *     "query.customer": "1234"
+   *   }
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return Site.getAll(function(err, data){
+    var cb = function(err, data){
       if (err) res.send({_errors: err})
       else res.send( data );
-    }, "option");
+    };
+    if (req.query) { console.log('query'); return Site.find(req.user, cb, req.query); }
+    else return Site.getAll(req.user, cb);
   });
 
   /**
@@ -26,6 +36,11 @@ module.exports = function (express, passport, io) {
    *
    * @apiExample Example usage:
    *   endpoint: http://localhost:8080/api/v1/customers/123/sites
+   *
+   *   body:
+   *   {
+   *     "name": "A site name"
+   *   }
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     Site.create(req.user, req.body, function (err, data) {

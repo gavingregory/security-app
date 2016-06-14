@@ -12,7 +12,7 @@
     var vm = this;
     vm.sites = [];
 
-    siteFactory.find($stateParams.customer_id, {})
+    siteFactory.find($stateParams.customer_id, { 'customer': $stateParams.customer_id })
       .then(function (resp) {
         vm.sites = [].concat(resp.data);
       })

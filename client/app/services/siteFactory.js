@@ -1,5 +1,5 @@
 angular.module('logApp')
-  .factory('siteFactory', ['$http', function ($http) {
+  .factory('siteFactory', ['$http', '$httpParamSerializerJQLike', function ($http, $httpParamSerializerJQLike) {
     return {
       list: function (id) {
         return $http.get('api/v1/customers/' + id + '/sites');
@@ -17,7 +17,12 @@ angular.module('logApp')
         return $http.delete('api/v1/customers/' + custId + '/sites/' + siteId);
       },
       find: function (custId, params) {
-        return $http.get('api/v1/customers/' + custId + '/sites/', params);
+        return $http({
+          url: 'api/v1/customers/' + custId + '/sites',
+          method: 'GET',
+          params: params,
+          paramSerializer: '$httpParamSerializerJQLike'
+        });
       }
     };
   }]);

@@ -90,6 +90,7 @@ passport.use(new BearerStrategy(
 /**
  * Routes
  */
+
 app.use('/api/v1', require('./routes/api')(express, passport, io));
 
 /**
