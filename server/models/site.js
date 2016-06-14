@@ -11,7 +11,7 @@ var Site = function () {
 
   var _schema = new Schema({
     name: String,
-    address: { addressSchema },
+    address: addressSchema,
     contacts: [ contactSchema ],
     domain: {type: Schema.Types.ObjectId, ref: 'Customer', required: true },
     customer: {type: Schema.Types.ObjectId, ref: 'Customer', required: true }
