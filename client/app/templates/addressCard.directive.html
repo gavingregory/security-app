@@ -1,0 +1,52 @@
+<div layout="row" layout-sm="column">
+  {{address}}
+  <div flex layout="column" layout-sm="column"> <!-- Left hand column -->
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Address</label>
+        <input ng-model="vm.address.raw" placeholder="Please type in the full address" ng-blur="vm.geocode(vm.address.raw)">
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Number</label>
+        <input ng-model="vm.address.number" placeholder="Street number" disabled>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Street</label>
+        <input ng-model="vm.address.street" placeholder="Street name" disabled>
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Town</label>
+        <input ng-model="vm.address.town" placeholder="Town" disabled>
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>County</label>
+        <input ng-model="vm.address.county" placeholder="County" disabled>
+      </md-input-container>
+      <md-input-container flex>
+        <label>City</label>
+        <input ng-model="vm.address.city" placeholder="City" disabled>
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Country</label>
+        <input ng-model="vm.address.country" placeholder="Country" disabled>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Post Code / ZIP</label>
+        <input ng-model="vm.address.pc_zip" placeholder="Post code / ZIP code" disabled>
+      </md-input-container>
+    </div>
+  </div> <!-- /Left hand column -->
+  <div flex hide-sm layout="column" ng-hide="vm.hideMap"> <!-- Right hand column -->
+    <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+      <ui-gmap-marker ng-repeat="marker in vm.map.markers" idKey='$index' coords='marker'></ui-gmap-marker>
+    </ui-gmap-google-map>
+  </div> <!-- /Right hand column -->
+</div>
