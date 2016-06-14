@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-  .module('logApp')
+  .module('app')
   .controller('EventCreateController', [
   '$log', '$state', 'eventFactory', 'siteFactory', 'toastFactory',
     EventCreateController
@@ -18,9 +18,9 @@
     _fetchSites();
 
     function _create(event) {
-      eventFactory.create(vm.event)
+      eventFactory.create(event)
         .then(function (resp) {
-          $state.go('home.events');
+          $state.go('home.events.list');
         })
         .catch(function (resp) {
           toastFactory.showSimpleToast('Error creating event');

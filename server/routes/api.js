@@ -6,5 +6,6 @@ module.exports = function (express, passport, io) {
   router.use('/organisations', require('./api/organisations')(express, passport, io));
   router.use('/sites', require('./api/sites')(express, passport, io));
   router.use('/maps', require('./api/maps')(express, passport, io));
+  router.use('/categories', require('./api/categories')(express, passport, io));
   return router;
 }

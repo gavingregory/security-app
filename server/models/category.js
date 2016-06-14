@@ -1,27 +1,24 @@
 var mongoose = require('mongoose'),
-  contactSchema = require('./schemas/contact'),
-  commentSchema = require('./schemas/comment'),
   Schema = mongoose.Schema;
 
-var Event = function () {
+var Category = function () {
 
   /**
-   * Event Schema
+   * Category Schema
    */
 
-  var _schema = new Schema({
+  var _schema = Schema({
     domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
-    site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
-    logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
-    category: { type: Schema.Types.ObjectId, ref: 'EventCategory', required: true },
-    comments: [{ commentSchema }],
+    name: {type: String, required: true},
+    colour: {type: String, required: true},
+    description: {type:String}
   }, { timestamps: true });
 
   /**
    * Event Model
    */
 
-  var _model = mongoose.model('Event', _schema);
+  var _model = mongoose.model('Category', _schema);
 
   /**
    * Public Functions
@@ -42,18 +39,8 @@ var Event = function () {
   var _create = function (authenticated_user, properties, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    properties.site = 123; // temporary until sites implemented
-    properties.organisation = authenticated_user.domain;
-    properties.logged_by = authenticated_user._id;
-    var temp_comment = properties.comments;
-    properties.comments = [
-      {
-        'comment': temp_comment,
-        'createdBy': authenticated_user
-      }
-    ]
+    properties.domain = authenticated_user.domain;
     var c = new _model(properties);
-    console.log(c);
     c.save(cb, function(err){
       console.log(err);
     });
@@ -84,4 +71,4 @@ var Event = function () {
 
 }();
 
-module.exports = Event;
+module.exports = Category;

@@ -1,0 +1,24 @@
+
+  <h1>Category List</h1>
+
+  <button ui-sref="home.categories.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create a Category"><span class="ng-scope">Create a Category</span><div class="md-ripple-container"></div></button>
+
+
+  <div class="table-responsive-vertical md-whiteframe-z1">
+      <table id="table" class="table table-hover table-bordered">
+          <thead>
+          <tr>
+              <th>#</th>
+              <th>Created</th>
+              <th>Updated</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="row in categories">
+              <td data-title="ID">{{row._id}}</td>
+              <td data-title="Created">{{row.createdAt}}</td>
+              <td data-title="Updated">{{row.updatedAt}}</td>
+          </tr>
+          </tbody>
+      </table>
+  </div>

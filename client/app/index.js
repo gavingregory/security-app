@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
-  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app', 'btford.socket-io', 'uiGmapgoogle-maps'])
+  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app', 'btford.socket-io', 'uiGmapgoogle-maps', 'mdColorPicker'])
 
   .factory('socket', function (socketFactory) {
     var serverBaseUrl = 'http://localhost:8080';
@@ -63,7 +63,6 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       })
 
       /* State: Organisation */
-
       .state('home.organisation', {
         url: '/organisation',
         templateUrl: 'app/views/organisation/view.html',
@@ -135,6 +134,59 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
           title: 'Delete an Event'
         },
       })
+
+      /* State: Categories */
+      .state('home.categories', {
+        abstract: true,
+        url: '/categories',
+        templateUrl: 'app/views/parent.html',
+      })
+      .state('home.categories.list', {
+        url: '',
+        controller: 'CategoryListController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/categories/list.html',
+        data: {
+          title: 'Categories'
+        }
+      })
+      .state('home.categories.create', {
+        url: '/category',
+        controller: 'CategoryCreateController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/categories/create.html',
+        data: {
+          title: 'Create a Category'
+        },
+      })
+      .state('home.categories.edit', {
+        url: '/edit/:id',
+        controller: 'CategoryEditController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/categories/edit.html',
+        data: {
+          title: 'Edit a Category'
+        },
+      })
+      .state('home.categories.view', {
+        url: '/view/:id',
+        controller: 'CategoryViewController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/categories/view.html',
+        data: {
+          title: 'View a Category'
+        },
+      })
+      .state('home.categories.delete', {
+        url: '/delete/:id',
+        controller: 'CategoryDeleteController',
+        controllerAs: 'vm',
+        templateUrl: 'app/views/categories/delete.html',
+        data: {
+          title: 'Delete a Category'
+        },
+      })
+
       /* State: Sites */
       .state('home.sites', {
         abstract: true,

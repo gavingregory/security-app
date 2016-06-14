@@ -28,6 +28,11 @@
         name: 'Organisation',
         icon: 'account_balance',
         sref: '.organisation'
+      },
+      {
+        name: 'Categories',
+        icon: 'storage',
+        sref: '.categories.list'
       }
     ];
 
