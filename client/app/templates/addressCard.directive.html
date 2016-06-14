@@ -45,8 +45,8 @@
     </div>
   </div> <!-- /Left hand column -->
   <div flex hide-sm layout="column" ng-hide="vm.hideMap"> <!-- Right hand column -->
-    <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
-      <ui-gmap-marker ng-repeat="marker in vm.map.markers" idKey='$index' coords='marker'></ui-gmap-marker>
+    <ui-gmap-google-map center="vm.map.center" zoom="vm.map.zoom">
+      <ui-gmap-marker ng-repeat="marker in vm.map.markers" idKey="$index" coords="marker"></ui-gmap-marker>
     </ui-gmap-google-map>
   </div> <!-- /Right hand column -->
 </div>

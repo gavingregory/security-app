@@ -27,7 +27,7 @@
     function _create(customer) {
       siteFactory.create(vm.site)
         .then(function(res){
-          $state.go('home.sites.list');
+          $state.go('home.customers.view', {customer_id: vm.site.customer});
         })
         .catch(function(err){
           toastFactory.showSimpleToast('Error creating the site!');

@@ -32,8 +32,8 @@
         geocodeFactory.geocode(address)
           .then(function (res) {
             toastFactory.showSimpleToast('Address successfully retrieved.');
-            console.log(res.data);
             var location = res.data.results[0].geometry.location;
+            var components = res.data.results[0].address_components;
             vm.map.markers = [].concat({
               latitude: location.lat, longitude: location.lng
             });
@@ -43,13 +43,13 @@
             vm.address.lat = location.lat;
             vm.address.lng = location.lng;
             vm.address.raw = res.data.results[0].formatted_address;
-            vm.address.number = res.data.results[0].address_components[0].long_name;
-            vm.address.street = res.data.results[0].address_components[1].long_name;
-            vm.address.town = res.data.results[0].address_components[2].long_name;
-            vm.address.city = res.data.results[0].address_components[3].long_name;
-            vm.address.county = res.data.results[0].address_components[4].long_name;
-            vm.address.country = res.data.results[0].address_components[5].long_name;
-            vm.address.pc_zip = res.data.results[0].address_components[6].long_name;
+            vm.address.number = components[0] ? components[0].long_name : ' ';
+            vm.address.street = components[1] ? components[1].long_name : ' ';
+            vm.address.town = components[2] ? components[2].long_name : ' ';
+            vm.address.city = components[3] ? components[3].long_name : ' ';
+            vm.address.county = components[4] ? components[4].long_name : ' ';
+            vm.address.country = components[5] ? components[5].long_name : ' ';
+            vm.address.pc_zip = components[6] ? components[6].long_name : ' ';
           })
           .catch(function (res) {
             toastFactory.showSimpleToast('Error geocoding');

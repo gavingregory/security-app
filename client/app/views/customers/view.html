@@ -8,37 +8,42 @@
 </p>
 
 <h4>Sites</h4>
-<div class="table-responsive-vertical md-whiteframe-z1">
-  <table id="table" class="table table-hover table-bordered" ng-show="vm.sites.length">
-    <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Created</th>
-      <th>Updated</th>
-      <th>View</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="row in vm.sites">
-      <td data-title="ID">{{row._id}}</td>
-      <td data-title="Name">{{row.name}}</td>
-      <td data-title="Created">{{row.createdAt}}</td>
-      <td data-title="Updated">{{row.updatedAt}}</td>
-      <td data-title="View">
-        <button ui-sref="home.sites.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
-      </td>
-      <td data-title="Edit">
-        <button ui-sref="home.sites.edit({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
-      </td>
-      <td data-title="Delete">
-        <button ui-sref="home.sites.delete({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div ng-show="vm.sites.length">
+  <div class="table-responsive-vertical md-whiteframe-z1">
+    <table id="table" class="table table-hover table-bordered">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Updated</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in vm.sites">
+        <td data-title="ID">{{row._id}}</td>
+        <td data-title="Name">{{row.name}}</td>
+        <td data-title="Created">{{row.createdAt}}</td>
+        <td data-title="Updated">{{row.updatedAt}}</td>
+        <td data-title="View">
+          <button ui-sref="home.sites.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
+        </td>
+        <td data-title="Edit">
+          <button ui-sref="home.sites.edit({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
+        </td>
+        <td data-title="Delete">
+          <button ui-sref="home.sites.delete({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <ui-gmap-google-map center="vm.map.center" zoom="vm.map.zoom">
+      <ui-gmap-markers models="vm.map.markers" coords="'self'" fit="true"></ui-gmap-markers>
+  </ui-gmap-google-map>
 </div>
 <p ng-hide="vm.sites.length">
   No sites are available for this customer. Click <button ui-sref="home.sites.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Add site"><span class="ng-scope">Add site</span><div class="md-ripple-container"></div></button>
