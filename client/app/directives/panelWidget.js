@@ -6,7 +6,7 @@ angular.module('app')
       restrict: 'E',
       replace: true,
       transclude: true,
-      scope: { title: '@', template: '@', options: '@' },
+      scope: { title: '@', template: '@', options: '@', auth: '=' },
       template: '' +
                 '<section layout-margin class="md-whiteframe-z1 panel-widget">' +
                 '  <md-toolbar md-theme="custom" class="md-hue-1 panel-widget-toolbar">' +
