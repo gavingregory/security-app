@@ -12,9 +12,9 @@ var Event = function () {
   var _schema = new Schema({
     domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
     site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
-    logged_by: { name: String, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
-    category: { type: Schema.Types.ObjectId, ref: 'EventCategory', required: true },
-    comments: [{ commentSchema }],
+    loggedBy: { name: {first: String, last: String}, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
+    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
+    comment: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   }, { timestamps: true });
 
   /**
@@ -40,18 +40,13 @@ var Event = function () {
   };
 
   var _create = function (authenticated_user, properties, cb) {
+    console.log("AUTHENTICATED" + authenticated_user);
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    properties.site = 123; // temporary until sites implemented
-    properties.organisation = authenticated_user.domain;
-    properties.logged_by = authenticated_user._id;
-    var temp_comment = properties.comments;
-    properties.comments = [
-      {
-        'comment': temp_comment,
-        'createdBy': authenticated_user
-      }
-    ]
+    properties.domain = authenticated_user.domain;
+    properties.loggedBy = {}
+    properties.loggedBy.name = {first: authenticated_user.name.first, last: authenticated_user.name.last};
+    properties.loggedBy.link = authenticated_user._id;
     var c = new _model(properties);
     console.log(c);
     c.save(cb, function(err){
