@@ -2,7 +2,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-var Category = function () {
+var Comment = function () {
 
   /**
    * Category Schema
@@ -11,8 +11,8 @@ var Category = function () {
   var _schema = Schema({
     domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
     event: {type: Schema.Types.ObjectId, ref: 'Event', required: true },
-    loggedBy: { name: String, user: { type: Schema.Types.ObjectId, ref: 'User' }},
-    comment: String,
+    loggedBy: { name: {first: String, last: String}, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
+    comment: { type: String, required: true },
   }, { timestamps: true });
 
   /**
@@ -41,14 +41,12 @@ var Category = function () {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
     properties.domain = authenticated_user.domain;
-    properties.loggedBy = {}
-    properties.loggedBy.name = {first: authenticated_user.name.first, last: authenticated_user.name.last};
-    properties.loggedBy.link = authenticated_user._id;
+    properties.loggedBy = {
+      name: authenticated_user.name,
+      link: authenticated_user._id
+    };
     var c = new _model(properties);
-    c.save(cb, function(err){
-      console.log(err);
-    });
-    console.log("done");
+    c.save(cb);
   };
 
   var _remove = function (authenticated_user, id, cb) {
@@ -76,4 +74,4 @@ var Category = function () {
 
 }();
 
-module.exports = Category;
+module.exports = Comment;

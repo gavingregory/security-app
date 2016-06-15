@@ -238,6 +238,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
           title: 'Delete a Site'
         },
       })
+
       /* State: Customers */
       .state('home.customers', {
         abstract: true,
@@ -333,9 +334,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
       'A400': '#E75753',
       'A700': '#E75753'
     });
-
     $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
-
   })
 
   .run(['$rootScope', 'localStorage', function ($rootScope, localStorage) {

@@ -1,6 +1,6 @@
 
 
-<form name="eventForm" class="" ng-submit=vm._create(vm.event) ng-show="vm.categories.length">
+<form name="eventForm" class="" ng-submit=vm.create(vm.data)>
   <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
       <h1>Create a new Event</h1>
   </md-content>
@@ -8,7 +8,7 @@
 
     <div flex layout="row" layout-sm="column">
       <md-input-container flex>
-        <md-select placeholder="Select a site.." ng-model="vm.event.site">
+        <md-select placeholder="Select a site.." ng-model="vm.data.event.site">
           <md-option ng-repeat="s in vm.sites" ng-value="s._id">{{s.name}}</md-option>
         </md-select>
       </md-input-container>
@@ -16,20 +16,22 @@
 
     <div flex layout="row" layout-sm="column">
       <md-input-container flex>
-        <md-select placeholder="Select a category.." ng-model="vm.event.category">
+        <md-select placeholder="Select a category.." ng-model="vm.data.event.category">
           <md-option ng-repeat="c in vm.categories" ng-value="c._id">{{c.name}}</md-option>
         </md-select>
       </md-input-container>
     </div>
+
     <div flex layout="row" layout-sm="column">
       <md-input-container flex>
-        <input class="mdl-textfield__input" type="text" id="comment" ng-model="vm.comment.comment">
+        <input class="mdl-textfield__input" type="text" id="comment" ng-model="vm.data.comment">
         <label class="mdl-textfield__label" for="name">Comment</label>
       </md-input-container>
     </div>
+
   </md-content>
   <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-     <md-button type="submit" class="md-raised" ng-click="vm.create(vm.event)">
+     <md-button type="submit" class="md-raised">
        Create
      </md-button>
   </md-content>

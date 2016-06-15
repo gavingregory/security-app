@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
   contactSchema = require('./schemas/contact'),
-  commentSchema = require('./schemas/comment'),
+  comment = require('./comment'),
+
+
   Schema = mongoose.Schema;
 
 var Event = function () {
@@ -30,34 +32,34 @@ var Event = function () {
    var _get = function (authenticated_user, id, cb) {
      if (!authenticated_user) throw new Error('User required.');
      if (!authenticated_user.domain) throw new Error('User domain required.');
-     _model.find({organisation: authenticated_user.domain, _id: id}, cb);
+     _model.find({domain: authenticated_user.domain, _id: id}, cb);
    };
 
   var _getAll = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.find({organisation: authenticated_user.domain}, cb);
+    _model.find({domain: authenticated_user.domain}, cb);
   };
 
   var _create = function (authenticated_user, properties, cb) {
-    console.log("AUTHENTICATED" + authenticated_user);
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    properties.domain = authenticated_user.domain;
-    properties.loggedBy = {}
-    properties.loggedBy.name = {first: authenticated_user.name.first, last: authenticated_user.name.last};
-    properties.loggedBy.link = authenticated_user._id;
-    var c = new _model(properties);
-    console.log(c);
-    c.save(cb, function(err){
-      console.log(err);
+    properties.event.domain = authenticated_user.domain;
+    properties.event.loggedBy = {
+      name: authenticated_user.name,
+      link: authenticated_user._id
+    };
+    var e = new _model(properties.event);
+    e.save(function(err, data){
+      if (err) return cb(err);
+      return comment.create(authenticated_user, {comment: properties.comment, event: data._id}, cb);
     });
   };
 
   var _remove = function (authenticated_user, id, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.findOne({organisation: authenticated_user.domain, _id: id}, function (err, doc) {
+    _model.findOne({domain: authenticated_user.domain, _id: id}, function (err, doc) {
       if (err) return cb(err);
       if (!doc) return cb(err, doc);
       doc.remove(cb);

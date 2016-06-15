@@ -15,7 +15,7 @@ var Category = function () {
   }, { timestamps: true });
 
   /**
-   * Event Model
+   * Category Model
    */
 
   var _model = mongoose.model('Category', _schema);
@@ -41,10 +41,7 @@ var Category = function () {
     if (!authenticated_user.domain) throw new Error('User domain required.');
     properties.domain = authenticated_user.domain;
     var c = new _model(properties);
-    c.save(cb, function(err){
-      console.log(err);
-    });
-    console.log("done");
+    c.save(cb);
   };
 
   var _remove = function (authenticated_user, id, cb) {

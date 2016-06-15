@@ -1,6 +1,6 @@
 var codes = require('../../helpers/httpCodes')
   , Event = require('../../models/event')
-  , Comment = require('../../models/schemas/comment');
+  , Comment = require('../../models/comment');
 
 module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
@@ -36,7 +36,7 @@ module.exports = function (express, passport, io) {
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     Event.create(req.user, req.body, function (err, data) {
-      if (err) return res.send({_errors: err});
+      if (err) return res.status(codes.bad_request).send({_errors: err});
       return res.send(data);
     });
   });

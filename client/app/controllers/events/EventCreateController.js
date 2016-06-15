@@ -13,33 +13,28 @@
 
     vm.sites = [];
     vm.categories = [];
-    vm.event = {};
-    vm.comment = {};
+    vm.data = {
+      event: {},
+      comment: ''
+    }
     vm.create = _create;
-  //  data = {};
-
 
     _fetchSites();
     _fetchCategories();
 
-    function _create(event, comment) {
-    //  data.event = vm.event;
-    //  data.comment = vm.comment;
+
+
+    function _create(data) {
       // create the event
-      eventFactory.create(event)
+      eventFactory.create(data)
         .then(function (resp) {
-          comment.event = resp.data._id; // add the id from the created event
-          commentFactory.create(comment)
-          .then(function (resp) {
-            $state.go('home.events.list');
-          })
-          .catch(function (resp) {
-              toastFactory.showSimpleToast('Error creating comment');
-          });
+          $state.go('home.events.list');
         })
         .catch(function (resp) {
           toastFactory.showSimpleToast('Error creating event');
+          console.log(resp.data);
         });
+
     };
 
     function _fetchSites(){
