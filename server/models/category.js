@@ -27,13 +27,13 @@ var Category = function () {
    var _get = function (authenticated_user, id, cb) {
      if (!authenticated_user) throw new Error('User required.');
      if (!authenticated_user.domain) throw new Error('User domain required.');
-     _model.find({organisation: authenticated_user.domain, _id: id}, cb);
+     _model.find({domain: authenticated_user.domain, _id: id}, cb);
    };
 
   var _getAll = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.find({organisation: authenticated_user.domain}, cb);
+    _model.find({domain: authenticated_user.domain}, cb);
   };
 
   var _create = function (authenticated_user, properties, cb) {
@@ -44,12 +44,13 @@ var Category = function () {
     c.save(cb, function(err){
       console.log(err);
     });
+    console.log("done");
   };
 
   var _remove = function (authenticated_user, id, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.findOne({organisation: authenticated_user.domain, _id: id}, function (err, doc) {
+    _model.findOne({domain: authenticated_user.domain, _id: id}, function (err, doc) {
       if (err) return cb(err);
       if (!doc) return cb(err, doc);
       doc.remove(cb);

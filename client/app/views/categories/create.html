@@ -1,4 +1,4 @@
-<h1>Create a Category</h1>
+
 
 <form name="categoryForm" class="" ng-submit=vm._create(vm.category)>
   <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
@@ -13,14 +13,28 @@
       </md-input-container>
     </div>
     <div flex layout="row" layout-sm="column">
-      <md-input-container flex>
-  		<label class="ng-binding" for="input_3"><!-- ngIf: icon --><md-icon ng-if="icon" class="ng-binding ng-scope ng-isolate-scope md-docs-dark-theme material-icons">format_color_text</md-icon><!-- end ngIf: icon -->Text Color</label>
-  		<input type="input" ng-model="value" class="md-color-picker-input ng-pristine ng-valid md-input ng-touched" ng-mousedown="(openOnInput || !mdColorPreview) &amp;&amp; showColorPicker($event)" id="input_3" tabindex="0" aria-invalid="false" style="">
-	    <div class="md-errors-spacer"></div>
 
-        <input class="mdl-textfield__input" type="text" id="colour" ng-model="vm.category.colour">
-        <label class="mdl-textfield__label" for="colour">Category Colour</label>
+      <md-input-container flex>
+
+        <div layout="row">
+      		<div
+          flex label="Category Colour"
+          md-color-picker
+          md-color-material-palette="true"
+          ng-model="vm.category.colour"
+          md-color-rgb="false"
+          md-color-hsl="false"
+          has-backdrop="true"
+          click-outside-to-close="true"
+          open-on-input="true"
+          random="true"
+          icon="format_color_text">
+          {{vm.category.colour}}
+        </div>
+      	</div>
+
       </md-input-container>
+
     </div>
     <div flex layout="row" layout-sm="column">
       <md-input-container flex>

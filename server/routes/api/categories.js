@@ -15,6 +15,7 @@ module.exports = function (express, passport, io) {
    */
   router.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
     Category.getAll(req.user, function (err, data) {
+      console.log("getting categories:  " + data);
       if (err) return res.status(codes.bad_request).send(err);
       return res.send(data);
     });

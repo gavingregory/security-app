@@ -3,6 +3,7 @@ angular.module('logApp')
 
     categoryFactory.list().then(function(resp){
       $scope.categories = resp.data;
+      console.log($scope.categories);
     }). catch( function( err ){
       console.log(err);
     });
