@@ -8,12 +8,30 @@
         <th class="mdl-data-table__cell--non-numeric" ng-repeat="(key,value) in category[0]">
           {{key}}
         </th>
+        <th>
+          View
+        </th>
+        <th>
+          Edit
+        </th>
+        <th>
+          Delete
+        </th>
     </tr>
   </thead>
   <tbody>
     <tr >
       <td class="mdl-data-table__cell--non-numeric" ng-repeat="field in category[0]">
         {{field}}
+      </td>
+      <td data-title="View">
+        <button ui-sref="home.categories.view({category_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
+      </td>
+      <td data-title="Edit">
+        <button ui-sref="home.categories.edit({category_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
+      </td>
+      <td data-title="Delete">
+        <button ui-sref="home.categories.delete({category_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
       </td>
     </tr>
   </tbody>

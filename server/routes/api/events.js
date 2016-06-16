@@ -2,6 +2,9 @@ var codes = require('../../helpers/httpCodes')
   , Event = require('../../models/event')
   , Comment = require('../../models/comment');
 
+console.log("Event: " + Event);
+
+console.log("Comment: " + Comment);
 module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var eventRouter = express.Router({mergeParams: true});

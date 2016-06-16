@@ -15,6 +15,15 @@ var Comment = function () {
     comment: { type: String, required: true },
   }, { timestamps: true });
 
+
+  /* create a reference to this customer in the organisation's customer array */
+  _schema.post('save', function (doc) {
+
+    require('./event').model.update({_id:doc.event}, {$push:{comment:doc._id}}, {}, function (err, numAffected) {
+      if (err) console.error(err);
+    });
+  });
+
   /**
    * Comment Model
    */

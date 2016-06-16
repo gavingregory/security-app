@@ -1,8 +1,6 @@
 var mongoose = require('mongoose'),
   contactSchema = require('./schemas/contact'),
   comment = require('./comment'),
-
-
   Schema = mongoose.Schema;
 
 var Event = function () {
@@ -16,8 +14,9 @@ var Event = function () {
     site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
     loggedBy: { name: {first: String, last: String}, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-    comment: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }],
   }, { timestamps: true });
+
 
   /**
    * Event Model
@@ -67,8 +66,8 @@ var Event = function () {
   };
 
   /**
-   * Module Export API
-   */
+  * Module Export API
+  */
 
   return {
     schema: _schema,
