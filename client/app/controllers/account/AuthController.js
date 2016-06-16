@@ -3,38 +3,56 @@
   angular
        .module('app')
        .controller('AuthController', [
-          '$rootScope', '$interval', '$log', '$mdToast', 'authFactory',
+          '$state', '$interval', '$log', 'toastFactory', 'authFactory', 'localStorage',
           AuthController
        ]);
 
-  function AuthController($rootScope, $interval, $log, $mdToast, authFactory) {
+  function AuthController($state, $interval, $log, toastFactory, authFactory, localStorage) {
     var vm = this;
+    vm.authentication = localStorage.getObject('authentication');
+    vm.login = _login;
+    vm.logout = _logout;
 
-    /* Authentication */
-
-    vm.login = function (username, password) {
-      $log.log('something')
+    /**
+     * Handles the login procedure.
+     * Attempts to login with the API using the username and password provided.
+     * A successful response will be passed to handleLogin.
+     */
+    function _login(username, password) {
       authFactory.login({username: username, password: password})
         .then(function (res) {
-          $log.log(authFactory.handleLogin(res));
+          authFactory.handleLogin(res, vm);
         })
         .catch(function (err) {
-          $log.error(err);
+          toastFactory.showSimpleToast('Unable to login with those credentials.');
         });
     };
-    vm.logout = function () {
-      authFactory.handleLogout();
-      $location.url('/'); // TODO: change this to state change
+
+    /**
+     * Handles the logout procedure.
+     * Clears all data from the authentication controller and sets the logged_in
+     * flag to be false.
+     */
+    function _logout() {
+      localStorage.setObject('authentication', { logged_in: false });
+      vm.authentication = { logged_in:false };
+      $state.go('home.dashboard');
     };
 
-    /* Check authentication status at a set interval */
+    /**
+     * Pings the server at regular intervals to check authentication status.
+     * if for any reason we are no longer authenticated, call the logout
+     * function.
+     */
     $interval(function () {
-      if ($rootScope.authentication.logged_in) authFactory.ping()
+      if (vm.authentication.logged_in) authFactory.ping()
         .then(function (res) {
-          authFactory.handleGoodPing(res);
+          // do nothing, we are authenticated!
         })
-        .catch(function (err) {
-          authFactory.handleBadPing(err);
+        .catch(function (res) {
+            if (res.status === 401)
+              vm.logout();
+            else $log.error('Did not expect status ' + res.status);
         });
     }, 10000);
 

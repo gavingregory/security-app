@@ -337,7 +337,6 @@ angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
     $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
   })
 
-  .run(['$rootScope', 'localStorage', function ($rootScope, localStorage) {
-    // ensure root scope object is initialised
-    $rootScope.authentication = localStorage.getObject('authentication');
+  .run(['$log', function ($log) {
+    // run code here
   }]);
