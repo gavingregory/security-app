@@ -27,7 +27,10 @@ var Organisation = function () {
   var _get = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.findOne({_id: authenticated_user.domain}, cb);
+    _model
+      .findOne({_id: authenticated_user.domain})
+      .populate('customers')
+      .exec(cb);
   };
 
   /**

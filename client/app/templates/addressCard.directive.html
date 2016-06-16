@@ -1,7 +1,7 @@
 <div layout="row" layout-sm="column">
   {{address}}
   <div flex layout="column" layout-sm="column"> <!-- Left hand column -->
-    <div flex layout="row" layout-sm="column">
+    <div flex layout="row" layout-sm="column" ng-if="vm.mode === 'create'">
       <md-input-container flex>
         <label>Address</label>
         <input ng-model="vm.address.raw" placeholder="Please type in the full address" ng-blur="vm.geocode(vm.address.raw)">
