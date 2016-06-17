@@ -30,7 +30,7 @@
     };
 
     function _geocode(address) {
-      if (address.length > 5)
+      if (address && address.length > 5)
       geocodeFactory.geocode(address)
         .then(function (res) {
           toastFactory.showSimpleToast('Address successfully retrieved.');
