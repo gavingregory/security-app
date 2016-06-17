@@ -1,24 +1,29 @@
 angular.module('logApp')
   .factory('siteFactory', ['$http', '$httpParamSerializerJQLike', function ($http, $httpParamSerializerJQLike) {
     return {
-      list: function (id) {
-        return $http.get('api/v1/customers/' + id + '/sites');
+      list: function () {
+        return $http.get('api/v1/sites');
       },
       create: function (data) {
-        return $http.post('api/v1/customers/' + data.customer + '/sites', data);
+        if (!data) throw new TypeError('Called siteFactory:create without data parameter.');
+        return $http.post('api/v1/sites', data);
       },
-      get: function (custId, siteId) {
-        return $http.get('api/v1/customers/' + custId + '/sites/' + siteId);
+      get: function (siteId) {
+        if (!siteId) throw new TypeError('Called siteFactory:get without siteId parameter.');
+        return $http.get('api/v1/sites/' + siteId);
       },
       update: function (data) {
-        return $http.put('api/v1/customers/' + data.customer + '/sites/' + data._id, data);
+        if (!data) throw new TypeError('Called siteFactory:update without data parameter.');
+        return $http.put('api/v1/sites/' + data._id, data);
       },
-      delete: function (custId, siteId) {
-        return $http.delete('api/v1/customers/' + custId + '/sites/' + siteId);
+      delete: function (siteId) {
+        if (!siteId) throw new TypeError('Called siteFactory:delete without siteId parameter.');
+        return $http.delete('api/v1/sites/' + siteId);
       },
-      find: function (custId, params) {
+      find: function (params) {
+        if (!params) throw new TypeError('Called siteFactory:find without params parameter.');
         return $http({
-          url: 'api/v1/customers/' + custId + '/sites',
+          url: 'api/v1/sites',
           method: 'GET',
           params: params,
           paramSerializer: '$httpParamSerializerJQLike'

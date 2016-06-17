@@ -1,0 +1,49 @@
+<md-content layout="column" layout-sm="column">
+  <md-content layout="row" layout-sm="column">
+    <button ui-sref="home.sites.list" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="list"><span class="ng-scope">list</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.sites.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="create"><span class="ng-scope">create site</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.sites.view({site_id: vm.site._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="view" ng-hide="vm.crudState.read"><span class="ng-scope">view</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.sites.edit({site_id: vm.site._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="update" ng-hide="vm.crudState.update"><span class="ng-scope">update</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.sites.delete({site_id: vm.site._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="delete" ng-hide="vm.crudState.delete"><span class="ng-scope">delete</span><div class="md-ripple-container"></div></button>
+
+  </md-content>
+
+  <form name="siteForm" class="" ng-submit="vm.onSubmit()(vm.site)" ng-show="vm.customers.length">
+    <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+      <h1>Site<span ng-show="vm.site.name">: </span>{{vm.site.name}}</h1>
+    </md-content>
+    <md-content class="md-padding" layout="column">
+      <div flex layout="row" layout-sm="column">
+        <md-input-container flex>
+          <label>Name</label>
+          <input ng-model="vm.site.name" placeholder="Please provide a name for this site.." ng-disabled="vm.crudState.read || vm.crudState.delete">
+        </md-input-container>
+      </div>
+      <div flex layout="row" layout-sm="column">
+        <md-input-container flex ng-if="vm.crudState.update || vm.crudState.create">
+          <md-select ng-model="vm.site.customer" placeholder="Select a customer.." ng-change="vm.customerDisplayName(vm.site.customer, vm.customers)">
+            <md-option ng-value="c._id" ng-repeat="c in vm.customers">{{c.name}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex ng-if="vm.crudState.read || vm.crudState.delete">
+          <label>Customer</label>
+          <input ng-model="vm.site.customer" placeholder="Please provide a name for this site.." ng-disabled="vm.crudState.read || vm.crudState.delete">
+        </md-input-container>
+      </div>
+      <div flex layout="row" layout-sm="column">
+        <h4>Address</h4>
+      </div>
+      <sec-address-card address="vm.site.address" crud-state="vm.crudState" hide-map="vm.hideMap"></sec-address-card>
+      <ng-transclude>
+        <!-- Additional form elements can be injected via transclude -->
+      </ng-transclude>
+    </md-content>
+    <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column" ng-show="vm.crudState.update || vm.crudState.create">
+      <md-button type="submit" class="md-raised">
+        Submit
+      </md-button>
+    </md-content>
+  </form>
+
+
+</md-content>

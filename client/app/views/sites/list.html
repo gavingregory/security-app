@@ -1,38 +1,38 @@
-<h1>Sites List</h1>
+<h1>List Sites</h1>
 
-<a href="/#/sites/create">Create!</a>
+<button ui-sref="home.sites.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create a Site"><span class="ng-scope">Create a Site</span><div class="md-ripple-container"></div></button>
 
-<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-  <thead>
-      <tr>
-        <th class="mdl-data-table__cell--non-numeric" ng-repeat="(key,value) in sites[0]">
-          {{key}}
-        </th>
-        <th>
-          View
-        </th>
-        <th>
-          Edit
-        </th>
-        <th>
-          Delete
-        </th>
+<div class="table-responsive-vertical md-whiteframe-z1">
+  <table id="table" class="table table-hover table-bordered">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Customer</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>View</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="row in sites">
-      <td class="mdl-data-table__cell--non-numeric" ng-repeat="field in row">
-        {{field}}
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in vm.sites">
+      <td data-title="ID">{{row._id}}</td>
+      <td data-title="Name">{{row.name}}</td>
+      <td data-title="Customer"><a ui-sref="home.customers.view({customer_id: row.customer._id})">{{row.customer.name}}</a></td>
+      <td data-title="Created">{{row.createdAt}}</td>
+      <td data-title="Updated">{{row.updatedAt}}</td>
+      <td data-title="View">
+        <button ui-sref="home.sites.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
       </td>
-      <td>
-        <a href="/#/sites/{{row._id}}/view">v</a>
+      <td data-title="Edit">
+        <button ui-sref="home.sites.edit({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
       </td>
-      <td>
-        <a href="/#/sites/{{row._id}}/edit">e</a>
-      </td>
-      <td>
-        <a href="/#/sites/{{row._id}}/delete">d</a>
+      <td data-title="Delete">
+        <button ui-sref="home.sites.delete({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
       </td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

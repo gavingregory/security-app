@@ -212,7 +212,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies',
         }
       })
       .state('home.sites.edit', {
-        url: '/edit/:id',
+        url: '/edit/:site_id',
         controller: 'SiteEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/edit.html',
@@ -221,7 +221,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies',
         }
       })
       .state('home.sites.view', {
-        url: '/view/:id',
+        url: '/view/:site_id',
         controller: 'SiteViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/view.html',
@@ -230,7 +230,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies',
         }
       })
       .state('home.sites.delete', {
-        url: '/delete/:id',
+        url: '/delete/:site_id',
         controller: 'SiteDeleteController',
         controllerAs: 'vm',
         templateUrl: 'app/views/sites/delete.html',
