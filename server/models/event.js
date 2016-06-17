@@ -37,7 +37,10 @@ var Event = function () {
   var _getAll = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.find({domain: authenticated_user.domain}, cb);
+    _model
+      .find({domain: authenticated_user.domain})
+      .populate('category', 'name colour description')
+      .exec(cb);
   };
 
   var _create = function (authenticated_user, properties, cb) {

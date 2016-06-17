@@ -40,7 +40,12 @@
               <td data-title="Created">{{row.createdAt}}</td>
 
               <td data-title="Logged By">{{row.loggedBy.name.first}} {{row.loggedBy.name.last}}</td>
-              <td data-title="Category">{{row.category}}</td>
+              <td data-title="Category">
+                <i class="material-icons" style="color: {{row.category.colour}}">lens</i>&nbsp;{{row.category.name}}
+                <md-tooltip md-direction="bottom">
+                  {{row.category.description}}
+                </md-tooltip>
+              </td>
               <td data-title="Comments">
                 <table>
                   <thead>

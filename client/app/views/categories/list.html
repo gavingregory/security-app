@@ -3,7 +3,6 @@
 
   <button ui-sref="home.categories.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create a Category"><span class="ng-scope">Create a Category</span><div class="md-ripple-container"></div></button>
 
-
   <div class="table-responsive-vertical md-whiteframe-z1">
       <table id="table" class="table table-hover table-bordered">
           <thead>
@@ -15,7 +14,7 @@
           </thead>
           <tbody>
           <tr ng-repeat="row in categories">
-              <td data-title="Colour" bgcolor={{row.colour}}></td>
+              <td data-title="Colour" style="color: {{row.colour}}"><i class="material-icons">lens</i></td>
               <td data-title="Name">{{row.name}}</td>
               <td data-title="Description">{{row.description}}</td>
           </tr>
