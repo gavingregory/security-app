@@ -23,11 +23,17 @@
   function addressCardController(toastFactory, geocodeFactory) {
     var vm = this;
     vm.geocode = _geocode;
+
     vm.map = {
-      center: { latitude: 53.5873599, longitude: -2.57864},
+      center: { latitude: 55.1680845, longitude: -1.6905331 },
       markers: [],
       zoom: 8
     };
+    if (vm.address && vm.address.lat && vm.address.lng){ // initialize map
+      vm.map.markers.push({ latitude: vm.address.lat, longitude: vm.address.lng });
+      vm.map.center.latitude = vm.address.lat;
+      vm.map.center.longitude = vm.address.lng;
+    }
 
     function _geocode(address) {
       if (address && address.length > 5)

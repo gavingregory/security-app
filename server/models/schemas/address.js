@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
   , Schema   = mongoose.Schema;
 
 var addressSchema = new Schema ({
+  raw: String,
   lat: Number,
   lng: Number,
   number: String,

@@ -23,7 +23,6 @@
       });
 
     function _update(customer) {
-      console.log('update fn fired')
       customerFactory.update(customer)
         .then(function (resp) {
           toastFactory.showSimpleToast('Success, customer updated.');
