@@ -34,7 +34,6 @@
     customerFactory.get($stateParams.customer_id)
       .then(function (res) {
         vm.customer = res.data;
-        console.log(vm.customer);
       })
       .catch(function (res) {
         toastFactory.showSimpleToast('Error fetching your customer.');

@@ -4,21 +4,34 @@
   angular
        .module('app')
        .controller('CustomerEditController', [
-          '$log', '$state', '$stateParams', 'customerFactory', 'toastFactory',
+          '$stateParams', 'customerFactory', 'toastFactory', 'pageStateFactory',
           CustomerEditController
        ]);
 
-  function CustomerEditController($log, $state, $stateParams, customerFactory, toastFactory) {
+  function CustomerEditController($stateParams, customerFactory, toastFactory, pageStateFactory) {
     var vm = this;
     vm.customer = {};
+    vm.update = _update;
+    vm.crudState = new pageStateFactory.crudState('update');
 
     customerFactory.get($stateParams.customer_id)
       .then(function (res) {
         vm.customer = res.data;
       })
       .catch(function (res) {
-        toastFactory.showSimpleToast('Unable to fetch customer');
+        toastFactory.showSimpleToast('Error fetching your customer.');
       });
+
+    function _update(customer) {
+      console.log('update fn fired')
+      customerFactory.update(customer)
+        .then(function (resp) {
+          toastFactory.showSimpleToast('Success, customer updated.');
+        })
+        .catch(function (resp) {
+          toastFactory.showSimpleToast('Error creating customer');
+        });
+    };
   };
 
 })();
