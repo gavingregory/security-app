@@ -61,29 +61,35 @@ var Customer = function () {
   var _findByName = function (authenticated_user, name, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.find({organisation: authenticated_user.domain, name: name}, cb);
+    _model.find({domain: authenticated_user.domain, name: name}, cb);
   };
 
   var _findById = function (authenticated_user, id, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.findOne({organisation: authenticated_user.domain, _id: id}, cb);
+    _model.findOne({domain: authenticated_user.domain, _id: id}, cb);
   };
 
   var _getAll = function (authenticated_user, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.find({organisation: authenticated_user.domain}, cb);
+    _model.find({domain: authenticated_user.domain}, cb);
   };
 
   var _remove = function (authenticated_user, id, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    _model.findOne({organisation: authenticated_user.domain, _id: id}, function (err, doc) {
+    _model.findOne({domain: authenticated_user.domain, _id: id}, function (err, doc) {
       if (err) return cb(err);
       if (!doc) return cb(err, doc);
       doc.remove(cb);
     });
+  };
+
+  var _update = function (authenticated_user, customer, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    _model.update({ domain: authenticated_user.domain, _id: customer._id }, customer, cb);
   };
 
   /**
@@ -96,7 +102,8 @@ var Customer = function () {
     findByName: _findByName,
     findById: _findById,
     getAll: _getAll,
-    remove: _remove
+    remove: _remove,
+    update: _update
   };
 
 }();
