@@ -4,14 +4,15 @@
   angular
        .module('app')
        .controller('CustomerViewController', [
-          '$stateParams', '$log', 'customerFactory', 'siteFactory', 'toastFactory',
+          '$stateParams', '$log', 'customerFactory', 'siteFactory', 'toastFactory', 'pageStateFactory',
           CustomerViewController
        ]);
 
-  function CustomerViewController($stateParams, $log, customerFactory, siteFactory, toastFactory) {
+  function CustomerViewController($stateParams, $log, customerFactory, siteFactory, toastFactory, pageStateFactory) {
     var vm = this;
     vm.sites = [];
     vm.customer = {};
+    vm.crudState = new pageStateFactory.crudState('read');
 
     vm.map = {
       center: { latitude: 53.5873599, longitude: -2.57864},

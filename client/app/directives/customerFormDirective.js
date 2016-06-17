@@ -3,24 +3,26 @@
 
   angular
     .module('app')
-    .directive('secAddressCard', addressCardDirective);
+    .directive('secCustomerForm', customerFormDirective);
 
-  function addressCardDirective() {
+  function customerFormDirective() {
     return {
       restrict: 'EA',
-      controller: addressCardController,
+      controller: customerFormController,
       controllerAs: 'vm',
       scope: {},
       bindToController: {
-        address: '=',
+        customer: '=',
+        onSubmit: '&',
         hideMap: '=',
         crudState: '='
       },
-      templateUrl: 'app/templates/addressCard.directive.html'
+      transclude: true,
+      templateUrl: 'app/views/customers/_form.html'
     };
   };
 
-  function addressCardController(toastFactory, geocodeFactory) {
+  function customerFormController(toastFactory, geocodeFactory) {
     var vm = this;
     vm.geocode = _geocode;
     vm.map = {
@@ -30,7 +32,7 @@
     };
 
     function _geocode(address) {
-      if (address.length > 5)
+      if (address && address.length > 5)
       geocodeFactory.geocode(address)
         .then(function (res) {
           toastFactory.showSimpleToast('Address successfully retrieved.');

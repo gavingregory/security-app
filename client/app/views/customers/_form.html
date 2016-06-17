@@ -1,0 +1,29 @@
+<form name="customerForm" class="" ng-submit="vm.onSubmit()(vm.customer)">
+  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+    <h1>Customer<span ng-show="vm.customer.name">: </span>{{vm.customer.name}}</h1>
+      </md-content>
+  <md-content class="md-padding" layout="column">
+    <div flex layout="row" layout-sm="column">
+      <md-input-container flex>
+        <label>Name</label>
+        <input ng-model="vm.customer.name" placeholder="The customer's business name" ng-disabled="vm.crudState.read || vm.crudState.delete">
+      </md-input-container>
+      <md-input-container flex>
+        <label>Trading name</label>
+        <input ng-model="vm.customer.trading_name" placeholder="The customer's trading name" ng-disabled="vm.crudState.read || vm.crudState.delete">
+      </md-input-container>
+    </div>
+    <div flex layout="row" layout-sm="column">
+      <h4>Address</h4>
+    </div>
+    <sec-address-card address="vm.customer.address" crud-state="vm.crudState" hide-map="vm.hideMap"></sec-address-card>
+    <ng-transclude>
+      <!-- Additional form elements can be injected via transclude -->
+    </ng-transclude>
+  </md-content>
+  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column" ng-show="vm.crudState.update || vm.crudState.create">
+    <md-button type="submit" class="md-raised">
+      Submit
+    </md-button>
+  </md-content>
+</form>
