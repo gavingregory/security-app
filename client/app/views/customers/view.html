@@ -1,8 +1,4 @@
 <md-content layout="column" layout-sm="column">
-  <md-content layout="row" layout-sm="column">
-    <button ui-sref="home.customers.list" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Go back"><span class="ng-scope">Go back</span><div class="md-ripple-container"></div></button>
-    <button ui-sref="home.sites.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Add site"><span class="ng-scope">Add site</span><div class="md-ripple-container"></div></button>
-  </md-content>
   <sec-customer-form customer="vm.customer" hide-map="true" crud-state="vm.crudState"></sec-customer-form>
   <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
     <h1>{{vm.sites.length}} site{{vm.sites.length > 1 ? 's' : ''}}</h1>

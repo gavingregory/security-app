@@ -1,29 +1,39 @@
-<form name="customerForm" class="" ng-submit="vm.onSubmit()(vm.customer)">
-  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-    <h1>Customer<span ng-show="vm.customer.name">: </span>{{vm.customer.name}}</h1>
-      </md-content>
-  <md-content class="md-padding" layout="column">
-    <div flex layout="row" layout-sm="column">
-      <md-input-container flex>
-        <label>Name</label>
-        <input ng-model="vm.customer.name" placeholder="The customer's business name" ng-disabled="vm.crudState.read || vm.crudState.delete">
-      </md-input-container>
-      <md-input-container flex>
-        <label>Trading name</label>
-        <input ng-model="vm.customer.trading_name" placeholder="The customer's trading name" ng-disabled="vm.crudState.read || vm.crudState.delete">
-      </md-input-container>
-    </div>
-    <div flex layout="row" layout-sm="column">
-      <h4>Address</h4>
-    </div>
-    <sec-address-card address="vm.customer.address" crud-state="vm.crudState" hide-map="vm.hideMap"></sec-address-card>
-    <ng-transclude>
-      <!-- Additional form elements can be injected via transclude -->
-    </ng-transclude>
+<md-content layout="column" layout-sm="column">
+  <md-content layout="row" layout-sm="column">
+    <button ui-sref="home.customers.list" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="list"><span class="ng-scope">list</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.sites.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="create"><span class="ng-scope">create site</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.customers.view({customer_id: vm.customer._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="view" ng-hide="vm.crudState.read"><span class="ng-scope">view</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.customers.edit({customer_id: vm.customer._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="update" ng-hide="vm.crudState.update"><span class="ng-scope">update</span><div class="md-ripple-container"></div></button>
+    <button ui-sref="home.customers.delete({customer_id: vm.customer._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="delete" ng-hide="vm.crudState.delete"><span class="ng-scope">delete</span><div class="md-ripple-container"></div></button>
+
   </md-content>
-  <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column" ng-show="vm.crudState.update || vm.crudState.create">
-    <md-button type="submit" class="md-raised">
-      Submit
-    </md-button>
-  </md-content>
-</form>
+  <form name="customerForm" class="" ng-submit="vm.onSubmit()(vm.customer)">
+    <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+      <h1>Customer<span ng-show="vm.customer.name">: </span>{{vm.customer.name}}</h1>
+    </md-content>
+    <md-content class="md-padding" layout="column">
+      <div flex layout="row" layout-sm="column">
+        <md-input-container flex>
+          <label>Name</label>
+          <input ng-model="vm.customer.name" placeholder="The customer's business name" ng-disabled="vm.crudState.read || vm.crudState.delete">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Trading name</label>
+          <input ng-model="vm.customer.trading_name" placeholder="The customer's trading name" ng-disabled="vm.crudState.read || vm.crudState.delete">
+        </md-input-container>
+      </div>
+      <div flex layout="row" layout-sm="column">
+        <h4>Address</h4>
+      </div>
+      <sec-address-card address="vm.customer.address" crud-state="vm.crudState" hide-map="vm.hideMap"></sec-address-card>
+      <ng-transclude>
+        <!-- Additional form elements can be injected via transclude -->
+      </ng-transclude>
+    </md-content>
+    <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column" ng-show="vm.crudState.update || vm.crudState.create">
+      <md-button type="submit" class="md-raised">
+        Submit
+      </md-button>
+    </md-content>
+  </form>
+</md-content>
