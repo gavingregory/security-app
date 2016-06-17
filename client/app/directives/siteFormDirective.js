@@ -8,7 +8,7 @@
   function siteFormDirective() {
     return {
       restrict: 'EA',
-      controller: siteFormController,
+      controller: ['toastFactory', 'customerFactory', siteFormController],
       controllerAs: 'vm',
       scope: {},
       bindToController: {

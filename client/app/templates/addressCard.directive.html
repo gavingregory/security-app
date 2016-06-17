@@ -4,7 +4,7 @@
     <div flex layout="row" layout-sm="column" ng-show="vm.crudState.create || vm.crudState.update">
       <md-input-container flex>
         <label>Address</label>
-        <input ng-model="vm.address.raw" placeholder="Please type in the full address" ng-blur="vm.geocode(vm.address.raw)">
+        <input ng-model="vm.address.raw" placeholder="Please type in the full address" ng-change="vm.geocode(vm.address.raw)" ng-model-options="{updateOn: 'blur'}">
       </md-input-container>
     </div>
     <div flex layout="row" layout-sm="column">

@@ -8,7 +8,7 @@
   function customerFormDirective() {
     return {
       restrict: 'EA',
-      controller: customerFormController,
+      controller: ['toastFactory', customerFormController],
       controllerAs: 'vm',
       scope: {},
       bindToController: {
@@ -22,7 +22,7 @@
     };
   };
 
-  function customerFormController(toastFactory, geocodeFactory) {
+  function customerFormController(toastFactory) {
     var vm = this;
   };
 
