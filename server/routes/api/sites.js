@@ -60,8 +60,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers/:customer_id/sites/:site_id
    */
   siteRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Site.findById(req.user, req.params.site_id, function (err, data) {
+      if (err) return res.status(codes.bad_request).send(err);
+      return res.send(data);
+    });
   });
 
   /**
@@ -73,8 +75,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/customers/:customer_id/sites/:site_id
    */
   siteRouter.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    Site.update(req.user, req.body, function (err, data) {
+      if (err) return res.status(codes.bad_request).send(err);
+      return res.send(data);
+    });
   });
 
   /**

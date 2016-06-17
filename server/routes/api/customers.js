@@ -64,7 +64,7 @@ module.exports = function (express, passport, io) {
     Customer.update(req.user, req.body, function (err, data) {
       if (err) return res.status(codes.bad_request).send(err);
       return res.send(data);
-    })
+    });
   });
 
   /**

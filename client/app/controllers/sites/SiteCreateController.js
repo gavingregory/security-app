@@ -4,40 +4,23 @@
   angular
   .module('app')
   .controller('SiteCreateController', [
-    '$log', '$state', 'customerFactory', 'siteFactory', 'toastFactory',
+    '$log', '$state', 'customerFactory', 'siteFactory', 'toastFactory', 'pageStateFactory',
     SiteCreateController
   ]);
 
-  function SiteCreateController($log, $state, customerFactory, siteFactory, toastFactory) {
+  function SiteCreateController($log, $state, customerFactory, siteFactory, toastFactory, pageStateFactory) {
     var vm = this;
-    vm.customers = [];
-    vm.selectedCustomerName = null;
-    vm.site = {};
     vm.create = _create;
-    vm.customerDisplayName = _customerDisplayName;
-
-    customerFactory.list()
-      .then(function(res){
-        vm.customers = [].concat(res.data);
-      })
-      .catch(function (res) {
-        toastFactory.showSimpleToast('Error fectching customers!');
-      });
+    vm.crudState = new pageStateFactory.crudState('create');
 
     function _create(customer) {
       siteFactory.create(vm.site)
         .then(function(res){
-          $state.go('home.customers.view', {customer_id: vm.site.customer});
+          $state.go('home.sites.view', {site_id: res.data._id});
         })
         .catch(function(err){
           toastFactory.showSimpleToast('Error creating the site!');
-        })
-    };
-
-    function _customerDisplayName(id, array) {
-      array.forEach(function (e) {
-        if (e._id === id) return vm.selectedCustomerName = e.name;
-      })
+        });
     };
   };
 

@@ -28,7 +28,7 @@
           toastFactory.showSimpleToast('Success, customer updated.');
         })
         .catch(function (resp) {
-          toastFactory.showSimpleToast('Error creating customer');
+          toastFactory.showSimpleToast('Error updating customer.');
         });
     };
   };

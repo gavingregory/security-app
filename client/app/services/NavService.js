@@ -12,27 +12,32 @@
       {
         name: 'Dashboard',
         icon: 'dashboard',
-        sref: '.dashboard'
+        sref: 'home.dashboard'
       },
       {
         name: 'Events',
         icon: 'storage',
-        sref: '.events.list'
+        sref: 'home.events.list'
       },
       {
         name: 'Customers',
-        icon: 'perm_contact_calendar',
-        sref: '.customers.list'
+        icon: 'location_city',
+        sref: 'home.customers.list'
+      },
+      {
+        name: 'Sites',
+        icon: 'domain',
+        sref: 'home.sites.list'
       },
       {
         name: 'Organisation',
         icon: 'account_balance',
-        sref: '.organisation'
+        sref: 'home.organisation'
       },
       {
         name: 'Categories',
         icon: 'storage',
-        sref: '.categories.list'
+        sref: 'home.categories.list'
       }
     ];
 

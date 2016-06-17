@@ -8,7 +8,7 @@
   function addressCardDirective() {
     return {
       restrict: 'EA',
-      controller: addressCardController,
+      controller: ['toastFactory', 'geocodeFactory', addressCardController],
       controllerAs: 'vm',
       scope: {},
       bindToController: {
