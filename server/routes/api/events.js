@@ -56,7 +56,7 @@ module.exports = function (express, passport, io) {
    */
   eventRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
 
-    return Event.get(req.user, request.params.event_id, function(err, data) {
+    return Event.get(req.user, req.params.event_id, function(err, data) {
       if (err) return res.send({_errors: err});
       return res.send(data);
     });
