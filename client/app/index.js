@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('logApp', ['ngAnimate', 'ngCookies', 'ngTouch',
+angular.module('logApp', ['ngAnimate', 'ngCookies',
   'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app', 'btford.socket-io', 'uiGmapgoogle-maps', 'mdColorPicker'])
 
   .factory('socket', function (socketFactory) {
