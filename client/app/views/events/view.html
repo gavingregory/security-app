@@ -1,38 +1,56 @@
+<h1>Event View</h1>
+<h2>{{vm.event.name}}</h2>
+<md-list>
+  <md-list-item class="md-2-line">
 
-<h1>Event Details</h1>
+    <div class="md-list-item-text">
+      <h3>Site</h3>
+      <p>
+        {{vm.event[0].site.name}}
+      </p>
+      <p>
+        {{vm.event[0].site.address.number}},
+        {{vm.event[0].site.address.town}},
+        {{vm.event[0].site.address.city}},
+        {{vm.event[0].site.address.county}},
+        {{vm.event[0].site.address.country}},
+        {{vm.event[0].site.address.pc_zip}},
+      </p>
+    </div>
+  </md-list-item>
+  <md-list-item class="md-2-line">
+    <div class="md-list-item-text">
+      <h3>Category</h3>
+      <p>{{vm.event[0].category}}</p>
+    </div>
 
+  </md-list-item>
+  <md-list-item class="md-2-line">
+    <div class="md-list-item-text">
+      <h3>Logged By</h3>
+      <p>{{vm.event[0].loggedBy.name.first}} {{vm.event[0].loggedBy.name.last}}</p>
+    </div>
 
-<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-  <thead>
-      <tr>
-        <th class="mdl-data-table__cell--non-numeric" ng-repeat="(key,value) in event[0]">
-          {{key}}
-        </th>
-        <th>
-          View
-        </th>
-        <th>
-          Edit
-        </th>
-        <th>
-          Delete
-        </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr >
-      <td class="mdl-data-table__cell--non-numeric" ng-repeat="field in event[0]">
-        {{field}}
-      </td>
-      <td data-title="View">
-        <button ui-sref="home.events.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
-      </td>
-      <td data-title="Edit">
-        <button ui-sref="home.events.edit({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
-      </td>
-      <td data-title="Delete">
-        <button ui-sref="home.events.delete({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  </md-list-item>
+  <md-list-item class="md-2-line">
+    <div class="md-list-item-text">
+      <h3>Updated</h3>
+      <p>{{vm.event[0].updatedAt}}</p>
+    </div>
+
+  </md-list-item>
+  <md-list-item class="md-2-line">
+    <div class="md-list-item-text">
+      <h3>Created</h3>
+      <p>{{vm.event[0].createdAt}}</p>
+    </div>
+
+  </md-list-item>
+  <md-list-item class="md-2-line">
+    <div class="md-list-item-text">
+      <h3>Comments</h3>
+      <p>{{value}}</p>
+    </div>
+
+  </md-list-item>
+</md-list>

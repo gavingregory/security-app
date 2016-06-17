@@ -108,7 +108,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies',
         },
       })
       .state('home.events.edit', {
-        url: '/edit/:id',
+        url: '/edit/:event_id',
         controller: 'EventEditController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/edit.html',
@@ -117,7 +117,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies',
         },
       })
       .state('home.events.view', {
-        url: '/view/:id',
+        url: '/view/:event_id',
         controller: 'EventViewController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/view.html',
@@ -126,7 +126,7 @@ angular.module('logApp', ['ngAnimate', 'ngCookies',
         },
       })
       .state('home.events.delete', {
-        url: '/delete/:id',
+        url: '/delete/:event_id',
         controller: 'EventDeleteController',
         controllerAs: 'vm',
         templateUrl: 'app/views/events/delete.html',
