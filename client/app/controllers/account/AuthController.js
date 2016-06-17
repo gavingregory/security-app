@@ -52,7 +52,10 @@
         .catch(function (res) {
             if (res.status === 401)
               vm.logout();
-            else $log.error('Did not expect status ' + res.status);
+            else if (res.status === -1)
+              console.log('Ping timeout ...');
+            else 
+              $log.error('Did not expect status ' + res.status);
         });
     }, 10000);
 
