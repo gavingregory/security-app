@@ -16,11 +16,14 @@ var Customer = function () {
     address: addressSchema,
     contacts: [ contactSchema ],
     domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
+    sites: [{type: Schema.Types.ObjectId, ref: 'Site'}],
     organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
   }, { timestamps: true });
 
-  /* create a temporary flag - wasNew so that in post events, we know whether this document
-  was a newly created document or not */
+  /**
+   * Create a temporary flag that can be accessed from within .post('save').
+   * This flag indicates whether this document was a NEW document or not.
+   */
   _schema.pre('save', function (next) {
     this.wasNew = this.isNew;
     next();
