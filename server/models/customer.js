@@ -1,9 +1,9 @@
 var mongoose = require('mongoose')
-, contactSchema = require('./schemas/contact')
-, addressSchema = require('./schemas/address')
-, Site = require('./site')
-, Organisation = require('./organisation').model
-, Schema = mongoose.Schema;
+  , contactSchema = require('./schemas/contact')
+  , addressSchema = require('./schemas/address')
+  , Site = require('./site')
+  , Organisation = require('./organisation').model
+  , Schema = mongoose.Schema;
 
 var Customer = function () {
 

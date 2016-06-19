@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
   , addressSchema = require('./schemas/address')
   , contactSchema = require('./schemas/contact')
-  , Customer = require('./organisation').model
+  , Customer = require('./customer').model
   , Schema = mongoose.Schema;
 
 var Site = function () {
@@ -28,20 +28,15 @@ var Site = function () {
    */
   _schema.pre('save', function (next) {
     this.wasNew = this.isNew;
-    console.log('SITE: pre save');
     next();
   });
-//update({_id:doc.event}, {$push:{comment:doc._id}}, {}, function (err, numAffected) {
+
   /* create a reference to this site in the customer's sites array */
   _schema.post('save', function (doc) {
-    if (doc.wasNew) {
-      Customer
-        .where({_id: doc.customer})
-        .update({$push: {sites: {$each: [doc._id]}}})
-        .exec(function (err, numAffected) {
-          console.log('NEW NUMAFFECTED: ' + JSON.stringify(numAffected))
-        });
-    }
+    console.log(Customer);
+    if (doc.wasNew) Customer.update({_id:doc.customer}, {$push:{sites:{$each:[doc._id]}}}, {}, function (err, numAffected) {
+      if (err) console.error(err);
+    });
   });
 
   /* deletes all references to this customer in the organisation document */
