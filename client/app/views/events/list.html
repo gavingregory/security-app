@@ -5,7 +5,6 @@
 
   <button ui-sref="home.events.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create an Event"><span class="ng-scope">Create an Event</span><div class="md-ripple-container"></div></button>
 
-
   <div class="table-responsive-vertical md-whiteframe-z1">
       <table id="table" class="table table-hover table-bordered">
           <thead>
@@ -35,7 +34,7 @@
           </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="row in events">
+            <tr ng-repeat="row in vm.events">
               <td data-title="Site">{{row.site}}</td>
               <td data-title="Created">{{row.createdAt}}</td>
 
@@ -46,33 +45,14 @@
                   {{row.category.description}}
                 </md-tooltip>
               </td>
-              <td data-title="Comments">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>
-                        Comment
-                      </th>
-                      <th>
-                        Logged By
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="row in comment">
-                      <td data-title="Comment">
-                        {{row.comment}}
-                      </td>
-                      <td data-title="Logged By">
-                        {{row.loggedBy.name.first}} {{row.loggedBy.name.last}}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
+              <td data-title="Comments" layout="column">
+                <div>
+                  {{row.comments[0].text}}
+                </div>
+                <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.showDialog($event, row)">
+                  <md-icon class="material-icons">more_horiz</md-icon>
+                </md-button>
               </td>
-
-
               <td data-title="View">
                 <button ui-sref="home.events.view({event_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
               </td>

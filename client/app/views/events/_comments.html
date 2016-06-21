@@ -1,0 +1,17 @@
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center center">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Comments..</h2>
+    </div>
+  </md-toolbar>
+  <div class="event-comment-dialog-content">
+    <p ng-repeat="comment in vm.event.comments">
+      {{comment.text}}
+    </p>
+  </div>
+  <div layout="row" class="event-comment-dialog-button">
+    <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog()">
+      Close
+    </md-button>
+  </div>
+</div>
