@@ -1,18 +1,10 @@
 var codes = require('../../helpers/httpCodes')
-  , Event = require('../../models/event')
-  , Comment = require('../../models/comment');
+  , Event = require('../../models/event');
 
-console.log("Event: " + Event);
-
-console.log("Comment: " + Comment);
 module.exports = function (express, passport, io) {
   var router = express.Router({ mergeParams: true });
   var eventRouter = express.Router({mergeParams: true});
   var commentRouter = express.Router({mergeParams: true});
-
-   io.on('connection', function(socket){
-     console.log('a user connected');
-   });
 
   /**
    * @api {get} / Gets a list of the most recent events.
@@ -38,8 +30,9 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/events
    */
   router.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+    console.log('body: ' + JSON.stringify(req.body));
     Event.create(req.user, req.body, function (err, data) {
-      if (err) return res.status(codes.bad_request).send({_errors: err});
+      if (err) return res.status(codes.bad_request).send(err);
       return res.send(data);
     });
   });
@@ -86,11 +79,8 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/events/:event_id/comments
    */
   commentRouter.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-
-    return Comment.getAll(req.user, function(err, data) {
-      if (err) return res.send({_errors: err});
-      return res.send(data);
-    });
+    return res.status(codes.not_implemented)
+      .send({_errors: [{message: 'Not yet implemented.'}]});
   });
 
   /**
@@ -102,10 +92,10 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/events/:event_id/comments
    */
   commentRouter.post('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    Comment.create(req.user, req.body, function (err, data) {
-      if (err) return res.send({_errors: err});
+    Event.addComment(req.user, req.params.event_id, req.body, function (err, data) {
+      if (err) return res.status(codes.bad_request).send(err);
       return res.send(data);
-    });
+    })
   });
 
   return router;

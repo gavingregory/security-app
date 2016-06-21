@@ -21,7 +21,7 @@
     function _login(username, password) {
       authFactory.login({username: username, password: password})
         .then(function (res) {
-          authFactory.handleLogin(res, vm);
+          authFactory.handleLogin(res, vm, _logout);
         })
         .catch(function (err) {
           toastFactory.showSimpleToast('Unable to login with those credentials.');

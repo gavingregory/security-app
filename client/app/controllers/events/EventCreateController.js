@@ -13,10 +13,11 @@
 
     vm.sites = [];
     vm.categories = [];
-    vm.data = {
-      event: {},
-      comment: ''
-    }
+    vm.event = {
+      comments: [{
+        text: ''
+      }]
+    };
     vm.create = _create;
 
     _fetchSites();

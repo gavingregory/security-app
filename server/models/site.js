@@ -1,8 +1,7 @@
 var mongoose = require('mongoose')
+  , Schema = mongoose.Schema
   , addressSchema = require('./schemas/address')
-  , contactSchema = require('./schemas/contact')
-  , Customer = require('./customer').model
-  , Schema = mongoose.Schema;
+  , contactSchema = require('./schemas/contact');
 
 var Site = function () {
 
@@ -20,30 +19,6 @@ var Site = function () {
 
   _schema.virtual('address.full').get(function() {
     return [this.address.number, this.address.street, this.address.district, this.address.county, this.address.city, this.address.pc_zip, this.address.country];
-  });
-
-  /**
-   * Create a temporary flag that can be accessed from within .post('save').
-   * This flag indicates whether this document was a NEW document or not.
-   */
-  _schema.pre('save', function (next) {
-    this.wasNew = this.isNew;
-    next();
-  });
-
-  /* create a reference to this site in the customer's sites array */
-  _schema.post('save', function (doc) {
-    console.log(Customer);
-    if (doc.wasNew) Customer.update({_id:doc.customer}, {$push:{sites:{$each:[doc._id]}}}, {}, function (err, numAffected) {
-      if (err) console.error(err);
-    });
-  });
-
-  /* deletes all references to this customer in the organisation document */
-  _schema.post('remove', function (doc) {
-    Customer.update({_id:doc.customer}, {$pull:{sites: doc._id}}, function (err, numAffected) {
-      if (err) console.error(err);
-    });
   });
 
   /**

@@ -1,9 +1,7 @@
 var mongoose = require('mongoose')
-  , contactSchema = require('./schemas/contact')
+  , Schema = mongoose.Schema
   , addressSchema = require('./schemas/address')
-  , Site = require('./site')
-  , Organisation = require('./organisation').model
-  , Schema = mongoose.Schema;
+  , contactSchema = require('./schemas/contact');
 
 var Customer = function () {
 
@@ -16,32 +14,8 @@ var Customer = function () {
     address: addressSchema,
     contacts: [ contactSchema ],
     domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
-    sites: [{type: Schema.Types.ObjectId, ref: 'Site'}],
     organisation: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true }
   }, { timestamps: true });
-
-  /**
-   * Create a temporary flag that can be accessed from within .post('save').
-   * This flag indicates whether this document was a NEW document or not.
-   */
-  _schema.pre('save', function (next) {
-    this.wasNew = this.isNew;
-    next();
-  });
-
-  /* create a reference to this customer in the organisation's customer array */
-  _schema.post('save', function (doc) {
-    if (doc.wasNew) Organisation.update({_id:doc.organisation}, {$push:{customers:{$each:[doc._id]}}}, {}, function (err, numAffected) {
-      if (err) console.error(err);
-    });
-  });
-
-  /* deletes all references to this customer in the organisation document */
-  _schema.post('remove', function (doc) {
-    Organisation.update({_id:doc.organisation}, {$pull:{customers: doc._id}}, function (err, numAffected) {
-      if (err) console.error(err);
-    });
-  });
 
   /**
    * Customer Model

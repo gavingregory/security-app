@@ -1,8 +1,7 @@
 var mongoose = require('mongoose')
+  , Schema = mongoose.Schema
   , addressSchema = require('./schemas/address')
-  , contactSchema = require('./schemas/contact')
-  , customerSchema = require('./customer').schema
-  , Schema = mongoose.Schema;
+  , contactSchema = require('./schemas/contact');
 
 var Organisation = function () {
   /**
@@ -11,7 +10,6 @@ var Organisation = function () {
 
   var _schema = new Schema({
     name: { type: String, required: true },
-    customers: [{type: Schema.Types.ObjectId, ref: 'Customer'}]
   }, { timestamps: true });
 
   /**
@@ -29,7 +27,6 @@ var Organisation = function () {
     if (!authenticated_user.domain) throw new Error('User domain required.');
     _model
       .findOne({_id: authenticated_user.domain})
-      .populate('customers')
       .exec(cb);
   };
 

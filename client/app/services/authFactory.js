@@ -25,12 +25,12 @@ angular.module('logApp')
        * @param {object} data - The http response object.
        * @param {object} vm - The auth controller view model.
        */
-      handleLogin: function (res, vm) {
+      handleLogin: function (res, vm, onLogout) {
         if (!res) throw 'No response object.';
         var auth = localStorage.getObject('authentication');
 
         if (typeof(res.data) === 'object' && res.data._errors && res.data._errors.length) {
-          handleLogout();
+          onLogout();
           vm.authentication = { logged_in:false };
           return false;
         } else {

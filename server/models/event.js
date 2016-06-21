@@ -1,7 +1,7 @@
-var mongoose = require('mongoose'),
-  contactSchema = require('./schemas/contact'),
-  comment = require('./comment'),
-  Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+  , Schema = mongoose.Schema
+  , contactSchema = require('./schemas/contact')
+  , addressSchema = require('./schemas/address')
 
 var Event = function () {
 
@@ -12,11 +12,12 @@ var Event = function () {
   var _schema = new Schema({
     domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
     site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
-    loggedBy: { name: {first: String, last: String}, link: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }],
+    comments: [{
+      creator: { name: {first: String, last: String}, id: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
+      text: { type: String, required: true },
+    }],
   }, { timestamps: true });
-
 
   /**
    * Event Model
@@ -50,16 +51,13 @@ var Event = function () {
   var _create = function (authenticated_user, properties, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    properties.event.domain = authenticated_user.domain;
-    properties.event.loggedBy = {
-      name: authenticated_user.name,
-      link: authenticated_user._id
+    properties.domain = authenticated_user.domain;
+    var e = new _model(properties);
+    e.comments[0].creator = {
+      id: authenticated_user._id,
+      name: authenticated_user.name
     };
-    var e = new _model(properties.event);
-    e.save(function(err, data){
-      if (err) return cb(err);
-      return comment.create(authenticated_user, {comment: properties.comment, event: data._id}, cb);
-    });
+    e.save(cb);
   };
 
   var _remove = function (authenticated_user, id, cb) {
@@ -72,6 +70,17 @@ var Event = function () {
     });
   };
 
+  var _addComment = function (authenticated_user, event_id, properties, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    Event.findById(event_id, function (err, data) {
+      if (err) return res.send(err);
+      if (!data) return res.status(codes.not_found).send({message: 'Event not found.'});
+      data.comments.push(properties);
+      data.save(cb);
+    });
+  }
+
   /**
   * Module Export API
   */
@@ -82,7 +91,8 @@ var Event = function () {
     get: _get,
     getAll: _getAll,
     create: _create,
-    remove: _remove
+    remove: _remove,
+    addComment: _addComment
   };
 
 }();
