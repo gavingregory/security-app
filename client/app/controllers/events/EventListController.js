@@ -4,14 +4,18 @@
 angular
   .module('app')
   .controller('EventListController', [
-    '$mdPanel', 'eventFactory', '_', EventListController
+    '$mdPanel', '$scope', 'eventFactory', '_', EventListController
   ]);
 
-  function EventListController($mdPanel, eventFactory, _) {
+  function EventListController($mdPanel, $scope, eventFactory, _) {
     var vm = this;
     vm.events = [];
     this.addCommentDialog = _addCommentDialog;
     this.showCommentsDialog = _showCommentsDialog;
+
+    $scope.$on('commentCreated', function (event) {
+      console.log(event);
+    });
 
     eventFactory.list().then(function(res){
       vm.events = [].concat(res.data);
@@ -23,25 +27,32 @@ angular
     function _addCommentDialog($event, e) {
 
       var config = {
-        controller: ['mdPanelRef', 'commentFactory', function (mdPanelRef, commentFactory) {
-          var vm = this;
+        controller: ['mdPanelRef', '$scope', 'commentFactory', function (mdPanelRef, $scope, commentFactory) {
+          var commentVm = this;
           this._mdPanelRef = mdPanelRef;
-          vm.closeDialog = _closeDialog;
+          commentVm.closeDialog = _closeDialog;
           this.create = _create;
           this.comment = {};
 
           function _create (event_id, comment) {
             commentFactory.create(event_id, comment)
               .then(function (res) {
-                console.log(res);
+                /* inject new back into the main array */
+                for (var i = 0; i < vm.events.length; i++) {
+                  if (vm.events[i]._id === res.data._id) {
+                    vm.events[i].comments = res.data.comments;
+                    break;
+                  }
+                }
+                _closeDialog();
               })
               .catch(function (res) {
                 console.error(res);
-              })
+              });
           }
 
           function _closeDialog () {
-            this._mdPanelRef && this._mdPanelRef.close();
+            commentVm._mdPanelRef && commentVm._mdPanelRef.close();
           };
 
         }],

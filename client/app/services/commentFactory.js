@@ -5,7 +5,6 @@ angular.module('logApp')
         return $http.get('api/v1/events/'+ id +'/comments/');
       },
       create: function (id, data) {
-        console.log(data);
         return $http.post('api/v1/events/'+ id +'/comments/', data);
       },
       get: function (id, comment_id) {
