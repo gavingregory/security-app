@@ -39,8 +39,11 @@
     };
 
     function _fetchSites(){
-      siteFactory.list().then(function(resp){
-        vm.sites = resp.data;
+      siteFactory.list().then(function(res){
+        for (var i = 0; i < res.data.length; i++) {
+          res.data[i].full_name = res.data[i].customer.name + ": " + res.data[i].name;
+        }
+        vm.sites = res.data;
       });
     }
 

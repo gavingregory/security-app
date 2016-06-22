@@ -1,11 +1,11 @@
-<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center center">
+<div role="dialog" aria-label="Add a new comment" layout="column" layout-align="center center">
   <form name="commentForm" class="" ng-submit="vm.create(vm.event._id, vm.comment)">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Add Comment</h2>
       </div>
     </md-toolbar>
-    <div class="event-comment-dialog-content">
+    <div class="event-comment-dialog-content" flex>
       <md-input-container flex>
         <label>Text</label>
         <input ng-model="vm.comment.text" placeholder="Please enter the comment ..">

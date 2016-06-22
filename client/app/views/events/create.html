@@ -9,7 +9,7 @@
     <div flex layout="row" layout-sm="column">
       <md-input-container flex>
         <md-select placeholder="Select a site.." ng-model="vm.event.site">
-          <md-option ng-repeat="s in vm.sites" ng-value="s._id">{{s.name}}</md-option>
+          <md-option ng-repeat="s in vm.sites | orderBy: 'full_name'" ng-value="s._id">{{s.full_name}}</md-option>
         </md-select>
       </md-input-container>
     </div>
