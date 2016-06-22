@@ -5,7 +5,6 @@ angular.module('logApp')
         return $http.get('api/v1/categories/');
       },
       create: function (data) {
-        console.log(data);
         return $http.post('api/v1/categories/', data);
       },
       get: function (id) {

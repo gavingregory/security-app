@@ -22,19 +22,15 @@ module.exports = function (express, passport) {
    */
   router.post('/login', function (req, res) {
     User.authenticate(req.body.username, req.body.password, function (err, user, reason) {
-      console.log(err + "\n" + user + "\n" + reason);
       if (err) throw err;
       if (user) return res.json({access_token: User.encodeToken(user.username, user.password), name: user.name });
 
       switch (reason) {
         case User.failedLoginReasons.NOT_FOUND:
-          console.log('not found');
         case User.failedLoginReasons.PASSWORD_INCORRECT:
-          console.log('password incorrect');
           return res.send({_errors: [{message: 'Unable to login.'}]});
           break;
         case User.failedLoginReasons.MAX_ATTEMPTS:
-          console.log('max attempts');
           //TODO: Generate an email to explain max attempts.
           return res.send({_errors: [{message: 'Unable to login.'}]});
           break;

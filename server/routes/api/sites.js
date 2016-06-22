@@ -25,7 +25,7 @@ module.exports = function (express, passport, io) {
       if (err) res.send({_errors: err})
       else res.send( data );
     };
-    if (req.query) { console.log('query'); return Site.find(req.user, cb, req.query); }
+    if (req.query) return Site.find(req.user, cb, req.query);
     else return Site.getAll(req.user, cb);
   });
 

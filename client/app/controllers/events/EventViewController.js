@@ -14,7 +14,6 @@ angular
     vm.event = {};
     eventFactory.get($stateParams.event_id)
     .then(function(res){
-      console.log(res.data);
       vm.event = res.data;
     })
     .catch(function (res) {

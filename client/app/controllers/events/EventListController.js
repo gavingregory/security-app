@@ -4,24 +4,20 @@
 angular
   .module('app')
   .controller('EventListController', [
-    '$mdPanel', '$scope', 'eventFactory', '_', EventListController
+    '$mdPanel', '$scope', 'eventFactory', 'toastFactory', '_', EventListController
   ]);
 
-  function EventListController($mdPanel, $scope, eventFactory, _) {
+  function EventListController($mdPanel, $scope, eventFactory, toastFactory, _) {
     var vm = this;
     vm.events = [];
     this.addCommentDialog = _addCommentDialog;
     this.showCommentsDialog = _showCommentsDialog;
 
-    $scope.$on('commentCreated', function (event) {
-      console.log(event);
-    });
-
     eventFactory.list().then(function(res){
       vm.events = [].concat(res.data);
     })
     .catch(function(res){
-      console.log(res);
+      toastFactory.showSimpleToast('Unable to fetch events.');
     });
 
     function _addCommentDialog($event, e) {
@@ -47,7 +43,7 @@ angular
                 _closeDialog();
               })
               .catch(function (res) {
-                console.error(res);
+                toastFactory.showSimpleToast('Unable to create comment.');
               });
           }
 

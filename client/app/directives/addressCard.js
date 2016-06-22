@@ -61,7 +61,6 @@
         })
         .catch(function (res) {
           toastFactory.showSimpleToast('Error geocoding');
-          console.log(res.data);
         });
     };
   };

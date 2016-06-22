@@ -1,10 +1,9 @@
 angular.module('logApp')
-  .controller('CategoryListController', ['$scope', 'categoryFactory', function ($scope, categoryFactory ) {
+  .controller('CategoryListController', ['$scope', 'categoryFactory', 'toastFactory', function ($scope, categoryFactory, toastFactory) {
 
-    categoryFactory.list().then(function(resp){
-      $scope.categories = resp.data;
-      console.log($scope.categories);
-    }). catch( function( err ){
-      console.log(err);
+    categoryFactory.list().then(function(res){
+      $scope.categories = res.data;
+    }).catch(function(res){
+      toastFactory.showSimpleToast('Unable to fetch categories.');
     });
   }]);

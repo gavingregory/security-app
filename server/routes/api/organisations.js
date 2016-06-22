@@ -15,7 +15,6 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/organisations
    */
   router.post('/', function (req, res) {
-    console.log(req.body);
     if (!req.body) throw new Error('Need a body.');
     if (!req.body.user) throw new Error('Need a user.');
     var _organisation = new Organisation.model(req.body);

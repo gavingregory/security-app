@@ -15,7 +15,6 @@
     vm.create = _create;
 
     function _create(category) {
-      console.log(category);
       categoryFactory.create(category)
         .then(function (resp) {
           $state.go('home.categories.list');
