@@ -23,6 +23,12 @@
                 Comment
               </th>
               <th>
+                &nbsp;
+              </th>
+              <th>
+                Add Comment
+              </th>
+              <th>
                 View
               </th>
               <th>
@@ -37,20 +43,24 @@
             <tr ng-repeat="row in vm.events">
               <td data-title="Site">{{row.site}}</td>
               <td data-title="Created">{{row.createdAt}}</td>
-
-              <td data-title="Logged By">{{row.loggedBy.name.first}} {{row.loggedBy.name.last}}</td>
+              <td data-title="Logged By">{{row.comments[0].creator.name.first}} {{row.comments[0].creator.name.last}}</td>
               <td data-title="Category">
                 <i class="material-icons" style="color: {{row.category.colour}}">lens</i>&nbsp;{{row.category.name}}
                 <md-tooltip md-direction="bottom">
                   {{row.category.description}}
                 </md-tooltip>
               </td>
-              <td data-title="Comments" layout="column">
-                <div>
-                  {{row.comments[0].text}}
-                </div>
-                <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.showDialog($event, row)">
-                  <md-icon class="material-icons">more_horiz</md-icon>
+              <td data-title="Comments">
+                {{row.comments[0].text}}
+              </td>
+              <td>
+                <md-button ng-show="row.comments.length -1" class="md-fab md-mini" aria-label="View comments" ng-click="vm.showCommentsDialog($event, row)">
+                  +{{row.comments.length -1}}
+                </md-button>
+              </td>
+              <td data-title="Add Comment">
+                <md-button class="md-fab md-mini" aria-label="View comments" ng-click="vm.addCommentDialog($event, row)">
+                  +
                 </md-button>
               </td>
               <td data-title="View">

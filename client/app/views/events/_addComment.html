@@ -1,0 +1,23 @@
+<div role="dialog" aria-label="Eat me!" layout="column" layout-align="center center">
+  <form name="commentForm" class="" ng-submit="vm.create(vm.event._id, vm.comment)">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Comment</h2>
+      </div>
+    </md-toolbar>
+    <div class="event-comment-dialog-content">
+      <md-input-container flex>
+        <label>Text</label>
+        <input ng-model="vm.comment.text" placeholder="Please enter the comment ..">
+      </md-input-container>
+    </div>
+    <div layout="row" class="event-comment-dialog-button">
+      <md-button type="submit" flex class="md-raised">
+        Submit
+      </md-button>
+      <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog()">
+        Close
+      </md-button>
+    </div>
+  </form>
+</div>

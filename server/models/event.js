@@ -73,7 +73,10 @@ var Event = function () {
   var _addComment = function (authenticated_user, event_id, properties, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
-    Event.findById(event_id, function (err, data) {
+
+    properties.creator = { name: authenticated_user.name, id: authenticated_user._id }
+
+    _model.findById(event_id, function (err, data) {
       if (err) return res.send(err);
       if (!data) return res.status(codes.not_found).send({message: 'Event not found.'});
       data.comments.push(properties);
