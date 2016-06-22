@@ -6,7 +6,7 @@
   </md-toolbar>
   <div class="event-comment-dialog-content">
     <p ng-repeat="comment in vm.event.comments">
-      {{comment.text}}
+      "{{comment.text}}" <span class="md-caption"> - posted by {{comment.creator.name.first}} {{comment.creator.name.last}} on {{comment.createdAt | date:'medium'}}</span>
     </p>
   </div>
   <div layout="row" class="event-comment-dialog-button">

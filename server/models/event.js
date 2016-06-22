@@ -9,14 +9,18 @@ var Event = function () {
    * Event Schema
    */
 
+  var _commentSchema = new Schema({
+      creator: { name: {first: String, last: String}, id: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
+      text: { type: String, required: true },
+    },
+    { timestamps: true }
+  );
+
   var _schema = new Schema({
     domain: {type: Schema.Types.ObjectId, ref: 'Organisation', required: true },
     site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-    comments: [{
-      creator: { name: {first: String, last: String}, id: { type: Schema.Types.ObjectId, ref: 'User', required: true }},
-      text: { type: String, required: true },
-    }],
+    comments: [_commentSchema],
   }, { timestamps: true });
 
   /**
@@ -74,7 +78,7 @@ var Event = function () {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
 
-    properties.creator = { name: authenticated_user.name, id: authenticated_user._id }
+    properties.creator = { name: authenticated_user.name, id: authenticated_user._id };
 
     _model.findById(event_id, function (err, data) {
       if (err) return res.send(err);
