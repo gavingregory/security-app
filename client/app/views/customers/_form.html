@@ -7,7 +7,7 @@
     <button ui-sref="home.customers.delete({customer_id: vm.customer._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="delete" ng-hide="vm.crudState.delete"><span class="ng-scope">delete</span><div class="md-ripple-container"></div></button>
 
   </md-content>
-  <form name="customerForm" class="" ng-submit="vm.onSubmit()(vm.customer)">
+  <form name="vm.customerForm" class="" ng-submit="vm.onSubmit()(vm.customer)" novalidate>
     <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
       <h1>Customer<span ng-show="vm.customer.name">: </span>{{vm.customer.name}}</h1>
     </md-content>
@@ -15,11 +15,17 @@
       <div flex layout="row" layout-sm="column">
         <md-input-container flex>
           <label>Name</label>
-          <input ng-model="vm.customer.name" placeholder="The customer's business name" ng-disabled="vm.crudState.read || vm.crudState.delete">
+          <input name="name" ng-model="vm.customer.name" placeholder="The customer's business name" ng-disabled="vm.crudState.read || vm.crudState.delete" required>
+          <p class="md-accent" ng-show="!vm.customerForm.name.$pristine && vm.customerForm.name.$invalid">
+            Name is required
+          </p>
         </md-input-container>
         <md-input-container flex>
           <label>Trading name</label>
-          <input ng-model="vm.customer.trading_name" placeholder="The customer's trading name" ng-disabled="vm.crudState.read || vm.crudState.delete">
+          <input name="trading_name" ng-model="vm.customer.trading_name" placeholder="The customer's trading name" ng-disabled="vm.crudState.read || vm.crudState.delete" required>
+          <p class="md-accent" ng-show="!vm.customerForm.trading_name.$pristine && vm.customerForm.trading_name.$invalid">
+            Trading Name is required
+          </p>
         </md-input-container>
       </div>
       <div flex layout="row" layout-sm="column">
@@ -31,7 +37,7 @@
       </ng-transclude>
     </md-content>
     <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column" ng-show="vm.crudState.update || vm.crudState.create">
-      <md-button type="submit" class="md-raised">
+      <md-button type="submit" class="md-raised" ng-disabled="vm.customerForm.$invalid">
         Submit
       </md-button>
     </md-content>

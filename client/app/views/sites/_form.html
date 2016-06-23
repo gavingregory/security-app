@@ -8,7 +8,7 @@
 
   </md-content>
 
-  <form name="siteForm" class="" ng-submit="vm.onSubmit()(vm.site)" ng-show="vm.customers.length">
+  <form name="vm.siteForm" class="" ng-submit="vm.onSubmit()(vm.site)" ng-show="vm.customers.length" novalidate>
     <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
       <h1>Site<span ng-show="vm.site.name">: </span>{{vm.site.name}}</h1>
     </md-content>
@@ -16,13 +16,16 @@
       <div flex layout="row" layout-sm="column">
         <md-input-container flex>
           <label>Name</label>
-          <input ng-model="vm.site.name" placeholder="Please provide a name for this site.." ng-disabled="vm.crudState.read || vm.crudState.delete">
+          <input name="name" ng-model="vm.site.name" placeholder="Please provide a name for this site.." ng-disabled="vm.crudState.read || vm.crudState.delete" required>
+          <p class="md-accent" ng-show="!vm.siteForm.name.$pristine && vm.siteForm.name.$invalid">
+            Name is required
+          </p>
         </md-input-container>
       </div>
       <div flex layout="row" layout-sm="column">
         <md-input-container flex ng-if="vm.crudState.update || vm.crudState.create">
-          <md-select ng-model="vm.site.customer" placeholder="Select a customer.." ng-change="vm.customerDisplayName(vm.site.customer, vm.customers)">
-            <md-option ng-value="c._id" ng-repeat="c in vm.customers">{{c.name}}</md-option>
+          <md-select name="customer" ng-model="vm.site.customer" placeholder="Select a customer.." ng-change="vm.customerDisplayName(vm.site.customer, vm.customers)">
+            <md-option ng-value="c._id" ng-repeat="(index, c) in vm.customers" ng-selected="index == 0">{{c.name}}</md-option>
           </md-select>
         </md-input-container>
         <md-input-container flex ng-if="vm.crudState.read || vm.crudState.delete">
@@ -39,7 +42,7 @@
       </ng-transclude>
     </md-content>
     <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column" ng-show="vm.crudState.update || vm.crudState.create">
-      <md-button type="submit" class="md-raised">
+      <md-button type="submit" class="md-raised" ng-disabled="vm.siteForm.$invalid">
         Submit
       </md-button>
     </md-content>

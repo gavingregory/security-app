@@ -16,10 +16,10 @@
 
     function _create(customer) {
       customerFactory.create(customer)
-        .then(function (resp) {
+        .then(function (res) {
           $state.go('home.customers.list');
         })
-        .catch(function (resp) {
+        .catch(function (res) {
           toastFactory.showSimpleToast('Error creating customer');
         });
     };
