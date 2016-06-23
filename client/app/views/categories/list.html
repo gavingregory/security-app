@@ -1,23 +1,52 @@
+<div layout="column">
 
-  <h1>Category List</h1>
-
-  <button ui-sref="home.categories.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create a Category"><span class="ng-scope">Create a Category</span><div class="md-ripple-container"></div></button>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="Go Back" ui-sref="home.dashboard">
+        Go Back
+      </md-button>
+      <h2>
+        <span>All Categories</span>
+      </h2>
+      <span flex></span>
+      <md-button class="md-fab md-mini" aria-label="Add" ui-sref="home.categories.create">
+        <i class="material-icons">add</i>
+      </md-button>
+    </div>
+  </md-toolbar>
 
   <div class="table-responsive-vertical md-whiteframe-z1">
-      <table id="table" class="table table-hover table-bordered">
-          <thead>
-          <tr>
-              <th>Colour</th>
-              <th>Name</th>
-              <th>Description</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="row in categories">
-              <td data-title="Colour" style="color: {{row.colour}}"><i class="material-icons">lens</i></td>
-              <td data-title="Name">{{row.name}}</td>
-              <td data-title="Description">{{row.description}}</td>
-          </tr>
-          </tbody>
-      </table>
+    <table id="table" class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Colour</th>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in categories">
+          <td data-title="Colour" style="color: {{row.colour}}">
+            <i class="material-icons">lens</i>
+            <md-tooltip md-direction="bottom">
+              This colour will display for all of the events assigned to this category.
+            </md-tooltip>
+          </td>
+          <td data-title="Name">
+            {{row.name}}
+            <md-tooltip md-direction="bottom">
+              A short name for the category.
+            </md-tooltip>
+          </td>
+          <td data-title="Description">
+            {{row.description}}
+            <md-tooltip md-direction="bottom">
+              A longer description for this category that explains what it is for.
+            </md-tooltip>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+</div>

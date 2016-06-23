@@ -1,38 +1,50 @@
-<h1>List Sites</h1>
-
-<button ui-sref="home.sites.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create a Site"><span class="ng-scope">Create a Site</span><div class="md-ripple-container"></div></button>
-
-<div class="table-responsive-vertical md-whiteframe-z1">
-  <table id="table" class="table table-hover table-bordered">
-    <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Customer</th>
-      <th>Created</th>
-      <th>Updated</th>
-      <th>View</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="row in vm.sites">
-      <td data-title="ID">{{row._id}}</td>
-      <td data-title="Name">{{row.name}}</td>
-      <td data-title="Customer"><a ui-sref="home.customers.view({customer_id: row.customer._id})"><i class="material-icons">location_city</i>&nbsp;{{row.customer.name}}</a></td>
-      <td data-title="Created">{{row.createdAt}}</td>
-      <td data-title="Updated">{{row.updatedAt}}</td>
-      <td data-title="View">
-        <button ui-sref="home.sites.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
-      </td>
-      <td data-title="Edit">
-        <button ui-sref="home.sites.edit({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
-      </td>
-      <td data-title="Delete">
-        <button ui-sref="home.sites.delete({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div layout="column">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="Go Back" ui-sref="home.dashboard">
+        Go Back
+      </md-button>
+      <h2>
+        <span>All Sites</span>
+      </h2>
+      <span flex></span>
+      <md-button class="md-fab md-mini" aria-label="Add" ui-sref="home.sites.create">
+        <i class="material-icons">add</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <div class="table-responsive-vertical md-whiteframe-z1">
+    <table id="table" class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Customer</th>
+          <th>Created</th>
+          <th>Updated</th>
+          <th>View</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.sites">
+          <td data-title="ID">{{row._id}}</td>
+          <td data-title="Name">{{row.name}}</td>
+          <td data-title="Customer"><a ui-sref="home.customers.view({customer_id: row.customer._id})"><i class="material-icons">location_city</i>&nbsp;{{row.customer.name}}</a></td>
+          <td data-title="Created">{{row.createdAt}}</td>
+          <td data-title="Updated">{{row.updatedAt}}</td>
+          <td data-title="View">
+            <button ui-sref="home.sites.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
+          </td>
+          <td data-title="Edit">
+            <button ui-sref="home.sites.edit({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
+          </td>
+          <td data-title="Delete">
+            <button ui-sref="home.sites.delete({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

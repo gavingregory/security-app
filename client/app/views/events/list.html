@@ -1,75 +1,86 @@
-
-
-
-  <h1>Event List</h1>
-
-  <button ui-sref="home.events.create" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Create an Event"><span class="ng-scope">Create an Event</span><div class="md-ripple-container"></div></button>
+<div layout="column">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button aria-label="Go Back" ui-sref="home.dashboard">
+        Go Back
+      </md-button>
+      <h2>
+        <span>All Events</span>
+      </h2>
+      <span flex></span>
+      <md-button class="md-fab md-mini" aria-label="Add" ui-sref="home.events.create">
+        <i class="material-icons">add</i>
+      </md-button>
+    </div>
+  </md-toolbar>
 
   <div class="table-responsive-vertical md-whiteframe-z1">
-      <table id="table" class="table table-hover table-bordered">
-          <thead>
-          <tr>
-            <th>
-              Site
-            </th>
-              <th>Created</th>
-              <th>
-                Logged By
-              </th>
-              <th>
-                Category
-              </th>
-              <th colspan="2">
-                Comment
-              </th>
-              <th>
-                Add Comment
-              </th>
-              <th>
-                View
-              </th>
-              <th>
-                Edit
-              </th>
-              <th>
-                Delete
-              </th>
-          </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="row in vm.events">
-              <td data-title="Site">{{row.site}}</td>
-              <td data-title="Created">{{row.createdAt}}</td>
-              <td data-title="Logged By">{{row.comments[0].creator.name.first}} {{row.comments[0].creator.name.last}}</td>
-              <td data-title="Category">
-                <i class="material-icons" style="color: {{row.category.colour}}">lens</i>&nbsp;{{row.category.name}}
-                <md-tooltip md-direction="bottom">
-                  {{row.category.description}}
-                </md-tooltip>
-              </td>
-              <td data-title="Comments">
-                {{row.comments[0].text}}
-              </td>
-              <td>
-                <md-button ng-show="row.comments.length -1" class="md-fab md-mini" aria-label="View comments" ng-click="vm.showCommentsDialog($event, row)">
-                  +{{row.comments.length -1}}
-                </md-button>
-              </td>
-              <td data-title="Add Comment">
-                <md-button class="md-fab md-mini" aria-label="View comments" ng-click="vm.addCommentDialog($event, row)">
-                  +
-                </md-button>
-              </td>
-              <td data-title="View">
-                <button ui-sref="home.events.view({event_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
-              </td>
-              <td data-title="Edit">
-                <button ui-sref="home.events.edit({event_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
-              </td>
-              <td data-title="Delete">
-                <button ui-sref="home.events.delete({event_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
-              </td>
-          </tr>
-          </tbody>
-      </table>
+    <table id="table" class="table table-hover table-bordered md-caption">
+      <thead>
+        <tr>
+          <th>
+            Site
+          </th>
+          <th>Created</th>
+          <th>
+            Logged By
+          </th>
+          <th>
+            Category
+          </th>
+          <th colspan="2">
+            Comment
+          </th>
+          <th>
+            Add Comment
+          </th>
+          <th>
+            View
+          </th>
+          <th>
+            Edit
+          </th>
+          <th>
+            Delete
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.events">
+          <td data-title="Site">{{row.site}}</td>
+          <td data-title="Created">{{row.createdAt}}</td>
+          <td data-title="Logged By">{{row.comments[0].creator.name.first}} {{row.comments[0].creator.name.last}}</td>
+          <td data-title="Category">
+            <i class="material-icons" style="color: {{row.category.colour}}">lens</i>&nbsp;{{row.category.name}}
+            <md-tooltip md-direction="bottom">
+              {{row.category.description}}
+            </md-tooltip>
+          </td>
+          <td data-title="Comments">
+            {{row.comments[0].text}}
+          </td>
+          <td>
+            <md-button ng-show="row.comments.length -1" class="md-fab md-mini" aria-label="View comments" ng-click="vm.showCommentsDialog($event, row)">
+              +{{row.comments.length -1}}
+            </md-button>
+          </td>
+          <td data-title="Add Comment">
+            <md-button class="md-fab md-mini" aria-label="View comments" ng-click="vm.addCommentDialog($event, row)">
+              +
+            </md-button>
+          </td>
+          <td data-title="View">
+            <button ui-sref="home.events.view({event_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
+          </td>
+          <td data-title="Edit">
+            <button ui-sref="home.events.edit({event_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
+          </td>
+          <td data-title="Delete">
+            <button ui-sref="home.events.delete({event_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+</div>
