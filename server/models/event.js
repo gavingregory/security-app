@@ -49,6 +49,7 @@ var Event = function () {
     _model
       .find({domain: authenticated_user.domain})
       .populate('category', 'name colour description')
+      .populate('site', 'name')
       .exec(cb);
   };
 

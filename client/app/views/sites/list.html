@@ -22,9 +22,7 @@
           <th>Customer</th>
           <th>Created</th>
           <th>Updated</th>
-          <th>View</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
@@ -34,14 +32,49 @@
           <td data-title="Customer"><a ui-sref="home.customers.view({customer_id: row.customer._id})"><i class="material-icons">location_city</i>&nbsp;{{row.customer.name}}</a></td>
           <td data-title="Created">{{row.createdAt}}</td>
           <td data-title="Updated">{{row.updatedAt}}</td>
-          <td data-title="View">
-            <button ui-sref="home.sites.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
-          </td>
-          <td data-title="Edit">
-            <button ui-sref="home.sites.edit({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Edit"><span class="ng-scope">Edit</span><div class="md-ripple-container"></div></button>
-          </td>
-          <td data-title="Delete">
-            <button ui-sref="home.sites.delete({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="Delete"><span class="ng-scope">Delete</span><div class="md-ripple-container"></div></button>
+          <td data-title="Options">
+            <div>
+              <md-button ui-sref="home.sites.view({site_id: row._id})"
+              title="View site"
+              aria-label="View site"
+              class="md-icon-button launch" >
+              <i class="material-icons">description</i>
+            </md-button>
+
+            <md-tooltip md-direction="bottom">
+              View this site
+            </md-tooltip>
+
+            </div>
+            <div>
+              <md-button ui-sref="home.sites.edit({site_id: row._id})"
+              title="Edit site"
+              aria-label="View site"
+              class="md-icon-button launch" >
+              <i class="material-icons">mode_edit</i>
+            </md-button>
+
+            <md-tooltip md-direction="bottom">
+              Edit this site
+            </md-tooltip>
+
+            </div>
+            <div>
+              <md-button ui-sref="home.sites.delete({site_id: row._id})"
+              title="Delete site"
+              aria-label="View site"
+              class="md-icon-button launch" >
+              <i class="material-icons">delete_forever</i>
+            </md-button>
+
+            <md-tooltip md-direction="bottom">
+              Delete this site
+            </md-tooltip>
+
+            </div>
+
+
+
           </td>
         </tr>
       </tbody>
