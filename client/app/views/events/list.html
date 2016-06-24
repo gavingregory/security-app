@@ -19,11 +19,10 @@
       <thead>
         <tr>
           <th>
-            Site
+            Customer - Site
           </th>
-          <th>Created</th>
           <th>
-            Logged By
+            Created
           </th>
           <th>
             Category
@@ -32,18 +31,18 @@
             Comment
           </th>
           <th>
-            Add Comment
-          </th>
-          <th>
             Options
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in vm.events">
-          <td data-title="Site"><a ui-sref="home.sites.view({site_id: row.site._id})">{{row.site.name}}</a></td>
-          <td data-title="Created">{{row.createdAt}}</td>
-          <td data-title="Logged By">{{row.comments[0].creator.name.first}} {{row.comments[0].creator.name.last}}</td>
+        <tr ng-repeat="row in vm.events | orderBy:'-comments[0].createdAt'">
+          <td data-title="Customer and Site">
+            <a ui-sref="home.customers.view({customer_id: row.site.customer._id})">{{row.site.customer.name}}</a> - <a ui-sref="home.sites.view({site_id: row.site._id})">{{row.site.name}}</a>
+          </td>
+          <td data-title="Created">
+            {{row.createdAt | date:'medium'}} by {{row.comments[0].creator.name.first}} {{row.comments[0].creator.name.last}}
+          </td>
           <td data-title="Category">
             <i class="material-icons" style="color: {{row.category.colour}}">lens</i>&nbsp;{{row.category.name}}
             <md-tooltip md-direction="bottom">
@@ -58,33 +57,42 @@
               +{{row.comments.length -1}}
             </md-button>
           </td>
-          <td data-title="Add Comment">
-            <md-button class="md-fab md-mini" aria-label="View comments" ng-click="vm.addCommentDialog($event, row)">
-            <i class="material-icons">comment</i>
-            </md-button>
-          </td>
           <td data-title="Options">
-            <div>
-              <md-button ui-sref="home.events.view({event_id: row._id})"
-                  title="View event"
-                  aria-label="View event"
-                  class="md-icon-button launch" >
-                <i class="material-icons">description</i>
+            <div layout="row">
+              <div>
+                <md-button ng-click="vm.addCommentDialog($event, row)"
+                title="Add a comment"
+                aria-label="Add a comment"
+                class="md-fab md-mini" >
+                <i class="material-icons">comment</i>
               </md-button>
               <md-tooltip md-direction="bottom">
-                View this event
+                Add a comment to this event
               </md-tooltip>
             </div>
             <div>
-              <md-button ui-sref="home.events.edit({event_id: row._id})"
-                  title="Edit event"
-                  aria-label="Edit event"
-                  class="md-icon-button launch" >
-                <i class="material-icons">mode_edit</i>
-              </md-button>
-              <md-tooltip md-direction="bottom">
-                Edit this event
-              </md-tooltip>
+              <md-button ui-sref="home.events.view({event_id: row._id})"
+              title="View event"
+              aria-label="View event"
+              class="md-icon-button launch" >
+              <i class="material-icons">description</i>
+            </md-button>
+            <md-tooltip md-direction="bottom">
+              View this event
+            </md-tooltip>
+          </div>
+          <div>
+            <md-button ui-sref="home.events.edit({event_id: row._id})"
+            title="Edit event"
+            aria-label="Edit event"
+            class="md-icon-button launch" >
+            <i class="material-icons">mode_edit</i>
+          </md-button>
+          <md-tooltip md-direction="bottom">
+            Edit this event
+          </md-tooltip>
+        </div>
+
             </div>
           </td>
         </tr>

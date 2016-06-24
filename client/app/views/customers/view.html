@@ -21,8 +21,8 @@
           <tr ng-repeat="row in vm.sites">
             <td data-title="ID">{{row._id}}</td>
             <td data-title="Name">{{row.name}}</td>
-            <td data-title="Created">{{row.createdAt}}</td>
-            <td data-title="Updated">{{row.updatedAt}}</td>
+            <td data-title="Created">{{row.createdAt | date:'medium'}}</td>
+            <td data-title="Updated">{{row.updatedAt | date:'medium'}}</td>
             <td data-title="View">
               <button ui-sref="home.sites.view({site_id: row._id})" class="md-raised md-warn md-button md-ink-ripple" type="button" aria-label="View"><span class="ng-scope">View</span><div class="md-ripple-container"></div></button>
             </td>

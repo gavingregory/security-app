@@ -49,7 +49,11 @@ var Event = function () {
     _model
       .find({domain: authenticated_user.domain})
       .populate('category', 'name colour description')
-      .populate('site', 'name')
+      .populate({
+        path: 'site',
+        select: 'name customer',
+        populate: {path: 'customer', select: 'name'}
+      })
       .exec(cb);
   };
 

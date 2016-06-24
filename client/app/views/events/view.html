@@ -35,14 +35,14 @@
   <md-list-item class="md-2-line">
     <div class="md-list-item-text">
       <h3>Updated</h3>
-      <p>{{vm.event[0].updatedAt}}</p>
+      <p>{{vm.event[0].updatedAt | date:'medium'}}</p>
     </div>
 
   </md-list-item>
   <md-list-item class="md-2-line">
     <div class="md-list-item-text">
       <h3>Created</h3>
-      <p>{{vm.event[0].createdAt}}</p>
+      <p>{{vm.event[0].createdAt | date:'medium'}}</p>
     </div>
 
   </md-list-item>

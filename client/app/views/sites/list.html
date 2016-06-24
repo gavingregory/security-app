@@ -30,8 +30,8 @@
           <td data-title="ID">{{row._id}}</td>
           <td data-title="Name">{{row.name}}</td>
           <td data-title="Customer"><a ui-sref="home.customers.view({customer_id: row.customer._id})"><i class="material-icons">location_city</i>&nbsp;{{row.customer.name}}</a></td>
-          <td data-title="Created">{{row.createdAt}}</td>
-          <td data-title="Updated">{{row.updatedAt}}</td>
+          <td data-title="Created">{{row.createdAt | date:'medium'}}</td>
+          <td data-title="Updated">{{row.updatedAt | date:'medium'}}</td>
           <td data-title="Options">
             <div>
               <md-button ui-sref="home.sites.view({site_id: row._id})"

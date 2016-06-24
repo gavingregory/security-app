@@ -32,8 +32,8 @@
           <td data-title="ID">{{row._id}}</td>
           <td data-title="Name">{{row.name}}</td>
           <td data-title="Trading Name">{{row.trading_name}}</td>
-          <td data-title="Created">{{row.createdAt}}</td>
-          <td data-title="Updated">{{row.updatedAt}}</td>
+          <td data-title="Created">{{row.createdAt | date:'medium'}}</td>
+          <td data-title="Updated">{{row.updatedAt | date:'medium'}}</td>
           <td data-title="Options">
             <div>
               <md-button ui-sref="home.customers.view({customer_id: row._id})"
