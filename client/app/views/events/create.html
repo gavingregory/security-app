@@ -17,7 +17,7 @@
     <div flex layout="row" layout-sm="column">
       <md-input-container flex>
         <md-select placeholder="Select a category.." ng-model="vm.event.category">
-          <md-option ng-repeat="c in vm.categories" ng-value="c._id">{{c.name}}</md-option>
+          <md-option ng-repeat="c in vm.categories" ng-value="c._id"><i class="material-icons" style="color: {{c.colour}}">lens</i>&nbsp;{{c.name}}</md-option>
         </md-select>
       </md-input-container>
     </div>
