@@ -1,52 +1,36 @@
-
-
-<form name="categoryForm" class="" ng-submit=vm._create(vm.category)>
+<form name="vm.categoryForm" class="" ng-submit="vm.create(vm.category)" novalidate>
   <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-      <h1>Create a new Category</h1>
+    <h1>Create a new Category</h1>
   </md-content>
   <md-content class="md-padding" layout="column">
-
-    <div flex layout="row" layout-sm="column">
-      <md-input-container flex>
-        <input class="mdl-textfield__input" type="text" id="name" ng-model="vm.category.name">
-        <label class="mdl-textfield__label" for="name">Category Name:</label>
-      </md-input-container>
-    </div>
-    <div flex layout="row" layout-sm="column">
-
-      <md-input-container flex>
-
-        <div layout="row">
-      		<div
-          flex label="Category Colour"
-          md-color-picker
-          md-color-material-palette="true"
-          ng-model="vm.category.colour"
-          md-color-rgb="false"
-          md-color-hsl="false"
-          has-backdrop="true"
-          click-outside-to-close="true"
-          open-on-input="true"
-          random="true"
-          icon="format_color_text">
+    <md-input-container flex>
+      <label>Name</label>
+      <input name="name" ng-model="vm.category.name" placeholder="Please provide a name for this category.." required>
+      <p class="md-accent" ng-show="vm.categoryForm.name.$touched && vm.categoryForm.name.$invalid">
+        Name is required
+      </p>
+    </md-input-container>
+    <md-input-container flex>
+      <div layout="row">
+        <div flex md-color-picker="vm.colorPickerOptions" ng-model="vm.category.colour">
           {{vm.category.colour}}
         </div>
-      	</div>
-
-      </md-input-container>
-
-    </div>
-    <div flex layout="row" layout-sm="column">
-      <md-input-container flex>
-        <input class="mdl-textfield__input" type="text" id="description" ng-model="vm.category.description">
-        <label class="mdl-textfield__label" for="colour">Category Description</label>
-      </md-input-container>
-    </div>
+        <p class="md-accent" ng-show="vm.categoryForm.colour.$touched && vm.categoryForm.colour.$invalid">
+          Colour is required
+        </p>
+      </div>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Description</label>
+      <input name="description" ng-model="vm.category.description" placeholder="Please provide a description for this category.." required>
+      <p class="md-accent" ng-show="vm.categoryForm.description.$touched && vm.categoryForm.description.$invalid">
+        Description is required
+      </p>
+    </md-input-container>
   </md-content>
   <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-
-     <md-button type="submit" class="md-raised" ng-click="vm.create(vm.category)">
-       Create
-     </md-button>
+    <md-button type="submit" class="md-raised" ng-disabled="vm.categoryForm.$invalid">
+      Create
+    </md-button>
   </md-content>
 </form>

@@ -60,39 +60,29 @@
           <td data-title="Options">
             <div layout="row">
               <div>
-                <md-button ng-click="vm.addCommentDialog($event, row)"
-                title="Add a comment"
-                aria-label="Add a comment"
-                class="md-fab md-mini" >
-                <i class="material-icons">comment</i>
-              </md-button>
-              <md-tooltip md-direction="bottom">
-                Add a comment to this event
-              </md-tooltip>
-            </div>
-            <div>
-              <md-button ui-sref="home.events.view({event_id: row._id})"
-              title="View event"
-              aria-label="View event"
-              class="md-icon-button launch" >
-              <i class="material-icons">description</i>
-            </md-button>
-            <md-tooltip md-direction="bottom">
-              View this event
-            </md-tooltip>
-          </div>
-          <div>
-            <md-button ui-sref="home.events.edit({event_id: row._id})"
-            title="Edit event"
-            aria-label="Edit event"
-            class="md-icon-button launch" >
-            <i class="material-icons">mode_edit</i>
-          </md-button>
-          <md-tooltip md-direction="bottom">
-            Edit this event
-          </md-tooltip>
-        </div>
-
+                <md-button ng-click="vm.addCommentDialog($event, row)" title="Add a comment" aria-label="Add a comment" class="md-fab md-mini">
+                  <i class="material-icons">comment</i>
+                </md-button>
+                <md-tooltip md-direction="bottom">
+                  Add a comment to this event
+                </md-tooltip>
+              </div>
+              <div>
+                <md-button ui-sref="home.events.view({event_id: row._id})" title="View event" aria-label="View event" class="md-icon-button launch">
+                  <i class="material-icons">description</i>
+                </md-button>
+                <md-tooltip md-direction="bottom">
+                  View this event
+                </md-tooltip>
+              </div>
+              <div>
+                <md-button ui-sref="home.events.edit({event_id: row._id})" title="Edit event" aria-label="Edit event" class="md-icon-button launch">
+                  <i class="material-icons">mode_edit</i>
+                </md-button>
+                <md-tooltip md-direction="bottom">
+                  Edit this event
+                </md-tooltip>
+              </div>
             </div>
           </td>
         </tr>
