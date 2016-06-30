@@ -21,6 +21,7 @@ var Event = function () {
     site: {type: Schema.Types.ObjectId, ref: 'Site', required: true },
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     comments: [_commentSchema],
+    resolved: { type: Number, default: 0},
   }, { timestamps: true });
 
   /**
@@ -79,6 +80,19 @@ var Event = function () {
     });
   };
 
+  var _update = function (authenticated_user, event, cb) {
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    _model.update({ domain: authenticated_user.domain, _id: event._id }, event, cb);
+  };
+
+  var _markResolved = function (authenticated_user, id, cb) {
+    console.log("ID HERE " + JSON.stringify(id));
+    if (!authenticated_user) throw new Error('User required.');
+    if (!authenticated_user.domain) throw new Error('User domain required.');
+    _model.update({ domain: authenticated_user.domain, _id: id }, {resolved: 1}, cb);
+  };
+
   var _addComment = function (authenticated_user, event_id, properties, cb) {
     if (!authenticated_user) throw new Error('User required.');
     if (!authenticated_user.domain) throw new Error('User domain required.');
@@ -91,7 +105,7 @@ var Event = function () {
       data.comments.push(properties);
       data.save(cb);
     });
-  }
+  };
 
   /**
   * Module Export API
@@ -104,7 +118,9 @@ var Event = function () {
     getAll: _getAll,
     create: _create,
     remove: _remove,
-    addComment: _addComment
+    addComment: _addComment,
+    markResolved: _markResolved,
+    update: _update,
   };
 
 }();

@@ -1,4 +1,4 @@
-<div layout="column">
+  <div layout="column">
   <md-toolbar>
     <div class="md-toolbar-tools">
       <md-button aria-label="Go Back" ui-sref="home.dashboard">
@@ -58,13 +58,21 @@
             </md-button>
           </td>
           <td data-title="Options">
-            <div layout="row">
+            <div layout="row" ng-hide="row.resolved">
               <div>
                 <md-button ng-click="vm.addCommentDialog($event, row)" title="Add a comment" aria-label="Add a comment" class="md-fab md-mini">
                   <i class="material-icons">comment</i>
                 </md-button>
                 <md-tooltip md-direction="bottom">
                   Add a comment to this event
+                </md-tooltip>
+              </div>
+              <div>
+                <md-button ng-click="vm.resolveEventDialog($event, row)" title="Resolve event" aria-label="Resolve event" class="md-icon-button launch">
+                  <i class="material-icons">check_circle</i>
+                </md-button>
+                <md-tooltip md-direction="bottom">
+                  Resolve this event
                 </md-tooltip>
               </div>
               <div>
@@ -83,6 +91,13 @@
                   Edit this event
                 </md-tooltip>
               </div>
+            </div>
+            <div ng-show="row.resolved">
+              <i class="material-icons md-fab md-mini">check_circle</i>
+              <md-tooltip md-direction="bottom">
+                This event has been resolved
+              </md-tooltip>
+              Marked as resolved by {{row.comments[row.comments.length -1].creator.name.first}} {{row.comments[row.comments.length -1].creator.name.last}}
             </div>
           </td>
         </tr>

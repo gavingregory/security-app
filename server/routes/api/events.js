@@ -64,8 +64,25 @@ module.exports = function (express, passport, io) {
    *   endpoint: http://localhost:8080/api/v1/events/:event_id
    */
   eventRouter.put('/', passport.authenticate('bearer', {session: false}), function (req, res) {
-    return res.status(codes.not_implemented)
-      .send({_errors: [{message: 'Not yet implemented.'}]});
+    return Event.update(req.user, req.body, function (err, data) {
+      if (err) return res.status(codes.bas_request).send(err);
+      return res.send(data);
+    })
+  });
+
+  /**
+   * @api {put} /:event_id/resolve Marks an event as resolved
+   * @apiName ResolveEvent
+   * @apiGroup Events
+   *
+   * @apiExample Example usage:
+   *   endpoint: http://localhost:8080/api/v1/events/:event_id/resolve
+   */
+  eventRouter.put('/resolve', passport.authenticate('bearer', {session: false}), function (req, res) {
+    return Event.markResolved(req.user, req.params.event_id, function (err, data) {
+      if (err) return res.status(codes.bas_request).send(err);
+      return res.send(data);
+    })
   });
 
   eventRouter.use('/comments', commentRouter);

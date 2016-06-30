@@ -1,0 +1,28 @@
+<div role="dialog" aria-label="Resolve event" layout="column" layout-align="center center">
+  <form name="EventForm" class="" ng-submit="vm.resolveEvent(vm.event._id, vm.comment)">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Comment</h2>
+      </div>
+    </md-toolbar>
+    <div class="event-comment-dialog-content" flex>
+      <md-input-container layout="row">
+        <label>Text</label>
+        <input ng-model="vm.comment.text" placeholder="Please enter the comment ..">
+      </md-input-container>
+      <md-input-container layout="row">
+        <md-switch class="md-primary" aria-label="Notify Managers">
+          Notify Managers
+        </md-switch>
+      </md-input-container>
+    </div>
+    <div layout="row" class="event-comment-dialog-button">
+      <md-button type="submit" flex class="md-raised">
+        Submit
+      </md-button>
+      <md-button md-autofocus flex class="md-primary" ng-click="vm.closeDialog()">
+        Close
+      </md-button>
+    </div>
+  </form>
+</div>

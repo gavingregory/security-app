@@ -15,6 +15,9 @@ angular.module('logApp')
       },
       delete: function (id) {
         return $http.delete('api/v1/events/' + id);
+      },
+      resolve: function(id) {
+        return $http.put('api/v1/events/' + id + '/resolve');
       }
     };
   }]);
